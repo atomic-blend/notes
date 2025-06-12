@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.0.2 - 2025-06-12
+#### Bug Fixes
+- remove drawer - (381bf3c) - Brandon Guigo
+- add github cicd - (e966edf) - Brandon Guigo
+
+- - -
+
 ## 0.9.1 - 2025-06-12
 #### Bug Fixes
 - auto close paywall after success - (109b2ee) - Brandon Guigo
