@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:notes/blocs/app/app.bloc.dart';
 import 'package:notes/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
+import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/services/notifications/background_notification_processor.dart';
@@ -98,6 +99,7 @@ FutureOr<void> main() async {
               BlocProvider(create: (context) => AuthBloc()),
               BlocProvider(create: (context) => TagBloc()),
               BlocProvider(create: (context) => FolderBloc()),
+              BlocProvider(create: (context) => NoteBloc()),
             ],
             child: TranslationProvider(
                 child: const ToastificationWrapper(child: App()))),
