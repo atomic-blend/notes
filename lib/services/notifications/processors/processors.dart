@@ -1,6 +1,6 @@
-import 'package:app/services/notifications/processors/habit_reminder_processor.dart';
-import 'package:app/services/notifications/processors/task_due_processor.dart';
-import 'package:app/services/notifications/processors/task_starting_processor.dart';
+import 'package:notes/services/notifications/processors/habit_reminder_processor.dart';
+import 'package:notes/services/notifications/processors/task_due_processor.dart';
+import 'package:notes/services/notifications/processors/task_starting_processor.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class Processors {

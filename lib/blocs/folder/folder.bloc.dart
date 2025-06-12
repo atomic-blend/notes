@@ -1,5 +1,5 @@
-import 'package:app/entities/folder/folder.entity.dart';
-import 'package:app/services/folder_service.dart';
+import 'package:notes/entities/folder/folder.entity.dart';
+import 'package:notes/services/folder_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -60,7 +60,7 @@ class FolderBloc extends HydratedBloc<FolderEvent, FolderState> {
 
   void _onEditFolder(EditFolder event, Emitter<FolderState> emit) async {
     final prevState = state;
-    emit( FolderUpdating(state.folders));
+    emit(FolderUpdating(state.folders));
     try {
       await _folderService.updateFolder(event.folder);
       emit(FolderUpdated(state.folders));

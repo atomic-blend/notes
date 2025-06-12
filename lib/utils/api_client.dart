@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:app/entities/user/user.entity.dart';
-import 'package:app/main.dart';
-import 'package:app/services/user.service.dart';
+import 'package:notes/entities/user/user.entity.dart';
+import 'package:notes/main.dart';
+import 'package:notes/services/user.service.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

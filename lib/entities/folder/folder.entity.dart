@@ -1,5 +1,5 @@
-import 'package:app/services/encryption.service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:notes/services/encryption.service.dart';
 
 part 'folder.entity.g.dart';
 part 'folder.entity.freezed.dart';

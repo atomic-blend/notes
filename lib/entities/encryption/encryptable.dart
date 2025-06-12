@@ -1,4 +1,4 @@
-import 'package:app/services/encryption.service.dart';
+import 'package:notes/services/encryption.service.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Encryptable extends Equatable {

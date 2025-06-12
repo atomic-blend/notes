@@ -1,15 +1,15 @@
 import 'dart:async';
 
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:app/blocs/auth/auth.bloc.dart';
-import 'package:app/components/buttons/primary_button_square.dart';
-import 'package:app/components/widgets/elevated_container.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/services/revenue_cat_service.dart';
-import 'package:app/services/user.service.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
-import 'package:app/utils/toast_helper.dart';
+import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:notes/components/buttons/primary_button_square.dart';
+import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/services/revenue_cat_service.dart';
+import 'package:notes/services/user.service.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
+import 'package:notes/utils/toast_helper.dart';
 import 'package:async/async.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';

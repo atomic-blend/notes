@@ -1,4 +1,4 @@
-import 'package:app/i18n/strings.g.dart';
+import 'package:notes/i18n/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:unique_name_generator/unique_name_generator.dart';
 

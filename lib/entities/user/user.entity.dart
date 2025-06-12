@@ -1,6 +1,6 @@
-import 'package:app/entities/encryption/encryption_key.dart';
-import 'package:app/entities/purchase/purchase.dart';
-import 'package:app/entities/user_device/user_device.dart';
+import 'package:notes/entities/encryption/encryption_key.dart';
+import 'package:notes/entities/purchase/purchase.dart';
+import 'package:notes/entities/user_device/user_device.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.entity.freezed.dart';

@@ -1,8 +1,8 @@
-import 'package:app/entities/tasks/tasks.entity.dart';
-import 'package:app/entities/time_entry/time_entry.entity.dart';
-import 'package:app/entities/user/user.entity.dart';
-import 'package:app/services/user.service.dart';
-import 'package:app/utils/api_client.dart';
+import 'package:notes/entities/tasks/tasks.entity.dart';
+import 'package:notes/entities/time_entry/time_entry.entity.dart';
+import 'package:notes/entities/user/user.entity.dart';
+import 'package:notes/services/user.service.dart';
+import 'package:notes/utils/api_client.dart';
 
 class TasksService {
   TasksService();

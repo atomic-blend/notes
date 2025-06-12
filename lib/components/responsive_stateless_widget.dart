@@ -1,4 +1,4 @@
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 
 class ResponsiveStatelessWidget extends StatelessWidget {

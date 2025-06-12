@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:app/entities/encryption/encryption_key.dart';
-import 'package:app/main.dart';
+import 'package:notes/entities/encryption/encryption_key.dart';
+import 'package:notes/main.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:pointycastle/block/aes.dart';
 import 'package:pointycastle/block/modes/gcm.dart';

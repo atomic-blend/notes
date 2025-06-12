@@ -1,7 +1,7 @@
-import 'package:app/entities/habit/habit.entity.dart';
-import 'package:app/entities/habit/habit_entry/habit_entry.entity.dart';
-import 'package:app/services/user.service.dart';
-import 'package:app/utils/api_client.dart';
+import 'package:notes/entities/habit/habit.entity.dart';
+import 'package:notes/entities/habit/habit_entry/habit_entry.entity.dart';
+import 'package:notes/services/user.service.dart';
+import 'package:notes/utils/api_client.dart';
 
 class HabitService {
   HabitService();
@@ -30,8 +30,8 @@ class HabitService {
   }
 
   Future<bool> update(Habit habit) async {
-    final result =
-        await globalApiClient.put('/habits/${habit.id}', data: await habit.encrypt(encryptionService: encryptionService!));
+    final result = await globalApiClient.put('/habits/${habit.id}',
+        data: await habit.encrypt(encryptionService: encryptionService!));
     if (result.statusCode == 200) {
       return true;
     } else {
@@ -41,7 +41,7 @@ class HabitService {
 
   Future<bool> addEntry(HabitEntry habitEntry) async {
     final result = await globalApiClient.post('/habits/entry/add',
-        data:  habitEntry.toJson());
+        data: habitEntry.toJson());
     if (result.statusCode == 201) {
       return true;
     } else {
@@ -50,8 +50,8 @@ class HabitService {
   }
 
   Future<bool> updateEntry(HabitEntry habitEntry) async {
-    final result = await globalApiClient.put('/habits/entry/edit/${habitEntry.id}',
-        data: habitEntry.toJson());
+    final result = await globalApiClient
+        .put('/habits/entry/edit/${habitEntry.id}', data: habitEntry.toJson());
     if (result.statusCode == 200) {
       return true;
     } else {

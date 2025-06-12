@@ -1,6 +1,6 @@
-import 'package:app/entities/folder/folder.entity.dart';
-import 'package:app/services/user.service.dart';
-import 'package:app/utils/api_client.dart';
+import 'package:notes/entities/folder/folder.entity.dart';
+import 'package:notes/services/user.service.dart';
+import 'package:notes/utils/api_client.dart';
 
 class FolderService {
   FolderService();

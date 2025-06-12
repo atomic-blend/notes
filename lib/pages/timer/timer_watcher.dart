@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:app/blocs/tasks/tasks.bloc.dart';
-import 'package:app/entities/tasks/tasks.entity.dart';
-import 'package:app/pages/timer/completed_timer.dart';
-import 'package:app/pages/timer/timer_utils.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/tasks/tasks.bloc.dart';
+import 'package:notes/entities/tasks/tasks.entity.dart';
+import 'package:notes/pages/timer/completed_timer.dart';
+import 'package:notes/pages/timer/timer_utils.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

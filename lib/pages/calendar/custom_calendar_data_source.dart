@@ -1,4 +1,4 @@
-import 'package:app/pages/calendar/custom_appointment.dart';
+import 'package:notes/pages/calendar/custom_appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 

@@ -1,12 +1,13 @@
-import 'package:app/entities/device_calendar/calendar/device_calendar.dart';
-import 'package:app/services/device_calendar_service.dart';
+import 'package:notes/entities/device_calendar/calendar/device_calendar.dart';
+import 'package:notes/services/device_calendar_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'device_calendar.event.dart';
 part 'device_calendar.state.dart';
 
-class DeviceCalendarBloc extends Bloc<DeviceCalendarEvent, DeviceCalendarState> {
+class DeviceCalendarBloc
+    extends Bloc<DeviceCalendarEvent, DeviceCalendarState> {
   final DeviceCalendarService _deviceCalendarService = DeviceCalendarService();
   DeviceCalendarBloc() : super(const DeviceCalendarInitial()) {
     on<GetDeviceCalendar>(_onGetDeviceCalendar);
@@ -18,7 +19,8 @@ class DeviceCalendarBloc extends Bloc<DeviceCalendarEvent, DeviceCalendarState> 
   ) async {
     emit(const DeviceCalendarLoading());
     try {
-      final deviceCalendar = await _deviceCalendarService.retrieveCalendarEvents(
+      final deviceCalendar =
+          await _deviceCalendarService.retrieveCalendarEvents(
         event.startDate,
         event.endDate,
       );

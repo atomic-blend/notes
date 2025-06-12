@@ -1,10 +1,10 @@
-import 'package:app/blocs/tag/tag.bloc.dart';
-import 'package:app/components/buttons/icon_text_pill.dart';
-import 'package:app/components/forms/search_bar.dart';
-import 'package:app/entities/tag/tag.entity.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/tag/tag.bloc.dart';
+import 'package:notes/components/buttons/icon_text_pill.dart';
+import 'package:notes/components/forms/search_bar.dart';
+import 'package:notes/entities/tag/tag.entity.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,7 +106,8 @@ class _AssignTagModalState extends State<AssignTagModal> {
                                 $constants.corners.full,
                               ),
                               color: tag.color != null
-                                  ? hexToColor(tag.color!).withValues(alpha: 0.2)
+                                  ? hexToColor(tag.color!)
+                                      .withValues(alpha: 0.2)
                                   : Colors.grey.withValues(alpha: 0.2),
                             ),
                             child: const Icon(CupertinoIcons.tag),

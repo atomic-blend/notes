@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:app/blocs/app/app.bloc.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/app/app.bloc.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

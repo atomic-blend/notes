@@ -1,9 +1,9 @@
-import 'package:app/components/buttons/primary_button_round.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/main.dart';
-import 'package:app/utils/api_client.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/components/buttons/primary_button_round.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/main.dart';
+import 'package:notes/utils/api_client.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

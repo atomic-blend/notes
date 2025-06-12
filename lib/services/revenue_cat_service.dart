@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:app/main.dart';
+import 'package:notes/main.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 

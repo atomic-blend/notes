@@ -1,9 +1,9 @@
-import 'package:app/blocs/auth/auth.bloc.dart';
-import 'package:app/blocs/folder/folder.bloc.dart';
-import 'package:app/blocs/habit/habit.bloc.dart';
-import 'package:app/blocs/tag/tag.bloc.dart';
-import 'package:app/blocs/tasks/tasks.bloc.dart';
-import 'package:app/blocs/time_entries/time_entry.bloc.dart';
+import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:notes/blocs/folder/folder.bloc.dart';
+import 'package:notes/blocs/habit/habit.bloc.dart';
+import 'package:notes/blocs/tag/tag.bloc.dart';
+import 'package:notes/blocs/tasks/tasks.bloc.dart';
+import 'package:notes/blocs/time_entries/time_entry.bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,8 +21,8 @@ class SyncService {
 
   static void syncUserData(BuildContext context) {
     if (context.read<AuthBloc>().state is! LoggedIn) return;
-  
+
     // Sync user data
-    context.read<AuthBloc>().add(const RefreshUser  ());
+    context.read<AuthBloc>().add(const RefreshUser());
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:app/entities/tag/tag.entity.dart';
-import 'package:app/services/tags.service.dart';
+import 'package:notes/entities/tag/tag.entity.dart';
+import 'package:notes/services/tags.service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

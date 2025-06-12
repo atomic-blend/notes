@@ -1,5 +1,5 @@
-import 'package:app/components/buttons/primary_button_square.dart';
-import 'package:app/i18n/strings.g.dart';
+import 'package:notes/components/buttons/primary_button_square.dart';
+import 'package:notes/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/constants.dart';

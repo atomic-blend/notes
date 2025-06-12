@@ -1,9 +1,9 @@
-import 'package:app/entities/user/user.entity.dart';
-import 'package:app/main.dart';
-import 'package:app/pages/paywall/paywall.dart';
-import 'package:app/services/user.service.dart';
-import 'package:app/utils/api_client.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/entities/user/user.entity.dart';
+import 'package:notes/main.dart';
+import 'package:notes/pages/paywall/paywall.dart';
+import 'package:notes/services/user.service.dart';
+import 'package:notes/utils/api_client.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

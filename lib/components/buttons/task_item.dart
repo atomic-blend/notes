@@ -1,10 +1,10 @@
-import 'package:app/blocs/tasks/tasks.bloc.dart';
-import 'package:app/components/forms/ab_checkbox.dart';
-import 'package:app/entities/tasks/tasks.entity.dart';
-import 'package:app/pages/tasks/task_detail.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/exntensions/date_time_extension.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/tasks/tasks.bloc.dart';
+import 'package:notes/components/forms/ab_checkbox.dart';
+import 'package:notes/entities/tasks/tasks.entity.dart';
+import 'package:notes/pages/tasks/task_detail.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/exntensions/date_time_extension.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

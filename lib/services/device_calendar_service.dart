@@ -1,4 +1,4 @@
-import 'package:app/entities/device_calendar/calendar/device_calendar.dart';
+import 'package:notes/entities/device_calendar/calendar/device_calendar.dart';
 import 'package:device_calendar/device_calendar.dart';
 
 class DeviceCalendarService {

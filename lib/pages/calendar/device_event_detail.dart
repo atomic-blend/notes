@@ -1,8 +1,8 @@
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/meeting_link_parser.dart';
-import 'package:app/utils/shortcuts.dart';
-import 'package:app/utils/url_launcher.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/meeting_link_parser.dart';
+import 'package:notes/utils/shortcuts.dart';
+import 'package:notes/utils/url_launcher.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:collection/collection.dart';
 import 'package:device_calendar/device_calendar.dart';

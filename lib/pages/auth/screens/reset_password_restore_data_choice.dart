@@ -1,8 +1,8 @@
-import 'package:app/components/buttons/primary_button_square.dart';
-import 'package:app/components/forms/app_text_form_field.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/components/buttons/primary_button_square.dart';
+import 'package:notes/components/forms/app_text_form_field.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +22,8 @@ class ResetPasswordRestoreDataChoice extends StatefulWidget {
 class _ResetPasswordRestoreDataChoiceState
     extends State<ResetPasswordRestoreDataChoice>
     with TickerProviderStateMixin {
-      final _formKey = GlobalKey<FormState>();
-      final TextEditingController _mnemonicKeyController =
-      TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _mnemonicKeyController = TextEditingController();
   late AnimationController _animationController;
   late AnimationController _lottieController;
   final _animationDuration = const Duration(milliseconds: 250);
@@ -158,7 +157,7 @@ class _ResetPasswordRestoreDataChoiceState
                     ],
                   ),
                 ),
-                if (_restoreData == true) 
+              if (_restoreData == true)
                 Form(
                   key: _formKey,
                   child: Padding(
@@ -214,7 +213,8 @@ class _ResetPasswordRestoreDataChoiceState
                         _animationController.reverseDuration =
                             const Duration(milliseconds: 500);
                         _animationController.reverse();
-                        widget.restoreDataChoiceCallback(_restoreData!, _mnemonicKeyController.text);
+                        widget.restoreDataChoiceCallback(
+                            _restoreData!, _mnemonicKeyController.text);
                       } else {
                         if (_confirmReset != true) {
                           return;

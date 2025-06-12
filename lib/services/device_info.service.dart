@@ -1,4 +1,4 @@
-import 'package:app/entities/user_device/user_device.dart';
+import 'package:notes/entities/user_device/user_device.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:io';

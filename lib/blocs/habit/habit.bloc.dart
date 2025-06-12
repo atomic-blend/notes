@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:app/entities/habit/habit.entity.dart';
-import 'package:app/entities/habit/habit_entry/habit_entry.entity.dart';
-import 'package:app/services/habit_service.dart';
+import 'package:notes/entities/habit/habit.entity.dart';
+import 'package:notes/entities/habit/habit_entry/habit_entry.entity.dart';
+import 'package:notes/services/habit_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -95,7 +95,8 @@ class HabitBloc extends HydratedBloc<HabitEvent, HabitState> {
     }
   }
 
-  FutureOr<void> _onAddHabitEntry(AddHabitEntry event, Emitter<HabitState> emit) {
+  FutureOr<void> _onAddHabitEntry(
+      AddHabitEntry event, Emitter<HabitState> emit) {
     final prevState = state;
     try {
       _habitService.addEntry(event.habitEntry);

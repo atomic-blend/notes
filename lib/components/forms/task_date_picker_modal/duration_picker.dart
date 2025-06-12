@@ -1,9 +1,9 @@
-import 'package:app/components/buttons/date_picker_button.dart';
-import 'package:app/components/forms/task_date_picker_modal/reminder_picker.dart';
-import 'package:app/components/widgets/elevated_container.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/components/buttons/date_picker_button.dart';
+import 'package:notes/components/forms/task_date_picker_modal/reminder_picker.dart';
+import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 

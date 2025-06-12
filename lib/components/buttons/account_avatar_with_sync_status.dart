@@ -1,9 +1,9 @@
-import 'package:app/blocs/auth/auth.bloc.dart';
-import 'package:app/blocs/tasks/tasks.bloc.dart';
-import 'package:app/pages/account/account.dart';
-import 'package:app/services/sync.service.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:notes/blocs/tasks/tasks.bloc.dart';
+import 'package:notes/pages/account/account.dart';
+import 'package:notes/services/sync.service.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

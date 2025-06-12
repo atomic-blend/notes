@@ -1,8 +1,8 @@
-import 'package:app/components/dialogs/date_picker_dialog.dart';
-import 'package:app/components/widgets/elevated_container.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/components/dialogs/date_picker_dialog.dart';
+import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';

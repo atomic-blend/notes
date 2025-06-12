@@ -1,8 +1,8 @@
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/main.dart';
-import 'package:app/services/encryption.service.dart';
-import 'package:app/services/user.service.dart';
-import 'package:app/utils/local_notifications.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/main.dart';
+import 'package:notes/services/encryption.service.dart';
+import 'package:notes/services/user.service.dart';
+import 'package:notes/utils/local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 

@@ -1,10 +1,10 @@
-import 'package:app/blocs/time_entries/time_entry.bloc.dart';
-import 'package:app/components/buttons/primary_button_square.dart';
-import 'package:app/entities/tasks/tasks.entity.dart';
-import 'package:app/entities/time_entry/time_entry.entity.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/time_entries/time_entry.bloc.dart';
+import 'package:notes/components/buttons/primary_button_square.dart';
+import 'package:notes/entities/tasks/tasks.entity.dart';
+import 'package:notes/entities/time_entry/time_entry.entity.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

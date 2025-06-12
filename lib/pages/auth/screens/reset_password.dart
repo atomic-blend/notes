@@ -1,14 +1,14 @@
-import 'package:app/blocs/auth/auth.bloc.dart';
-import 'package:app/entities/encryption/encryption_key.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/pages/auth/screens/mnemonic_key.dart';
-import 'package:app/pages/auth/screens/reset_password_code.dart';
-import 'package:app/pages/auth/screens/reset_password_intro.dart';
-import 'package:app/pages/auth/screens/reset_password_new_password.dart';
-import 'package:app/pages/auth/screens/reset_password_recap.dart';
-import 'package:app/pages/auth/screens/reset_password_restore_data_choice.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:notes/entities/encryption/encryption_key.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/pages/auth/screens/mnemonic_key.dart';
+import 'package:notes/pages/auth/screens/reset_password_code.dart';
+import 'package:notes/pages/auth/screens/reset_password_intro.dart';
+import 'package:notes/pages/auth/screens/reset_password_new_password.dart';
+import 'package:notes/pages/auth/screens/reset_password_recap.dart';
+import 'package:notes/pages/auth/screens/reset_password_restore_data_choice.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,9 +68,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   setState(() {
                     _currentStep = 2;
                   });
-                  context
-                      .read<AuthBloc>()
-                      .add(GetBackupKeyForResetPassword(_emailCodeController.text));
+                  context.read<AuthBloc>().add(
+                      GetBackupKeyForResetPassword(_emailCodeController.text));
                 },
               ),
             if (_currentStep == 2)

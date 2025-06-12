@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:app/entities/tasks/tasks.entity.dart';
-import 'package:app/entities/time_entry/time_entry.entity.dart';
-import 'package:app/services/time_entry_service.dart';
-import 'package:app/main.dart';
-import 'package:app/utils/local_notifications.dart';
+import 'package:notes/entities/tasks/tasks.entity.dart';
+import 'package:notes/entities/time_entry/time_entry.entity.dart';
+import 'package:notes/services/time_entry_service.dart';
+import 'package:notes/main.dart';
+import 'package:notes/utils/local_notifications.dart';
 
 enum TimerMode { pomodoro, stopwatch }
 

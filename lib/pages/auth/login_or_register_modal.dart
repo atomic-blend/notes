@@ -1,13 +1,13 @@
-import 'package:app/blocs/auth/auth.bloc.dart';
-import 'package:app/components/widgets/loading_city.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/pages/auth/screens/login.dart';
-import 'package:app/pages/auth/screens/login_or_register.dart';
-import 'package:app/pages/auth/screens/mnemonic_key.dart';
-import 'package:app/pages/auth/screens/register_email.dart';
-import 'package:app/pages/auth/screens/register_password.dart';
-import 'package:app/pages/auth/screens/welcome_screen.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:notes/components/widgets/loading_city.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/pages/auth/screens/login.dart';
+import 'package:notes/pages/auth/screens/login_or_register.dart';
+import 'package:notes/pages/auth/screens/mnemonic_key.dart';
+import 'package:notes/pages/auth/screens/register_email.dart';
+import 'package:notes/pages/auth/screens/register_password.dart';
+import 'package:notes/pages/auth/screens/welcome_screen.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

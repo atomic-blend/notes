@@ -1,8 +1,8 @@
-import 'package:app/blocs/folder/folder.bloc.dart';
-import 'package:app/entities/folder/folder.entity.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/folder/folder.bloc.dart';
+import 'package:notes/entities/folder/folder.entity.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

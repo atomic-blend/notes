@@ -1,6 +1,6 @@
-import 'package:app/entities/habit/habit.entity.dart';
-import 'package:app/pages/habits/add_habits_modal.dart';
-import 'package:app/pages/habits/habit_detail.dart';
+import 'package:notes/entities/habit/habit.entity.dart';
+import 'package:notes/pages/habits/add_habits_modal.dart';
+import 'package:notes/pages/habits/habit_detail.dart';
 import 'package:flutter/material.dart';
 
 class ViewOrEditHabitModal extends StatefulWidget {

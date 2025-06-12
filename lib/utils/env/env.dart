@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:app/flavors.dart';
+import 'package:notes/flavors.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

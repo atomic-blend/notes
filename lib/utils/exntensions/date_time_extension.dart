@@ -1,4 +1,4 @@
-import 'package:app/i18n/strings.g.dart';
+import 'package:notes/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 

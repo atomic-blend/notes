@@ -1,10 +1,10 @@
-import 'package:app/blocs/tasks/tasks.bloc.dart';
-import 'package:app/components/buttons/task_item.dart';
-import 'package:app/components/widgets/elevated_container.dart';
-import 'package:app/entities/tasks/tasks.entity.dart';
-import 'package:app/i18n/strings.g.dart';
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/blocs/tasks/tasks.bloc.dart';
+import 'package:notes/components/buttons/task_item.dart';
+import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:notes/entities/tasks/tasks.entity.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

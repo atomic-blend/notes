@@ -1,5 +1,5 @@
-import 'package:app/utils/constants.dart';
-import 'package:app/utils/shortcuts.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryButtonSquare extends StatelessWidget {
