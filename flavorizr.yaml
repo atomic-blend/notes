@@ -1,0 +1,21 @@
+flavors:
+  dev:
+    app:
+      name: "Atomic Blend - Dev"
+
+    android:
+      applicationId: "fr.atomic-blend.app-dev"
+    ios:
+      bundleId: "fr.atomic-blend.app-dev"
+    macos:
+      bundleId: "fr.atomic-blend.app-dev"
+  prod:
+    app:
+      name: "Atomic Blend"
+
+    android:
+      applicationId: "fr.atomic-blend.app"
+    ios:
+      bundleId: "fr.atomic-blend.app"
+    macos:
+      bundleId: "fr.atomic-blend.app"

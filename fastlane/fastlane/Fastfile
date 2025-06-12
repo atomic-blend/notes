@@ -1,0 +1,196 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+
+platform :ios do
+  desc "Description of what the lane does"
+
+  lane :test do
+      Dir.chdir("../..") do
+        sh("fvm flutter test")
+      end
+  end
+
+  lane :build_beta do
+    Dir.chdir("..") do
+        sh('fvm flutter build ipa --flavor prod --release -t lib/main_prod.dart --release --dart-define APP_ENV=prod --dart-define APPLE_REVENUE_CAT_API_KEY=' + ENV["APPLE_REVENUE_CAT_API_KEY"])
+    end
+  end
+
+  lane :upload_beta do
+     upload_to_testflight(
+     api_key_path: "/Users/brandonguigo/appstore_connect_api_key.json",
+     app_identifier: "fr.atomicblend.app",
+     ipa: "../build/ios/ipa/Atomic Task.ipa",
+     distribute_external: true,
+     notify_external_testers: true,
+     submit_beta_review: true,
+     groups: ['beta']
+       )
+  end
+
+  lane :test_and_beta do
+    test
+    # add actions here: https://docs.fastlane.tools/actions
+    build_beta
+    upload_beta
+  end
+  lane :beta do
+    build_beta
+    upload_beta
+  end
+end
+
+platform :android do
+    lane :test do
+          Dir.chdir("../..") do
+            sh("fvm flutter test")
+          end
+    end
+
+    lane :build_beta do
+        Dir.chdir("..") do
+            sh('fvm flutter build appbundle --flavor prod --release -t lib/main_prod.dart --dart-define APP_ENV=prod')
+            Dir.chdir("..") do
+              sh('zip -r build/app/outputs/bundle/prodRelease/native-debug-symbols.zip build/app/intermediates/merged_native_libs/prodRelease/out/lib/*')
+            end
+        end
+      end
+
+    lane :upload_beta do
+        upload_to_play_store(
+            package_name: "fr.atomicblend.app",
+            track: "alpha",
+            json_key: "/Users/brandonguigo/playstore_key.json",
+            aab: "../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+            # mapping_paths: ["../build/app/outputs/bundle/prodRelease/native-debug-symbols.zip"]
+            )
+    end
+
+    lane :test_and_beta do
+        test
+        # add actions here: https://docs.fastlane.tools/actions
+        build_beta
+        upload_beta
+    end
+
+    lane :beta do
+        build_beta
+        upload_beta
+    end
+end
+
+platform :mac do
+    lane :test do
+        Dir.chdir("../..") do
+            sh("fvm flutter test")
+        end
+    end
+
+    lane :build_prod do
+        Dir.chdir("..") do
+            sh('fvm flutter build macos --flavor prod --release -t lib/main_prod.dart --dart-define APP_ENV=prod')
+        end
+    end
+
+    lane :package_dmg do
+        Dir.chdir("..") do
+           sh("rm -rf macos_dmg/AtomicTask-latest.dmg")
+           sh("TAG=$(git describe --abbrev=0 --tags) rm -rf macos_dmg/AtomicTask-$TAG.dmg")
+           sh("npm install -g appdmg")
+           sh("TAG=$(git describe --abbrev=0 --tags) appdmg macos_dmg/config.json macos_dmg/AtomicTask-$TAG.dmg")
+           sh("appdmg macos_dmg/config.json macos_dmg/AtomicTask-latest.dmg")
+        end
+    end
+
+    lane :release_prod do
+        Dir.chdir("..") do
+           build_prod
+           package_dmg
+        end
+    end
+end
+
+platform :debian do
+    lane :test do
+        Dir.chdir("../..") do
+            sh("fvm flutter test")
+        end
+    end
+
+    lane :build_prod do
+        Dir.chdir("..") do
+            sh('fvm flutter build linux --release -t lib/main_prod.dart --dart-define APP_ENV=prod')
+        end
+    end
+
+    lane :package_deb do
+        Dir.chdir("..") do
+            sh("./debian/update_version.sh")
+            sh("fvm dart pub global activate flutter_to_debian")
+            sh("fvm flutter_to_debian")
+        end
+    end
+
+    lane :release_prod do
+        Dir.chdir("..") do
+            build_prod
+            package_deb
+        end
+    end
+end
+
+platform :web do
+    lane :test do
+        Dir.chdir("../..") do
+            sh("fvm flutter test")
+        end
+    end
+
+    lane :build_prod do
+        Dir.chdir("..") do
+            sh('fvm flutter build web  --release -t lib/main_prod.dart --dart-define APP_ENV=prod')
+        end
+    end
+end
+
+platform :windows do
+    lane :test do
+        Dir.chdir("../..") do
+            sh("fvm flutter test")
+        end
+    end
+
+    lane :build_prod do
+        Dir.chdir("..") do
+            sh('flutter build windows --release -t lib/main_prod.dart --dart-define APP_ENV=prod')
+        end
+    end
+
+    lane :package_deb do
+        Dir.chdir("..") do
+
+        end
+    end
+
+    lane :release_prod do
+        Dir.chdir("..") do
+            build_prod
+            package_deb
+        end
+    end
+end
