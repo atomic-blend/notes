@@ -3,7 +3,7 @@ import 'package:notes/services/user.service.dart';
 import 'package:notes/utils/api_client.dart';
 
 class NoteService {
-  static Future<List<Note>> getNotes() async {
+  Future<List<Note>> getNotes() async {
     final result = await globalApiClient.get('/notes');
     if (result.statusCode == 200) {
       final List<Note> notes = [];
@@ -20,7 +20,7 @@ class NoteService {
     }
   }
 
-  static Future<bool> createNote(Note note) async {
+  Future<bool> createNote(Note note) async {
     final encryptedNote = await note.encrypt(encryptionService: encryptionService!);
     final result = await globalApiClient.post('/notes', data: encryptedNote);
     if (result.statusCode == 201) {
@@ -30,7 +30,7 @@ class NoteService {
     }
   }
 
-  static Future<bool> updateNote(Note note) async {
+  Future<bool> updateNote(Note note) async {
     final encryptedNote = await note.encrypt(encryptionService: encryptionService!);
     final result = await globalApiClient.put('/notes/${note.id}', data: encryptedNote);
     if (result.statusCode == 200) {
@@ -40,7 +40,7 @@ class NoteService {
     }
   }
 
-  static Future<bool> deleteNote(Note note) async {
+  Future<bool> deleteNote(Note note) async {
     final result = await globalApiClient.delete('/notes/${note.id}');
     if (result.statusCode == 204) {
       return true;
