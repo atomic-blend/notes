@@ -52,7 +52,7 @@ class AccountAvatarWithSyncStatus extends StatelessWidget {
               Positioned(
                 bottom: 0,
                 right: 0,
-                child: !false
+                child: !_isLoading(authState: authState)
                     ? Container(
                         width: 8,
                         height: 8,
@@ -80,5 +80,10 @@ class AccountAvatarWithSyncStatus extends StatelessWidget {
         ),
       );
     });
+  }
+
+  _isLoading({AuthState? authState}) {
+    if (authState == null) return false;
+      return authState is Loading;
   }
 }
