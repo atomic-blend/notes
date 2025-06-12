@@ -1,4 +1,10 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/blocs/note/note_bloc.dart';
+import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:notes/utils/shortcuts.dart';
 
 class MyNotes extends StatefulWidget {
   const MyNotes({super.key});
@@ -10,6 +16,41 @@ class MyNotes extends StatefulWidget {
 class _MyNotesState extends State<MyNotes> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
+      return Padding(
+        padding: EdgeInsets.only(
+          left: $constants.insets.sm,
+          right: $constants.insets.sm,
+          bottom: $constants.insets.sm,
+        ),
+        child: Column(
+          children: [
+            if (noteState.notes != null && noteState.notes!.isNotEmpty)
+              ...(noteState.notes ?? []).map((note) {
+                return ElevatedContainer(
+                  child: Row(
+                    children: [
+                      Text(note.title ?? "Untitled Note"),
+                    ],
+                  ),
+                );
+              })
+            else
+              Expanded(
+                child: ElevatedContainer(
+                  padding: EdgeInsets.all($constants.insets.sm),
+                  width: double.infinity,
+                  child: Text(
+                    "No notes available",
+                    style: getTextTheme(context).bodyMedium!.copyWith(
+                          color: getTheme(context).onSurface.lighten(40),
+                        ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
+    });
   }
 }
