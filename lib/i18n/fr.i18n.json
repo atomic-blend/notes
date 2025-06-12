@@ -849,6 +849,7 @@
     "android": "Android"
   },
   "search": {
+    "title": "Rechercher",
     "results": {
       "zero": "Aucun résultat trouvé",
       "one": "1 résultat trouvé",
@@ -858,5 +859,8 @@
 
   "my_notes": {
     "title": "Mes Notes"
+  },
+  "organize": {
+    "title": "Organiser"
   }
 }

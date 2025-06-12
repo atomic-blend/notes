@@ -99,6 +99,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
 	@override late final _TranslationsSearchFr search = _TranslationsSearchFr._(_root);
 	@override late final _TranslationsMyNotesFr my_notes = _TranslationsMyNotesFr._(_root);
+	@override late final _TranslationsOrganizeFr organize = _TranslationsOrganizeFr._(_root);
 }
 
 // Path: navigation
@@ -838,6 +839,7 @@ class _TranslationsSearchFr implements TranslationsSearchEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => 'Rechercher';
 	@override String results({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 		zero: 'Aucun résultat trouvé',
 		one: '1 résultat trouvé',
@@ -853,6 +855,16 @@ class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
 
 	// Translations
 	@override String get title => 'Mes Notes';
+}
+
+// Path: organize
+class _TranslationsOrganizeFr implements TranslationsOrganizeEn {
+	_TranslationsOrganizeFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Organiser';
 }
 
 // Path: auth.not_logged_in
@@ -2199,12 +2211,14 @@ extension on TranslationsFr {
 			case 'paywall.payment_on_mobile_for_better_xp': return 'Pour vous offrir la meilleure expérience possible, le paiement et la configuration du compte ne sont disponibles que sur l\'application mobile.';
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
+			case 'search.title': return 'Rechercher';
 			case 'search.results': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 				zero: 'Aucun résultat trouvé',
 				one: '1 résultat trouvé',
 				other: '${n} résultats trouvés',
 			);
 			case 'my_notes.title': return 'Mes Notes';
+			case 'organize.title': return 'Organiser';
 			default: return null;
 		}
 	}

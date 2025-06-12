@@ -132,11 +132,16 @@ class BottomNavigation extends StatelessWidget {
         );
       }).toList();
 
+      int currentIndex = destinations.indexWhere((element) =>
+          element is NavigationItem &&
+          (element.key as ValueKey).value == primaryMenuKey);
+      if (currentIndex == -1) {
+        currentIndex = 0; // Default to the first item if not found
+      }
+
       return CupertinoTabBar(
         backgroundColor: backgroundColor,
-        currentIndex: destinations.indexWhere((element) =>
-            element is NavigationItem &&
-            (element.key as ValueKey).value == primaryMenuKey),
+        currentIndex: currentIndex,
         onTap: (index) {
           // Check if the tapped item has its own onTap handler
           if (destinations.length > index &&

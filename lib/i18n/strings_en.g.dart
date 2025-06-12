@@ -102,6 +102,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
 	late final TranslationsSearchEn search = TranslationsSearchEn._(_root);
 	late final TranslationsMyNotesEn my_notes = TranslationsMyNotesEn._(_root);
+	late final TranslationsOrganizeEn organize = TranslationsOrganizeEn._(_root);
 }
 
 // Path: navigation
@@ -844,6 +845,7 @@ class TranslationsSearchEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get title => 'Search';
 	String results({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'No results found',
 		one: '1 result found',
@@ -859,6 +861,16 @@ class TranslationsMyNotesEn {
 
 	// Translations
 	String get title => 'My Notes';
+}
+
+// Path: organize
+class TranslationsOrganizeEn {
+	TranslationsOrganizeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Organize';
 }
 
 // Path: auth.not_logged_in
@@ -2208,12 +2220,14 @@ extension on Translations {
 			case 'paywall.payment_on_mobile_for_better_xp': return 'To offer you the best experience possible, payment and account configuration is only available on the mobile app';
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
+			case 'search.title': return 'Search';
 			case 'search.results': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 				zero: 'No results found',
 				one: '1 result found',
 				other: '${n} results found',
 			);
 			case 'my_notes.title': return 'My Notes';
+			case 'organize.title': return 'Organize';
 			default: return null;
 		}
 	}

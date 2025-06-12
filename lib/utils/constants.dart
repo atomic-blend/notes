@@ -128,7 +128,6 @@ class Navigation {
           ),
           label: context.t.my_notes.title,
           body: const MyNotes(),
-          mainSecondaryKey: "overview",
           appBar: AppBar(
             key: const Key("my_notes"),
             backgroundColor: getTheme(context).surface,
@@ -159,19 +158,19 @@ class Navigation {
           ),
         ),
         NavigationItem(
-          key: const Key("calendar"),
+          key: const Key("search"),
           icon: const Icon(
-            LineAwesome.calendar,
+            LineAwesome.search_solid,
             size: 25,
           ),
           cupertinoIcon: const Icon(
-            CupertinoIcons.calendar,
+            CupertinoIcons.search,
             size: 25,
           ),
-          label: context.t.calendar.title,
+          label: context.t.search.title,
           body: const Placeholder(),
           appBar: AppBar(
-              key: const Key("calendar"),
+              key: const Key("search"),
               backgroundColor: getTheme(context).surface,
               surfaceTintColor: getTheme(context).surface,
               title: Center(
@@ -179,7 +178,7 @@ class Navigation {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.t.calendar.title,
+                      context.t.search.title,
                       style: getTextTheme(context).headlineSmall!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
@@ -200,7 +199,7 @@ class Navigation {
               ]),
         ),
         NavigationItem(
-          key: const Key("add_task"),
+          key: const Key("add_notes"),
           icon: Icon(
             LineAwesome.plus_solid,
             color: getTheme(context).tertiary,
@@ -225,24 +224,24 @@ class Navigation {
           },
         ),
         NavigationItem(
-          key: const Key("habits"),
+          key: const Key("organize"),
           icon: const Icon(
-            LineAwesome.bolt_solid,
+            LineAwesome.filter_solid,
             size: 25,
           ),
           cupertinoIcon: const Icon(
-            CupertinoIcons.bolt_fill,
+            CupertinoIcons.square_fill_line_vertical_square,
             size: 25,
           ),
-          label: context.t.habits.title,
+          label: context.t.organize.title,
           body: const Placeholder(),
           appBar: AppBar(
-              key: const Key("habits"),
+              key: const Key("organize"),
               backgroundColor: getTheme(context).surface,
               leading: Container(),
               title: Center(
                 child: Text(
-                  context.t.habits.title,
+                  context.t.organize.title,
                   style: getTextTheme(context).headlineSmall!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
