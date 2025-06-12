@@ -34,8 +34,8 @@ platform :ios do
   lane :upload_beta do
      upload_to_testflight(
      api_key_path: "/Users/brandonguigo/appstore_connect_api_key.json",
-     app_identifier: "fr.atomicblend.app",
-     ipa: "../build/ios/ipa/Atomic Task.ipa",
+     app_identifier: "fr.atomicblend.notes",
+     ipa: "../build/ios/ipa/Atomic Notes.ipa",
      distribute_external: true,
      notify_external_testers: true,
      submit_beta_review: true,
@@ -73,10 +73,10 @@ platform :android do
 
     lane :upload_beta do
         upload_to_play_store(
-            package_name: "fr.atomicblend.app",
+            package_name: "fr.atomicblend.notes",
             track: "alpha",
             json_key: "/Users/brandonguigo/playstore_key.json",
-            aab: "../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+            aab: "../build/notes/outputs/bundle/prodRelease/notes-prod-release.aab",
             # mapping_paths: ["../build/app/outputs/bundle/prodRelease/native-debug-symbols.zip"]
             )
     end
@@ -109,11 +109,11 @@ platform :mac do
 
     lane :package_dmg do
         Dir.chdir("..") do
-           sh("rm -rf macos_dmg/AtomicTask-latest.dmg")
-           sh("TAG=$(git describe --abbrev=0 --tags) rm -rf macos_dmg/AtomicTask-$TAG.dmg")
+           sh("rm -rf macos_dmg/AtomicNotes-latest.dmg")
+           sh("TAG=$(git describe --abbrev=0 --tags) rm -rf macos_dmg/AtomicNotes-$TAG.dmg")
            sh("npm install -g appdmg")
-           sh("TAG=$(git describe --abbrev=0 --tags) appdmg macos_dmg/config.json macos_dmg/AtomicTask-$TAG.dmg")
-           sh("appdmg macos_dmg/config.json macos_dmg/AtomicTask-latest.dmg")
+           sh("TAG=$(git describe --abbrev=0 --tags) appdmg macos_dmg/config.json macos_dmg/AtomicNotes-$TAG.dmg")
+           sh("appdmg macos_dmg/config.json macos_dmg/AtomicNotes-latest.dmg")
         end
     end
 

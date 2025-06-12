@@ -731,7 +731,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.app-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.notes-dev";
 				PRODUCT_NAME = "Atomic Task - Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -870,7 +870,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.app-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.notes-dev";
 				PRODUCT_NAME = "Atomic Task - Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -895,7 +895,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.app-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.notes-dev";
 				PRODUCT_NAME = "Atomic Task - Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1193,7 +1193,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.app-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.notes-dev";
 				PRODUCT_NAME = "Atomic Task - Dev";
 			};
 			name = "Debug-dev";
@@ -1206,7 +1206,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.app-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.notes-dev";
 				PRODUCT_NAME = "Atomic Task - Dev";
 			};
 			name = "Profile-dev";
@@ -1219,7 +1219,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.app-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.atomicblend.notes-dev";
 				PRODUCT_NAME = "Atomic Task";
 			};
 			name = "Release-dev";
@@ -1232,7 +1232,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.atomicblend.app;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.atomicblend.notes;
 				PRODUCT_NAME = "Atomic Task";
 			};
 			name = "Debug-prod";
@@ -1245,7 +1245,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.atomicblend.app;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.atomicblend.notes;
 				PRODUCT_NAME = "Atomic Task";
 			};
 			name = "Profile-prod";
@@ -1258,7 +1258,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.atomicblend.app;
+				PRODUCT_BUNDLE_IDENTIFIER = fr.atomicblend.notes;
 				PRODUCT_NAME = "Atomic Task";
 			};
 			name = "Release-prod";

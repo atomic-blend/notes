@@ -710,7 +710,7 @@ class _PaywallState extends State<Paywall> {
                     version: QrVersions.auto,
                     data: _mobilePlatform == 0
                         ? "https://apps.apple.com/fr/app/atomic-task/id6743615832"
-                        : "https://play.google.com/store/apps/details?id=fr.atomicblend.app",
+                        : "https://play.google.com/store/apps/details?id=fr.atomicblend.notes",
                     size: 100.0,
                   ),
                 ],

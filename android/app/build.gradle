@@ -40,15 +40,15 @@ android {
     productFlavors {
         dev {
             dimension "flavor-type"
-            applicationId "fr.atomicblend.appdev"
-            namespace "fr.atomicblend.appdev"
-            resValue "string", "app_name", "Atomic Blend - Dev"
+            applicationId "fr.atomicblend.notesdev"
+            namespace "fr.atomicblend.notesdev"
+            resValue "string", "app_name", "Atomic Notes - Dev"
         }
         prod {
             dimension "flavor-type"
-            applicationId "fr.atomicblend.app"
-            namespace "fr.atomicblend.app"
-            resValue "string", "app_name", "Atomic Blend"
+            applicationId "fr.atomicblend.notes"
+            namespace "fr.atomicblend.notes"
+            resValue "string", "app_name", "Atomic Notes"
         }
     }
 
