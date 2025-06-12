@@ -1,7 +1,6 @@
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/app_layout.dart';
-import 'package:notes/pages/timer/timer_watcher.dart';
 import 'package:notes/utils/app_theme.dart';
 import 'package:fleather/l10n/fleather_localizations.g.dart';
 import 'package:flutter/foundation.dart';
@@ -31,7 +30,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: env!.debugShowCheckedModeBanner,
       title: F.title,
       home: _flavorBanner(
-        child: const Scaffold(body: TimerWatcher(child: AppLayout())),
+        child: const Scaffold(body: AppLayout()),
         show: kDebugMode && env!.debugShowCheckedModeBanner,
       ),
     );

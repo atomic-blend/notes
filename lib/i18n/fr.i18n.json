@@ -854,5 +854,9 @@
       "one": "1 résultat trouvé",
       "other": "${n} résultats trouvés"
     }
+  },
+
+  "my_notes": {
+    "title": "Mes Notes"
   }
 }

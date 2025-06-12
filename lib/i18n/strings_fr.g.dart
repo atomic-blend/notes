@@ -98,6 +98,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsTimerFr timer = _TranslationsTimerFr._(_root);
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
 	@override late final _TranslationsSearchFr search = _TranslationsSearchFr._(_root);
+	@override late final _TranslationsMyNotesFr my_notes = _TranslationsMyNotesFr._(_root);
 }
 
 // Path: navigation
@@ -842,6 +843,16 @@ class _TranslationsSearchFr implements TranslationsSearchEn {
 		one: '1 résultat trouvé',
 		other: '${n} résultats trouvés',
 	);
+}
+
+// Path: my_notes
+class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
+	_TranslationsMyNotesFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mes Notes';
 }
 
 // Path: auth.not_logged_in
@@ -2193,6 +2204,7 @@ extension on TranslationsFr {
 				one: '1 résultat trouvé',
 				other: '${n} résultats trouvés',
 			);
+			case 'my_notes.title': return 'Mes Notes';
 			default: return null;
 		}
 	}

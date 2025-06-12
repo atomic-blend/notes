@@ -101,6 +101,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsTimerEn timer = TranslationsTimerEn._(_root);
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
 	late final TranslationsSearchEn search = TranslationsSearchEn._(_root);
+	late final TranslationsMyNotesEn my_notes = TranslationsMyNotesEn._(_root);
 }
 
 // Path: navigation
@@ -848,6 +849,16 @@ class TranslationsSearchEn {
 		one: '1 result found',
 		other: '${n} results found',
 	);
+}
+
+// Path: my_notes
+class TranslationsMyNotesEn {
+	TranslationsMyNotesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'My Notes';
 }
 
 // Path: auth.not_logged_in
@@ -2202,6 +2213,7 @@ extension on Translations {
 				one: '1 result found',
 				other: '${n} results found',
 			);
+			case 'my_notes.title': return 'My Notes';
 			default: return null;
 		}
 	}

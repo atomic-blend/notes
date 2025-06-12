@@ -4,20 +4,16 @@ import 'package:notes/blocs/app/app.bloc.dart';
 import 'package:notes/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/components/app/bottom_navigation.dart';
-import 'package:notes/components/buttons/account_avatar_with_sync_status.dart';
 import 'package:notes/components/responsive_stateful_widget.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
-import 'package:notes/entities/tasks/tasks.entity.dart';
 import 'package:notes/pages/auth/login_or_register_modal.dart';
 import 'package:notes/pages/paywall/paywall_utils.dart';
-import 'package:notes/pages/tasks/filtered_view.dart';
 import 'package:notes/services/device_info.service.dart';
 import 'package:notes/services/encryption.service.dart';
 import 'package:notes/services/revenue_cat_service.dart';
 import 'package:notes/services/user.service.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,68 +95,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
             // by default, the primary menu is selected
             Widget? body = primaryMenuItem?.body;
             AppBar? appBar = primaryMenuItem?.appBar;
-
-            // if primary key is tasks, get the folders, and add them to the secondary section items at the right place (4th), after all folders
-            if (appState.primaryMenuSelectedKey == 'tasks' &&
-                folderState is FolderLoaded) {
-              var folders = folderState.folders ?? [];
-
-              final folderItems = <NavigationItem>[];
-              for (var folder in folders) {
-                folderItems.add(
-                  NavigationItem(
-                    key: ValueKey(folder.name),
-                    icon: folder.emoji != null
-                        ? SizedBox(
-                            height: 25, width: 25, child: Text(folder.emoji!))
-                        : const Icon(Icons.collections),
-                    cupertinoIcon: folder.emoji != null
-                        ? Center(
-                            child: Text(folder.emoji!,
-                                style: const TextStyle(fontSize: 25)))
-                        : const Icon(CupertinoIcons.collections),
-                    label: folder.name,
-                    color: getTheme(context).tertiary,
-                    body: FilteredTaskView(
-                      filter: (List<TaskEntity> tasks) {
-                        final List<TaskEntity> widgets = [];
-                        for (final task in tasks) {
-                          if (task.completed != true &&
-                              task.folderId == folder.id) {
-                            widgets.add(task);
-                          }
-                        }
-                        return widgets;
-                      },
-                    ),
-                    appBar: AppBar(
-                      backgroundColor: getTheme(context).surface,
-                      title: Text(
-                        folder.name,
-                        style: getTextTheme(context).headlineSmall!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      actions: [
-                        BlocBuilder<AuthBloc, AuthState>(
-                            builder: (context, authState) {
-                          if (authState is LoggedIn && !isDesktop(context)) {
-                            return Padding(
-                              padding:
-                                  EdgeInsets.only(right: $constants.insets.sm),
-                              child: const AccountAvatarWithSyncStatus(),
-                            );
-                          }
-                          return Container();
-                        }),
-                      ],
-                    ),
-                  ),
-                );
-              }
-              // add the folders to the secondary section items at the right place (4th), after all folders
-              secondarySection?.items.insertAll(4, folderItems);
-            }
 
             // select the items if there's a secondary menu and a secondary menu item is selected
             if (secondarySection != null &&
@@ -431,61 +365,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 .firstOrNull
                 ?.appBar;
 
-            // if primary key is tasks, get the folders, and add them to the secondary section items at the right place (4th), after all folders
-            if (appState.primaryMenuSelectedKey == 'tasks' &&
-                folderState is FolderLoaded) {
-              var folders = folderState.folders ?? [];
-
-              final folderItems = <NavigationItem>[];
-              for (var folder in folders) {
-                folderItems.add(
-                  NavigationItem(
-                    key: Key(folder.name),
-                    icon: folder.emoji != null
-                        ? SizedBox(
-                            height: 25, width: 25, child: Text(folder.emoji!))
-                        : const Icon(Icons.collections),
-                    cupertinoIcon: folder.emoji != null
-                        ? Center(
-                            child: Text(folder.emoji!,
-                                style: const TextStyle(fontSize: 25)))
-                        : const Icon(CupertinoIcons.collections),
-                    label: folder.name,
-                    color: getTheme(context).tertiary,
-                    body: FilteredTaskView(
-                      filter: (List<TaskEntity> tasks) {
-                        final List<TaskEntity> widgets = [];
-                        for (final task in tasks) {
-                          if (task.completed != true &&
-                              task.folderId == folder.id) {
-                            widgets.add(task);
-                          }
-                        }
-                        return widgets;
-                      },
-                    ),
-                    appBar: AppBar(
-                      title: Text(
-                        folder.name,
-                        style: getTextTheme(context).headlineSmall!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      actions: [
-                        if (authState is LoggedIn && !isDesktop(context))
-                          Padding(
-                            padding:
-                                EdgeInsets.only(right: $constants.insets.sm),
-                            child: const AccountAvatarWithSyncStatus(),
-                          ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-              // add the folders to the secondary section items at the right place (4th), after all folders
-              secondarySection?.items.insertAll(4, folderItems);
-            }
 
             // on desktop, move the 4th primary menu item to the end of the list
             final primaryMenuItems =
