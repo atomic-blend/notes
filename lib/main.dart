@@ -4,12 +4,8 @@ import 'dart:io';
 
 import 'package:notes/blocs/app/app.bloc.dart';
 import 'package:notes/blocs/auth/auth.bloc.dart';
-import 'package:notes/blocs/device_calendar/device_calendar.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
-import 'package:notes/blocs/habit/habit.bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
-import 'package:notes/blocs/tasks/tasks.bloc.dart';
-import 'package:notes/blocs/time_entries/time_entry.bloc.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/services/notifications/background_notification_processor.dart';
 import 'package:notes/services/notifications/fcm_service.dart';
@@ -100,12 +96,8 @@ FutureOr<void> main() async {
             providers: [
               BlocProvider(create: (context) => AppCubit()),
               BlocProvider(create: (context) => AuthBloc()),
-              BlocProvider(create: (context) => TasksBloc()),
-              BlocProvider(create: (context) => DeviceCalendarBloc()),
-              BlocProvider(create: (context) => HabitBloc()),
               BlocProvider(create: (context) => TagBloc()),
               BlocProvider(create: (context) => FolderBloc()),
-              BlocProvider(create: (context) => TimeEntryBloc()),
             ],
             child: TranslationProvider(
                 child: const ToastificationWrapper(child: App()))),
