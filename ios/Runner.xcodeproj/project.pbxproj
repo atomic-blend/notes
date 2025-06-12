@@ -641,6 +641,8 @@
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "Atomic Notes - Dev";
+				BUNDLE_NAME = "Atomic Notes - Dev";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1213,6 +1215,8 @@
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "Atomic Notes - Dev";
+				BUNDLE_NAME = "Atomic Notes - Dev";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1247,6 +1251,8 @@
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_DISPLAY_NAME = "Atomic Notes - Dev";
+				BUNDLE_NAME = "Atomic Notes - Dev";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1279,6 +1285,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F0BFF526AC94F7831A18F498 /* Pods-Runner.debug-dev.xcconfig */;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "Atomic Notes - Dev";
+				BUNDLE_NAME = "Atomic Notes - Dev";
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeOS;
@@ -1296,6 +1304,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00256AD14A38CAD3146F41D1 /* Pods-Runner.profile-dev.xcconfig */;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "Atomic Notes - Dev";
+				BUNDLE_NAME = "Atomic Notes - Dev";
+				"BUNDLE_NAME[arch=*]" = "Atomic Notes - Dev";
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeOS;
@@ -1313,6 +1324,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF65796E03BF28C4B9F67119 /* Pods-Runner.release-dev.xcconfig */;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "Atomic Notes - Dev";
+				BUNDLE_NAME = "Atomic Notes - Dev";
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeOS;
@@ -1330,6 +1343,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 696A6D7AD4B343246B53C131 /* Pods-Runner.debug-prod.xcconfig */;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "Atomic Notes";
+				BUNDLE_NAME = "Atomic Notes";
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
@@ -1348,6 +1363,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40CCF4EE4F9FC0CDBF6EFF05 /* Pods-Runner.profile-prod.xcconfig */;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "Atomic Notes";
+				BUNDLE_NAME = "Atomic Notes";
+				"BUNDLE_NAME[arch=*]" = "Atomic Notes";
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeOS;
@@ -1365,6 +1383,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBFAA2A63B17760D15524C0C /* Pods-Runner.release-prod.xcconfig */;
 			buildSettings = {
+				BUNDLE_DISPLAY_NAME = "Atomic Notes";
+				BUNDLE_NAME = "Atomic Notes";
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				DEVELOPMENT_TEAM = GJF9Q39UD7;
 				INFOPLIST_KEY_CFBundleDisplayName = LifeOS;
