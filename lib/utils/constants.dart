@@ -6,6 +6,7 @@ import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
 import 'package:notes/pages/more_apps/more_apps.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
+import 'package:notes/pages/search/search.dart';
 import 'package:notes/services/sync.service.dart';
 import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
@@ -164,7 +165,7 @@ class Navigation {
             size: 25,
           ),
           label: context.t.search.title,
-          body: const Placeholder(),
+          body: const Search(),
           appBar: AppBar(
               key: const Key("search"),
               backgroundColor: getTheme(context).surface,
