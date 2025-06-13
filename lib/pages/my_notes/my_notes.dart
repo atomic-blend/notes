@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,10 @@ class _MyNotesState extends State<MyNotes> {
         child: Column(
           children: [
             if (noteState.notes != null && noteState.notes!.isNotEmpty)
-              ...(noteState.notes ?? []).map((note) {
+              ...(noteState.notes ?? []).sorted((a, b) {
+                if (a.createdAt == null || b.createdAt == null) return 0;
+                return b.createdAt!.compareTo(a.createdAt!);
+              }).map((note) {
                 return Padding(
                   padding: EdgeInsets.only(
                     bottom: $constants.insets.xs,
