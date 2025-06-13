@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/buttons/note_item.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
-import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 

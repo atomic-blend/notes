@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:fleather/fleather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
-import 'package:notes/services/sync.service.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 
@@ -39,7 +37,6 @@ class _NoteDetailState extends State<NoteDetail> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     _noteBloc = context.read<NoteBloc>();
     super.didChangeDependencies();
   }

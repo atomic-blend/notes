@@ -9,7 +9,7 @@ part 'note_state.dart';
 class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
   final NoteService _noteService = NoteService();
 
-  NoteBloc() : super(NoteInitial()) {
+  NoteBloc() : super(const NoteInitial()) {
     on<LoadNotes>(_onLoadNotes);
     on<AddNote>(_onAddNote);
     on<EditNote>(_onEditNote);
