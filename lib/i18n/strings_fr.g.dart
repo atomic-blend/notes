@@ -855,6 +855,8 @@ class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
 
 	// Translations
 	@override String get title => 'Mes Notes';
+	@override late final _TranslationsMyNotesDeleteNoteFr delete_note = _TranslationsMyNotesDeleteNoteFr._(_root);
+	@override String get no_notes => 'Aucune note pour le moment';
 }
 
 // Path: organize
@@ -1422,6 +1424,18 @@ class _TranslationsPaywallPricing$rcMonthlyFr implements TranslationsPaywallPric
 	@override String get price => '3.99€/mo';
 	@override String get billed => 'facturé à 3.99€/mois';
 	@override String get discount => '';
+}
+
+// Path: my_notes.delete_note
+class _TranslationsMyNotesDeleteNoteFr implements TranslationsMyNotesDeleteNoteEn {
+	_TranslationsMyNotesDeleteNoteFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Supprimer la note';
+	@override String get description => 'Êtes-vous sûr de vouloir supprimer cette note ?';
+	@override String get warning => 'Cette action ne peut pas être annulée.';
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -2219,6 +2233,10 @@ extension on TranslationsFr {
 				other: '${n} résultats trouvés',
 			);
 			case 'my_notes.title': return 'Mes Notes';
+			case 'my_notes.delete_note.title': return 'Supprimer la note';
+			case 'my_notes.delete_note.description': return 'Êtes-vous sûr de vouloir supprimer cette note ?';
+			case 'my_notes.delete_note.warning': return 'Cette action ne peut pas être annulée.';
+			case 'my_notes.no_notes': return 'Aucune note pour le moment';
 			case 'organize.title': return 'Organiser';
 			case 'organize.latest_items': return 'Derniers éléments';
 			default: return null;

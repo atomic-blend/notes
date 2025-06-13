@@ -26,6 +26,8 @@ mixin _$Note {
   set title(String? value) => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   set content(String? value) => throw _privateConstructorUsedError;
+  bool? get deleted => throw _privateConstructorUsedError;
+  set deleted(bool? value) => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   set createdAt(DateTime? value) => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -49,6 +51,7 @@ abstract class $NoteCopyWith<$Res> {
       {String? id,
       String? title,
       String? content,
+      bool? deleted,
       DateTime? createdAt,
       DateTime? updatedAt});
 }
@@ -71,6 +74,7 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
     Object? id = freezed,
     Object? title = freezed,
     Object? content = freezed,
+    Object? deleted = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -87,6 +91,10 @@ class _$NoteCopyWithImpl<$Res, $Val extends Note>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
+      deleted: freezed == deleted
+          ? _value.deleted
+          : deleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -110,6 +118,7 @@ abstract class _$$NoteImplCopyWith<$Res> implements $NoteCopyWith<$Res> {
       {String? id,
       String? title,
       String? content,
+      bool? deleted,
       DateTime? createdAt,
       DateTime? updatedAt});
 }
@@ -129,6 +138,7 @@ class __$$NoteImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = freezed,
     Object? content = freezed,
+    Object? deleted = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -145,6 +155,10 @@ class __$$NoteImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
+      deleted: freezed == deleted
+          ? _value.deleted
+          : deleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -161,7 +175,12 @@ class __$$NoteImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NoteImpl extends _Note {
   _$NoteImpl(
-      {this.id, this.title, this.content, this.createdAt, this.updatedAt})
+      {this.id,
+      this.title,
+      this.content,
+      this.deleted,
+      this.createdAt,
+      this.updatedAt})
       : super._();
 
   factory _$NoteImpl.fromJson(Map<String, dynamic> json) =>
@@ -173,6 +192,8 @@ class _$NoteImpl extends _Note {
   String? title;
   @override
   String? content;
+  @override
+  bool? deleted;
   @override
   DateTime? createdAt;
   @override
@@ -199,6 +220,7 @@ abstract class _Note extends Note {
       {String? id,
       String? title,
       String? content,
+      bool? deleted,
       DateTime? createdAt,
       DateTime? updatedAt}) = _$NoteImpl;
   _Note._() : super._();
@@ -214,6 +236,9 @@ abstract class _Note extends Note {
   @override
   String? get content;
   set content(String? value);
+  @override
+  bool? get deleted;
+  set deleted(bool? value);
   @override
   DateTime? get createdAt;
   set createdAt(DateTime? value);

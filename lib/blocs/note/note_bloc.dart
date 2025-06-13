@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:notes/entities/note/note_entity.dart';
@@ -14,6 +16,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
     on<AddNote>(_onAddNote);
     on<EditNote>(_onEditNote);
     on<DeleteNote>(_onDeleteNote);
+    on<ArchiveNote>(_onArchiveNote);
   }
 
   @override
@@ -78,6 +81,20 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
     emit(NoteDeleting(prevState.notes));
     try {
       await _noteService.deleteNote(event.note);
+      add(const LoadNotes());
+    } catch (e) {
+      emit(NoteError(prevState.notes ?? [], e.toString()));
+      add(const LoadNotes());
+    }
+  }
+
+  void _onArchiveNote(ArchiveNote event, Emitter<NoteState> emit) async {
+    final prevState = state;
+    emit(NoteArchiving(prevState.notes));
+    try {
+      event.note.deleted = true;
+      await _noteService.updateNote(event.note);
+      emit(NoteArchived(prevState.notes));
       add(const LoadNotes());
     } catch (e) {
       emit(NoteError(prevState.notes ?? [], e.toString()));

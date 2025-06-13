@@ -861,6 +861,8 @@ class TranslationsMyNotesEn {
 
 	// Translations
 	String get title => 'My Notes';
+	late final TranslationsMyNotesDeleteNoteEn delete_note = TranslationsMyNotesDeleteNoteEn._(_root);
+	String get no_notes => 'No notes for now';
 }
 
 // Path: organize
@@ -1428,6 +1430,18 @@ class TranslationsPaywallPricing$rcMonthlyEn {
 	String get price => '\$3.99/mo';
 	String get billed => 'billed at \$3.99/month';
 	String get discount => '';
+}
+
+// Path: my_notes.delete_note
+class TranslationsMyNotesDeleteNoteEn {
+	TranslationsMyNotesDeleteNoteEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Delete note';
+	String get description => 'Are you sure you want to delete this note?';
+	String get warning => 'This action cannot be undone.';
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -2228,6 +2242,10 @@ extension on Translations {
 				other: '${n} results found',
 			);
 			case 'my_notes.title': return 'My Notes';
+			case 'my_notes.delete_note.title': return 'Delete note';
+			case 'my_notes.delete_note.description': return 'Are you sure you want to delete this note?';
+			case 'my_notes.delete_note.warning': return 'This action cannot be undone.';
+			case 'my_notes.no_notes': return 'No notes for now';
 			case 'organize.title': return 'Organize';
 			case 'organize.latest_items': return 'Latest items';
 			default: return null;

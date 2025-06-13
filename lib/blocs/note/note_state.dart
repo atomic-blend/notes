@@ -53,3 +53,11 @@ class NoteDeleting extends NoteState {
 class NoteDeleted extends NoteState {
   const NoteDeleted(super.notes);
 }
+
+class NoteArchiving extends NoteState {
+  const NoteArchiving(super.notes);
+}
+
+class NoteArchived extends NoteState {
+  const NoteArchived(super.notes);
+}

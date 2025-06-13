@@ -13,11 +13,18 @@ class Note with _$Note {
     String? id,
     String? title,
     String? content,
+    bool? deleted,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Note;
 
-  static final nonEncryptedFields = ['id', 'createdAt', 'updatedAt', 'user'];
+  static final nonEncryptedFields = [
+    'id',
+    'createdAt',
+    'updatedAt',
+    'user',
+    'deleted'
+  ];
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
@@ -32,6 +39,7 @@ class Note with _$Note {
       'id': id,
       'title': await encryptionService.encryptJson(title),
       'content': await encryptionService.encryptJson(content),
+      'deleted': deleted,
       'createdAt': createdAt?.toUtc().toIso8601String(),
       'updatedAt': updatedAt?.toUtc().toIso8601String(),
     };
@@ -77,11 +85,11 @@ class Note with _$Note {
 
   String get description {
     final parsedContent = jsonDecode(content!);
-    final Map<String, dynamic> second = parsedContent.isNotEmpty && parsedContent.length > 1
-        ? parsedContent[1] as Map<String, dynamic>
-        : {};
-    final firstBlockContent =
-        second.values.firstOrNull ?? "";
+    final Map<String, dynamic> second =
+        parsedContent.isNotEmpty && parsedContent.length > 1
+            ? parsedContent[1] as Map<String, dynamic>
+            : {};
+    final firstBlockContent = second.values.firstOrNull ?? "";
     if (firstBlockContent.isEmpty) {
       return "";
     }

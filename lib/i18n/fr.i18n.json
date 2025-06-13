@@ -858,7 +858,13 @@
   },
 
   "my_notes": {
-    "title": "Mes Notes"
+    "title": "Mes Notes",
+    "delete_note": {
+      "title": "Supprimer la note",
+      "description": "Êtes-vous sûr de vouloir supprimer cette note ?",
+      "warning": "Cette action ne peut pas être annulée."
+    },
+    "no_notes": "Aucune note pour le moment"
   },
   "organize": {
     "title": "Organiser",
