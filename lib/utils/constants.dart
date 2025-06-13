@@ -5,6 +5,7 @@ import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
 import 'package:notes/pages/more_apps/more_apps.dart';
+import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -212,14 +213,10 @@ class Navigation {
           color: getTheme(context).secondary,
           onTap: (index) {
             if (isDesktop(context)) {
-              showDialog(
-                  context: context,
-                  builder: (context) => const Dialog(child: Placeholder()));
+              return;
             } else {
-              showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => const Placeholder());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const NoteDetail()));
             }
           },
         ),
