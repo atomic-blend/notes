@@ -5,6 +5,10 @@ import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
 import 'package:notes/pages/more_apps/more_apps.dart';
+import 'package:notes/pages/note_detail/note_detail.dart';
+import 'package:notes/pages/organize/organize.dart';
+import 'package:notes/pages/search/search.dart';
+import 'package:notes/services/sync.service.dart';
 import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,18 +135,12 @@ class Navigation {
           appBar: AppBar(
             key: const Key("my_notes"),
             backgroundColor: getTheme(context).surface,
-            title: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    context.t.my_notes.title,
-                    style: getTextTheme(context).headlineSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  )
-                ],
-              ),
+            leading: Container(),
+            title: Text(
+              context.t.my_notes.title,
+              style: getTextTheme(context).headlineSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             actions: [
               BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
@@ -168,23 +166,17 @@ class Navigation {
             size: 25,
           ),
           label: context.t.search.title,
-          body: const Placeholder(),
+          body: const Search(),
           appBar: AppBar(
               key: const Key("search"),
               backgroundColor: getTheme(context).surface,
               surfaceTintColor: getTheme(context).surface,
-              title: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      context.t.search.title,
-                      style: getTextTheme(context).headlineSmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    )
-                  ],
-                ),
+              leading: Container(),
+              title: Text(
+                context.t.search.title,
+                style: getTextTheme(context).headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               actions: [
                 BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
@@ -212,15 +204,12 @@ class Navigation {
           color: getTheme(context).secondary,
           onTap: (index) {
             if (isDesktop(context)) {
-              showDialog(
-                  context: context,
-                  builder: (context) => const Dialog(child: Placeholder()));
+              return;
             } else {
-              showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => const Placeholder());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const NoteDetail()));
             }
+            SyncService.sync(context);
           },
         ),
         NavigationItem(
@@ -234,18 +223,16 @@ class Navigation {
             size: 25,
           ),
           label: context.t.organize.title,
-          body: const Placeholder(),
+          body: const Organize(),
           appBar: AppBar(
               key: const Key("organize"),
               backgroundColor: getTheme(context).surface,
               leading: Container(),
-              title: Center(
-                child: Text(
-                  context.t.organize.title,
-                  style: getTextTheme(context).headlineSmall!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
+              title: Text(
+                context.t.organize.title,
+                style: getTextTheme(context).headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               actions: [
                 BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
@@ -275,18 +262,11 @@ class Navigation {
               key: const Key("more"),
               backgroundColor: getTheme(context).surface,
               leading: Container(),
-              title: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      context.t.more.title,
-                      style: getTextTheme(context).headlineSmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                    )
-                  ],
-                ),
+              title: Text(
+                context.t.more.title,
+                style: getTextTheme(context).headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               actions: [
                 BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {

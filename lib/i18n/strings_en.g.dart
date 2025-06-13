@@ -102,6 +102,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
 	late final TranslationsSearchEn search = TranslationsSearchEn._(_root);
 	late final TranslationsMyNotesEn my_notes = TranslationsMyNotesEn._(_root);
+	late final TranslationsRecentlyDeletedEn recently_deleted = TranslationsRecentlyDeletedEn._(_root);
 	late final TranslationsOrganizeEn organize = TranslationsOrganizeEn._(_root);
 }
 
@@ -861,6 +862,20 @@ class TranslationsMyNotesEn {
 
 	// Translations
 	String get title => 'My Notes';
+	late final TranslationsMyNotesDeleteNoteEn delete_note = TranslationsMyNotesDeleteNoteEn._(_root);
+	String get no_notes => 'No notes for now';
+}
+
+// Path: recently_deleted
+class TranslationsRecentlyDeletedEn {
+	TranslationsRecentlyDeletedEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Recently Deleted';
+	String get description => 'These notes have been deleted recently and can be restored.';
+	String get no_notes => 'No recently deleted notes';
 }
 
 // Path: organize
@@ -871,6 +886,7 @@ class TranslationsOrganizeEn {
 
 	// Translations
 	String get title => 'Organize';
+	String get latest_items => 'Latest items';
 }
 
 // Path: auth.not_logged_in
@@ -1427,6 +1443,18 @@ class TranslationsPaywallPricing$rcMonthlyEn {
 	String get price => '\$3.99/mo';
 	String get billed => 'billed at \$3.99/month';
 	String get discount => '';
+}
+
+// Path: my_notes.delete_note
+class TranslationsMyNotesDeleteNoteEn {
+	TranslationsMyNotesDeleteNoteEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Delete note';
+	String get description => 'Are you sure you want to delete this note?';
+	String get warning => 'This action cannot be undone.';
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -2227,7 +2255,15 @@ extension on Translations {
 				other: '${n} results found',
 			);
 			case 'my_notes.title': return 'My Notes';
+			case 'my_notes.delete_note.title': return 'Delete note';
+			case 'my_notes.delete_note.description': return 'Are you sure you want to delete this note?';
+			case 'my_notes.delete_note.warning': return 'This action cannot be undone.';
+			case 'my_notes.no_notes': return 'No notes for now';
+			case 'recently_deleted.title': return 'Recently Deleted';
+			case 'recently_deleted.description': return 'These notes have been deleted recently and can be restored.';
+			case 'recently_deleted.no_notes': return 'No recently deleted notes';
 			case 'organize.title': return 'Organize';
+			case 'organize.latest_items': return 'Latest items';
 			default: return null;
 		}
 	}
