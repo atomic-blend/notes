@@ -863,6 +863,7 @@
     "title": "My Notes"
   },
   "organize": {
-    "title": "Organize"
+    "title": "Organize",
+    "latest_items": "Latest items"
   }
 }

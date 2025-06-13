@@ -865,6 +865,7 @@ class _TranslationsOrganizeFr implements TranslationsOrganizeEn {
 
 	// Translations
 	@override String get title => 'Organiser';
+	@override String get latest_items => 'Derniers éléments';
 }
 
 // Path: auth.not_logged_in
@@ -2219,6 +2220,7 @@ extension on TranslationsFr {
 			);
 			case 'my_notes.title': return 'Mes Notes';
 			case 'organize.title': return 'Organiser';
+			case 'organize.latest_items': return 'Derniers éléments';
 			default: return null;
 		}
 	}

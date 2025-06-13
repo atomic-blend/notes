@@ -861,6 +861,7 @@
     "title": "Mes Notes"
   },
   "organize": {
-    "title": "Organiser"
+    "title": "Organiser",
+    "latest_items": "Derniers éléments"
   }
 }

@@ -871,6 +871,7 @@ class TranslationsOrganizeEn {
 
 	// Translations
 	String get title => 'Organize';
+	String get latest_items => 'Latest items';
 }
 
 // Path: auth.not_logged_in
@@ -2228,6 +2229,7 @@ extension on Translations {
 			);
 			case 'my_notes.title': return 'My Notes';
 			case 'organize.title': return 'Organize';
+			case 'organize.latest_items': return 'Latest items';
 			default: return null;
 		}
 	}
