@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:notes/services/encryption.service.dart';
 
@@ -15,11 +17,7 @@ class Note with _$Note {
     DateTime? updatedAt,
   }) = _Note;
 
-  static final nonEncryptedFields = [
-    'id',
-    'createdAt',
-    'updatedAt',
-  ];
+  static final nonEncryptedFields = ['id', 'createdAt', 'updatedAt', 'user'];
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
@@ -54,5 +52,41 @@ class Note with _$Note {
     }
 
     return Note.fromJson(decryptedData);
+  }
+
+  String get displayTitle {
+    if (title != null && title!.isNotEmpty) {
+      return title!;
+    } else if (content != null && content!.isNotEmpty) {
+      final parsedContent = jsonDecode(content!);
+      final firstBlockContent =
+          (parsedContent[0] as Map<String, dynamic>).values.first;
+      return firstBlockContent.length > 30
+          ? '${firstBlockContent.substring(0, 30)}...'
+          : firstBlockContent;
+    } else {
+      return 'Untitled Note';
+    }
+  }
+
+  String get creationDate {
+    return createdAt != null
+        ? '${createdAt!.day}/${createdAt!.month}/${createdAt!.year}'
+        : '';
+  }
+
+  String get description {
+    final parsedContent = jsonDecode(content!);
+    final Map<String, dynamic> second = parsedContent.isNotEmpty && parsedContent.length > 1
+        ? parsedContent[1] as Map<String, dynamic>
+        : {};
+    final firstBlockContent =
+        second.values.firstOrNull ?? "";
+    if (firstBlockContent.isEmpty) {
+      return "";
+    }
+    return firstBlockContent.length > 30
+        ? '${firstBlockContent.substring(0, 30)}...'
+        : firstBlockContent;
   }
 }

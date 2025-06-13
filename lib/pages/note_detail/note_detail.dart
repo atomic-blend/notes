@@ -7,6 +7,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
+import 'package:notes/services/sync.service.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 
@@ -25,7 +26,15 @@ class _NoteDetailState extends State<NoteDetail> {
   @override
   void initState() {
     super.initState();
-    _controller = FleatherController();
+    if (widget.note != null) {
+      _controller = FleatherController(
+        document: ParchmentDocument.fromJson(
+          jsonDecode(widget.note!.content ?? "{}"),
+        ),
+      );
+    } else {
+      _controller = FleatherController();
+    }
   }
 
   @override
@@ -99,8 +108,8 @@ class _NoteDetailState extends State<NoteDetail> {
         updatedAt: DateTime.now(),
       );
       _noteBloc!.add(
-            AddNote(newNote),
-          );
+        AddNote(newNote),
+      );
     } else {
       // Update existing note
       Note updatedNote = widget.note!.copyWith(
@@ -108,8 +117,8 @@ class _NoteDetailState extends State<NoteDetail> {
         updatedAt: DateTime.now(),
       );
       _noteBloc!.add(
-            EditNote(updatedNote),
-          );
+        EditNote(updatedNote),
+      );
     }
   }
 }
