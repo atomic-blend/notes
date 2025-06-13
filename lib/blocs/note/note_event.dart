@@ -23,6 +23,11 @@ final class ArchiveNote extends NoteEvent {
   final Note note;
 }
 
+final class RestoreNote extends NoteEvent {
+  const RestoreNote(this.note);
+  final Note note;
+}
+
 final class DeleteNote extends NoteEvent {
   const DeleteNote(this.note);
   final Note note;

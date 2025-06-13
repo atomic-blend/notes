@@ -867,7 +867,13 @@
       "warning": "This action cannot be undone."
     },
     "no_notes": "No notes for now"
+
   },
+      "recently_deleted": {
+      "title": "Recently Deleted",
+      "description": "These notes have been deleted recently and can be restored.",
+      "no_notes": "No recently deleted notes"
+    },
   "organize": {
     "title": "Organize",
     "latest_items": "Latest items"

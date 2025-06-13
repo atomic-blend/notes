@@ -36,6 +36,7 @@ class NoteError extends NoteState {
 class NoteCreating extends NoteState {
   const NoteCreating(super.notes);
 }
+
 class NoteCreated extends NoteState {
   const NoteCreated(super.notes);
 }
@@ -43,6 +44,7 @@ class NoteCreated extends NoteState {
 class NoteUpdating extends NoteState {
   const NoteUpdating(super.notes);
 }
+
 class NoteUpdated extends NoteState {
   const NoteUpdated(super.notes);
 }
@@ -50,6 +52,7 @@ class NoteUpdated extends NoteState {
 class NoteDeleting extends NoteState {
   const NoteDeleting(super.notes);
 }
+
 class NoteDeleted extends NoteState {
   const NoteDeleted(super.notes);
 }
@@ -60,4 +63,12 @@ class NoteArchiving extends NoteState {
 
 class NoteArchived extends NoteState {
   const NoteArchived(super.notes);
+}
+
+class NoteRestoring extends NoteState {
+  const NoteRestoring(super.notes);
+}
+
+class NoteRestored extends NoteState {
+  const NoteRestored(super.notes);
 }

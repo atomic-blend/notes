@@ -99,6 +99,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
 	@override late final _TranslationsSearchFr search = _TranslationsSearchFr._(_root);
 	@override late final _TranslationsMyNotesFr my_notes = _TranslationsMyNotesFr._(_root);
+	@override late final _TranslationsRecentlyDeletedFr recently_deleted = _TranslationsRecentlyDeletedFr._(_root);
 	@override late final _TranslationsOrganizeFr organize = _TranslationsOrganizeFr._(_root);
 }
 
@@ -857,6 +858,18 @@ class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
 	@override String get title => 'Mes Notes';
 	@override late final _TranslationsMyNotesDeleteNoteFr delete_note = _TranslationsMyNotesDeleteNoteFr._(_root);
 	@override String get no_notes => 'Aucune note pour le moment';
+}
+
+// Path: recently_deleted
+class _TranslationsRecentlyDeletedFr implements TranslationsRecentlyDeletedEn {
+	_TranslationsRecentlyDeletedFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Récemment supprimées';
+	@override String get description => 'Ces notes ont été récemment supprimées et peuvent être restaurées.';
+	@override String get no_notes => 'Aucune note récemment supprimée';
 }
 
 // Path: organize
@@ -2237,6 +2250,9 @@ extension on TranslationsFr {
 			case 'my_notes.delete_note.description': return 'Êtes-vous sûr de vouloir supprimer cette note ?';
 			case 'my_notes.delete_note.warning': return 'Cette action ne peut pas être annulée.';
 			case 'my_notes.no_notes': return 'Aucune note pour le moment';
+			case 'recently_deleted.title': return 'Récemment supprimées';
+			case 'recently_deleted.description': return 'Ces notes ont été récemment supprimées et peuvent être restaurées.';
+			case 'recently_deleted.no_notes': return 'Aucune note récemment supprimée';
 			case 'organize.title': return 'Organiser';
 			case 'organize.latest_items': return 'Derniers éléments';
 			default: return null;

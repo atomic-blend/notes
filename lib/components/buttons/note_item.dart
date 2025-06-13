@@ -14,44 +14,72 @@ import 'package:notes/utils/shortcuts.dart';
 
 class NoteItem extends StatelessWidget {
   final Note note;
-  const NoteItem({super.key, required this.note});
+  final bool? deleteEnabled;
+  final bool? restoreEnabled;
+  const NoteItem({
+    super.key,
+    required this.note,
+    this.deleteEnabled,
+    this.restoreEnabled,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane: ActionPane(motion: ScrollMotion(), children: [
+      endActionPane: ActionPane(motion: const ScrollMotion(), children: [
         SizedBox(
           width: $constants.insets.xs,
         ),
-        Theme(
-          data: Theme.of(context).copyWith(
-              outlinedButtonTheme: const OutlinedButtonThemeData(
-            style: ButtonStyle(
-                iconColor: WidgetStatePropertyAll(Colors.white),
-                iconSize: WidgetStatePropertyAll(25)),
-          )),
-          child: SlidableAction(
-            onPressed: (context) {
-              showDialog(
-                context: context,
-                builder: (context) => DeleteConfirmModal(
-                  title: context.t.my_notes.delete_note.title,
-                  description: context.t.my_notes.delete_note.description,
-                  warning: context.t.my_notes.delete_note.warning,
-                  onDelete: () {
-                    context.read<NoteBloc>().add(ArchiveNote(note));
-                  },
-                ),
-              );
-            },
-            backgroundColor: getTheme(context).error,
-            foregroundColor: Colors.white,
-            icon: CupertinoIcons.delete,
-            borderRadius: BorderRadius.circular(
-              $constants.corners.lg,
+        if (deleteEnabled == true)
+          Theme(
+            data: Theme.of(context).copyWith(
+                outlinedButtonTheme: const OutlinedButtonThemeData(
+              style: ButtonStyle(
+                  iconColor: WidgetStatePropertyAll(Colors.white),
+                  iconSize: WidgetStatePropertyAll(25)),
+            )),
+            child: SlidableAction(
+              onPressed: (context) {
+                showDialog(
+                  context: context,
+                  builder: (context) => DeleteConfirmModal(
+                    title: context.t.my_notes.delete_note.title,
+                    description: context.t.my_notes.delete_note.description,
+                    warning: context.t.my_notes.delete_note.warning,
+                    onDelete: () {
+                      context.read<NoteBloc>().add(ArchiveNote(note));
+                    },
+                  ),
+                );
+              },
+              backgroundColor: getTheme(context).error,
+              foregroundColor: Colors.white,
+              icon: CupertinoIcons.delete,
+              borderRadius: BorderRadius.circular(
+                $constants.corners.lg,
+              ),
             ),
           ),
-        ),
+        if (restoreEnabled == true)
+          Theme(
+            data: Theme.of(context).copyWith(
+                outlinedButtonTheme: const OutlinedButtonThemeData(
+              style: ButtonStyle(
+                  iconColor: WidgetStatePropertyAll(Colors.white),
+                  iconSize: WidgetStatePropertyAll(25)),
+            )),
+            child: SlidableAction(
+              onPressed: (context) {
+                context.read<NoteBloc>().add(RestoreNote(note));
+              },
+              backgroundColor: getTheme(context).primary,
+              foregroundColor: Colors.white,
+              icon: CupertinoIcons.arrow_counterclockwise,
+              borderRadius: BorderRadius.circular(
+                $constants.corners.lg,
+              ),
+            ),
+          ),
       ]),
       child: GestureDetector(
         onTap: () {

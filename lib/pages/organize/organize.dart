@@ -9,6 +9,7 @@ import 'package:notes/blocs/tag/tag.bloc.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/folder/my_folders.dart';
+import 'package:notes/pages/recently_deleted/recently_deleted.dart';
 import 'package:notes/pages/tags/my_tags.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
@@ -33,13 +34,13 @@ class _OrganizeState extends State<Organize> {
             children: [
               SizedBox(
                 child: StaggeredGrid.count(
-                  crossAxisCount: 4,
+                  crossAxisCount: 6,
                   crossAxisSpacing: $constants.insets.xs,
                   mainAxisSpacing: $constants.insets.xs,
                   children: [
                     StaggeredGridTile.count(
                       crossAxisCellCount: 2,
-                      mainAxisCellCount: 1,
+                      mainAxisCellCount: 1.5,
                       child: _buildGridItem(
                         icon: CupertinoIcons.folder,
                         title: "Folders",
@@ -53,7 +54,7 @@ class _OrganizeState extends State<Organize> {
                     ),
                     StaggeredGridTile.count(
                       crossAxisCellCount: 2,
-                      mainAxisCellCount: 1,
+                      mainAxisCellCount: 1.5,
                       child: _buildGridItem(
                         icon: CupertinoIcons.tag,
                         title: "Tags",
@@ -63,6 +64,22 @@ class _OrganizeState extends State<Organize> {
                             builder: (context) => const MyTags(),
                           ),
                         ),
+                      ),
+                    ),
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 2,
+                      mainAxisCellCount: 1.5,
+                      child: _buildGridItem(
+                        icon: CupertinoIcons.trash,
+                        title: context.t.recently_deleted.title,
+                        onTap: () {
+                          // Navigate to notes page
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RecentlyDeleted()));
+                        },
                       ),
                     ),
                   ],

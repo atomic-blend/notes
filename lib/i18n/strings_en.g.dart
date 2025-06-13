@@ -102,6 +102,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPaywallEn paywall = TranslationsPaywallEn._(_root);
 	late final TranslationsSearchEn search = TranslationsSearchEn._(_root);
 	late final TranslationsMyNotesEn my_notes = TranslationsMyNotesEn._(_root);
+	late final TranslationsRecentlyDeletedEn recently_deleted = TranslationsRecentlyDeletedEn._(_root);
 	late final TranslationsOrganizeEn organize = TranslationsOrganizeEn._(_root);
 }
 
@@ -863,6 +864,18 @@ class TranslationsMyNotesEn {
 	String get title => 'My Notes';
 	late final TranslationsMyNotesDeleteNoteEn delete_note = TranslationsMyNotesDeleteNoteEn._(_root);
 	String get no_notes => 'No notes for now';
+}
+
+// Path: recently_deleted
+class TranslationsRecentlyDeletedEn {
+	TranslationsRecentlyDeletedEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Recently Deleted';
+	String get description => 'These notes have been deleted recently and can be restored.';
+	String get no_notes => 'No recently deleted notes';
 }
 
 // Path: organize
@@ -2246,6 +2259,9 @@ extension on Translations {
 			case 'my_notes.delete_note.description': return 'Are you sure you want to delete this note?';
 			case 'my_notes.delete_note.warning': return 'This action cannot be undone.';
 			case 'my_notes.no_notes': return 'No notes for now';
+			case 'recently_deleted.title': return 'Recently Deleted';
+			case 'recently_deleted.description': return 'These notes have been deleted recently and can be restored.';
+			case 'recently_deleted.no_notes': return 'No recently deleted notes';
 			case 'organize.title': return 'Organize';
 			case 'organize.latest_items': return 'Latest items';
 			default: return null;

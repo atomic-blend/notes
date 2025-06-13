@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/buttons/note_item.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
-import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 
@@ -38,10 +37,13 @@ class _MyNotesState extends State<MyNotes> {
                 return Padding(
                   padding: EdgeInsets.only(
                     bottom: $constants.insets.xs,
-                      ),
-                      child: NoteItem(note: note),
-                    );
-                  })
+                  ),
+                  child: NoteItem(
+                    note: note,
+                    deleteEnabled: true,
+                  ),
+                );
+              })
             else
               Expanded(
                 child: ElevatedContainer(
