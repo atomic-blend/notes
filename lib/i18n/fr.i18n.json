@@ -1,9 +1,6 @@
 {
   "app_name": "Atomic Blend",
   "app_name_saas": "Atomic Blend Cloud",
-  "navigation": {
-    "back": "Retour"
-  },
   "auth": {
     "not_logged_in": {
       "welcome": "Bienvenue sur Atomic Blend",
@@ -17,41 +14,27 @@
       "set_up_middle": "chiffrées de bout en bout",
       "set_up_end": ", garantissant que vous seul avez accès à votre clé de chiffrement —",
       "set_up_end_bold": "ni nous, ni personne d'autre.",
-      "description": "LifeOS est une application de gestion de la vie personnelle qui vous aide à organiser votre vie, à atteindre vos objectifs et à améliorer votre bien-être.",
-      "e2ee": "Nous utilisons le chiffrement de bout en bout pour protéger vos données personnelles. Vos données sont sécurisées et accessibles uniquement par vous.",
-      "get_started_now": "Commencez maintenant",
-      "i_agree_to": "J'accepte les",
-      "terms_of_service": "Conditions d'utilisation"
+      "description": "LifeOS est une application de gestion de la vie personnelle qui vous aide à organiser votre vie, à atteindre vos objectifs et à améliorer votre bien-être."
     },
     "login_or_register": {
-      "title": "Libérez le potentiel de votre vie",
-      "login_or_register": "Connectez-vous ou inscrivez-vous",
       "login": "Se connecter",
       "register": "S'inscrire",
-      "or": "ou",
       "connecting_to": "Connexion à : "
     },
     "login": {
       "title": "👋 Bon retour parmis nous !",
       "description": "Utilisez votre adresse e-mail et votre mot de passe pour vous reconnecter et accéder à vos données.",
       "email": "Adresse e-mail",
-      "forgot_password": "Mot de passe oublié",
-      "login": "Se connecter",
-      "no_account": "Pas de compte ?",
-      "email_hint": "Entrez votre adresse e-mail"
+      "login": "Se connecter"
     },
     "register": {
       "email": "Quelle est votre adresse e-mail ?",
       "email_description": "Votre e-mail est utilisé uniquement a des fins de connexion et de récupération de mot de passe.",
       "we_never_sell": "Nous ne vendrons jamais vos données à des tiers.",
-      "email_hint": "email@example.com",
       "password": "Choisissez un mot de passe",
       "password_hint": "SuperSecure123!",
-      "forgot_password": "Mot de passe oublié",
       "confirmation_hint": "Confirmez votre mot de passe",
-      "password_mismatch": "Les mots de passe ne correspondent pas",
-      "register": "S'inscrire",
-      "no_account": "Pas de compte ?"
+      "password_mismatch": "Les mots de passe ne correspondent pas"
     },
     "delete_account": {
       "title": "Supprimer mon compte",
@@ -70,7 +53,6 @@
     "reset_password": {
       "title": "Reset your password",
       "subtitle": "Vous ne vous souvenez pas de votre mot de passe ?",
-      "description": "Enter your email address to receive a password reset link.",
       "warning": "Vous allez recevoir un code par email pour réinitialiser votre mot de passe, puis vous devrez entrer votre clé de récupération pour accéder à vos données.",
       "no_mnemonic_data_loss": "Si vous ne vous rappelez pas de votre clé de récupération, vous perdrez accès à toutes vos précédentes données.",
       "email": "Email",
@@ -126,8 +108,6 @@
   },
   "tags": {
     "title": "Tags",
-    "no_tags": "Aucun tag",
-    "assign_tags": "Assigner des tags",
     "add_modal": {
       "title": "Ajouter un nouveau tag",
       "edit_title": "Modifier le tag",
@@ -145,135 +125,6 @@
       "title": "Supprimer le tag",
       "description": "Êtes-vous sûr de vouloir supprimer ce tag ?",
       "warning": "Cette action est irréversible et le tag sera supprimé de tous les éléments associés."
-    }
-  },
-  "tasks": {
-    "title": "Tâches",
-    "today": "Aujourd'hui",
-    "tags": "Tags",
-    "inbox": "Boîte de réception",
-    "all_tasks": "Toutes les tâches",
-    "completed_tasks": "Tâches terminées",
-    "my_tags": "Mes tags",
-    "no_tags_for_now": "Pas de tags pour le moment",
-    "my_folders": "Mes dossiers",
-    "folders": {
-      "title": "Dossiers",
-      "no_folders": "Aucun dossier",
-      "add_folder": "Ajouter un dossier",
-      "edit_folder": "Modifier le dossier",
-      "delete_folder": "Supprimer le dossier",
-      "delete_folder_description": "Êtes-vous sûr de vouloir supprimer ce dossier ?",
-      "delete_folder_warning": "Cette action est irréversible et toutes les tâches associées à ce dossier seront déliées.",
-      "name": "Nom du dossier",
-      "name_hint": "Travail",
-      "name_description": "Définissez un nom pour votre dossier, cela sera affiché dans le tableau de bord et dans les notifications.",
-      "name_required": "Nom requis",
-      "color": "Couleur du dossier",
-      "color_description": "Choisissez une couleur pour votre dossier, cela vous aidera à le distinguer des autres.",
-      "select_a_folder": "Sélectionner un dossier"
-    },
-    "overview": "Vue d'ensemble",
-    "nothing_to_do": "Rien à faire pour le moment, vous pouvez vous détendre !",
-    "day_off": "Vous n'avez rien de prévu pour demain, profitez-en !",
-    "week_off": "Vous n'avez rien de prévu pour cette semaine, essayez de prendre le temps de faire les choses laissées de côté !",
-    "no_tasks_for_now": "Pas de tâches pour le moment",
-    "task_details": "Détail de la tâche",
-    "time_log": "Journal",
-    "log_session": "Journaliser une session",
-    "timer": "Chronomètre",
-    "pomodoro": "Pomodoro",
-    "manual": "Manuel",
-    "from": "De",
-    "to": "À",
-    "priority": "Priorité",
-    "priorities(map)": {
-      "none": "Aucune",
-      "low": "Faible",
-      "medium": "Moyenne",
-      "high": "Haute"
-    },
-    "due_dates": {
-      "today": "Aujourd'hui",
-      "tomorrow": "Demain",
-      "no_due_date": "Pas de date d'échéance"
-    },
-    "add_task_modal": {
-      "task_title": "Que devez-vous faire ?",
-      "description": "Description",
-      "due_date": "Date d'échéance",
-      "start_date": "Date de début",
-      "dates": "Dates",
-      "notes": "Notes",
-      "end_date": "Date de fin",
-      "cancel": "Annuler",
-      "task_added": "Tâche ajoutée",
-      "task_added_description": "Votre tâche a été ajoutée avec succès.",
-      "task_error": "Erreur lors de l'opération",
-      "save": "Enregistrer",
-      "erase": "Effacer",
-      "title_required": "Titre requis",
-      "title_required_description": "Veuillez saisir un titre pour votre tâche",
-      "reminders": {
-        "zero": "Rappel",
-        "one": "Rappel",
-        "other": "Rappels"
-      },
-      "time_planned": "Heure prévue",
-      "none": "Aucun",
-      "no_reminders": "Pas de rappels",
-      "add_reminder": "Ajouter un rappel",
-      "when_would_you_like_to_be_reminded": "Quand aimeriez-vous être rappelé ?",
-      "when_would_you_like_the_task_to_start": "Quand aimeriez-vous que la tâche commence ?",
-      "when_would_you_like_the_task_to_end": "Quand aimeriez-vous que la tâche se termine ?"
-    },
-    "time_spent": "Temps passé",
-    "no_time_entries": "Pas d'entrées de temps",
-    "add_time_entry": {
-      "title": "Ajouter une entrée de temps",
-      "description": "Manually add a time entry for this task.",
-      "start_time": "Heure de début",
-      "end_time": "Heure de fin",
-      "not_defined": "Non défini",
-      "date_required": "Date requise"
-    }
-  },
-  "calendar": {
-    "title": "Calendrier",
-    "month": "Mois",
-    "day": "Jour",
-    "threeDays": "3 jours",
-    "week": "Semaine",
-    "schedule": "Emploi du temps",
-    "errors": {
-      "cannot_move_device_calendar_event": "Vous ne pouvez pas déplacer un événement de calendrier d'appareil",
-      "cannot_move_habit_event": "Vous ne pouvez pas déplacer un événement d'habitude",
-      "cannot_resize_device_calendar_event": "Vous ne pouvez pas redimensionner un événement de calendrier d'appareil",
-      "cannot_resize_habit_event": "Vous ne pouvez pas redimensionner un événement d'habitude"
-    },
-    "event_detail": {
-      "date": "Date",
-      "time": "Heure",
-      "organizer": "Organisateur",
-      "reminders": "Rappels",
-      "no_reminders": "Pas de rappels",
-      "details": "Détails",
-      "join_meeting": "Rejoindre la réunion",
-      "google_meet_call": "Appel Meet Call",
-      "zoom_meet_call": "Appel Zoom",
-      "ms_teams_call": "Appel MS Teams",
-      "join_now": "Rejoindre maintenant",
-      "attendee": {
-        "zero": "Participant",
-        "one": "Participant",
-        "other": "Participants"
-      },
-      "no_attendees": "Pas de participants",
-      "no_notes": "Pas de notes"
-    },
-    "settings": {
-      "title": "Paramètres du calendrier",
-      "display_habits": "Afficher les habitudes"
     }
   },
   "account": {
@@ -294,10 +145,8 @@
       "next_billing_date": "Prochaine date de facturation",
       "payment_history": "Historique des paiements",
       "no_payments": "Aucun paiement trouvé",
-      "currency_symbol": "$",
       "manage_my_subscription": "Gérer mon abonnement",
       "management_url_only_mobile": "Vous ne pouvez gérer votre abonnement que depuis l'application iOS ou Android."
-
     },
     "profile": {
       "my_profile": "Mon profil",
@@ -322,169 +171,12 @@
       }
     }
   },
-  "habits": {
-    "title": "Habitudes",
-    "no_habits": "Aucune habitude",
-    "get_started_now": "Ajoutez votre première habitude pour commencer !",
-    "delete_habit": {
-      "title": "Supprimer l'habitude",
-      "description": "Êtes-vous sûr de vouloir supprimer cette habitude ?",
-      "warning": "Cette action est irréversible et toutes les entrées associées à l'habitude seront supprimées."
-    },
-    "add": {
-      "title": "Que souhaitez-vous accomplir ?",
-      "name": "Nom de l'habitude*",
-      "name_hint": "Boire de l'eau",
-      "name_description": "Définissez un nom pour votre habitude, cela sera affiché dans le tableau de bord et dans les notifications.",
-      "name_required": "Le nom de l'habitude est requis",
-      "citation": "Citation",
-      "citation_description": "Ajoutez une citation à votre habitude, cela vous aidera à vous souvenir de la raison pour laquelle vous la suivez et vous motivera.",
-      "citation_hint": "“L'eau est la seule boisson d'un homme sage.” - Henry David Thoreau",
-      "start_date": "Date de début",
-      "end_date": "Date de fin",
-      "when_would_you_like_the_habit_to_start": "Quand aimeriez-vous que l'habitude commence ?",
-      "when_would_you_like_the_habit_to_end": "Quand aimeriez-vous que l'habitude se termine ?",
-      "no_date_selected": "Pas de date sélectionnée",
-      "frequency_label": "Fréquence",
-      "frequency(map)": {
-        "daily": "Journalier",
-        "weekly": "Hebdomadaire",
-        "monthly": "Mensuel",
-        "repeatition": "Répétition"
-      },
-      "number_of_times_label": "Nombre de fois",
-      "number_of_times_description": "Combien de fois voulez-vous faire cette habitude ?\nSera réinitialisé à chaque fois que la fréquence est atteinte (par exemple, si vous le réglez sur 3 fois et une fréquence quotidienne, vous devrez le faire 3 fois par jour)..",
-      "days_of_week_label": "Jours de la semaine",
-      "days_of_week_description": "Quels jours de la semaine souhaitez-vous suivre cette habitude ?",
-      "search_emoji_hint": "Rechercher un emoji",
-      "reminders_label": "Rappels",
-      "reminders_description": "Fixez une heure pour vos rappels. Vous serez averti lorsque l'heure sera atteinte.",
-      "reminders_add": "Ajouter un rappel",
-      "duration_label": "Durée",
-      "duration_description": "Combien de temps dure cette habitude ?",
-      "duration_hint": "5 minutes",
-      "name_too_short": "Le nom de l'habitude doit contenir au moins 4 caractères",
-      "days_of_week_mismatch": "Vous devez sélectionner autant de jours que le nombre de fois que vous avez défini",
-      "every_number_day_title": "Interval de répétition",
-      "every_number_day_description": "Combien de jours entre chaque répétition ?",
-      "days_of_month_title": "Jours du mois",
-      "days_of_month_description": "Quels jours du mois souhaitez-vous suivre cette habitude ?",
-      "select_days": "Sélectionner les jours"
-    },
-    "list": "Habitudes",
-    "overview": "Vue d'ensemble",
-    "times_a_day": "${nb} fois par jour",
-    "times_a_week": "${nb} fois par semaine",
-    "times_a_month": "${nb} fois par mois",
-    "habit_detail": {
-      "no_citation": "Pas de citation",
-      "no_end_date": "Pas de date de fin",
-      "delete_habit": "Supprimer l'habitude",
-      "delete_habit_description": "Êtes-vous sûr de vouloir supprimer cette habitude ?",
-      "delete_habit_warning": "Cette action est irréversible et toutes les entrées associées à l'habitude seront supprimées.",
-      "entries": "Historique",
-      "no_entries": "Pas d'entrées pour le moment",
-      "delete_entry": "Supprimer l'entrée",
-      "delete_entry_description": "Êtes-vous sûr de vouloir supprimer cette entrée ?",
-      "delete_entry_warning": "Cette action est irréversible."
-    }
-  },
   "under_construction": {
     "title": "On travaille dessus !",
     "description": "Cette fonctionnalité est en cours de développement.\n\nRevenez bientôt pour découvrir les dernières mises à jour !"
   },
   "more": {
     "title": "Plus"
-  },
-  "days_of_week(map)": {
-    "monday": "Lundi",
-    "tuesday": "Mardi",
-    "wednesday": "Mercredi",
-    "thursday": "Jeudi",
-    "friday": "Vendredi",
-    "saturday": "Samedi",
-    "sunday": "Dimanche"
-  },
-  "times": {
-    "today": "Aujourd'hui",
-    "tomorrow": "Demain",
-    "yesterday": "Hier",
-    "this_week": "Cette semaine",
-    "last_week": "La semaine dernière",
-    "this_month": "Ce mois-ci",
-    "last_month": "Le mois dernier",
-    "this_year": "Cette année",
-    "last_year": "L'année dernière",
-    "all_time": "Tout le temps",
-    "minutes": {
-      "zero": "${nb} minutes",
-      "one": "${nb} minute",
-      "other": "${nb} minutes"
-    }
-  },
-  "days_before(map)": {
-    "none": {
-      "value": 0,
-      "label": "Aucun"
-    },
-    "same_day": {
-      "value": 0,
-      "label": "Le même jour"
-    },
-    "one_day": {
-      "value": -1,
-      "label": "1 jour avant"
-    },
-    "two_days": {
-      "value": -2,
-      "label": "2 jours avant"
-    },
-    "three_days": {
-      "value": -3,
-      "label": "3 jours avant"
-    },
-    "one_week": {
-      "value": -7,
-      "label": "1 semaine avant"
-    },
-    "custom": {
-      "value": "null",
-      "label": "Personnalisé"
-    }
-  },
-  "time_before(map)": {
-    "same_time": {
-      "value": 0,
-      "label": "Au même moment"
-    },
-    "five_minutes": {
-      "value": -5,
-      "label": "5 minutes avant"
-    },
-    "fifteen_minutes": {
-      "value": -15,
-      "label": "15 minutes avant"
-    },
-    "thirty_minutes": {
-      "value": -30,
-      "label": "30 minutes avant"
-    },
-    "one_hour": {
-      "value": -60,
-      "label": "1 heure avant"
-    },
-    "two_hours": {
-      "value": -120,
-      "label": "2 heures avant"
-    },
-    "one_day": {
-      "value": -1440,
-      "label": "1 jour avant"
-    },
-    "custom": {
-      "value": "null",
-      "label": "Personnalisé"
-    }
   },
   "actions": {
     "save": "Enregistrer",
@@ -498,10 +190,6 @@
     "close": "Fermer",
     "subscribe": "S'abonner"
   },
-  "date_modes(map)": {
-    "date": "Date",
-    "duration": "Durée"
-  },
   "loading": {
     "simple": "Chargement en cours..."
   },
@@ -513,36 +201,6 @@
     "wrong_email_password": "Adresse e-mail ou mot de passe incorrect",
     "email_malformed": "Adresse e-mail invalide",
     "unknown_error": "Une erreur inconnue s'est produite"
-  },
-  "notifications": {
-    "task_due_now": "La tâche est due maintenant",
-    "task_starting": "La tâche commence maintenant",
-    "task_starting_in": "La tâche commence dans ${time}",
-    "habit_due_now": "Effectuez votre habitude maintenant, une chose en moins à faire !"
-  },
-  "time_units": {
-    "short": {
-      "day": "j",
-      "hour": "h",
-      "minute": "m"
-    },
-    "long": {
-      "day": {
-        "zero": "jour",
-        "one": "jour",
-        "other": "jours"
-      },
-      "hour": {
-        "zero": "heure",
-        "one": "heure",
-        "other": "heures"
-      },
-      "minute": {
-        "zero": "minute",
-        "one": "minute",
-        "other": "minutes"
-      }
-    }
   },
   "name_generator": {
     "animals": [
@@ -747,45 +405,6 @@
       "raffiné"
     ]
   },
-  "eisenhower": {
-    "small_title": "Eisenhower",
-    "title": "Matrice d'Eisenhower"
-  },
-  "feature_under_construction": {
-    "title": "Fonctionnalité en construction",
-    "description": "Cette fonctionnalité n'est pas encore disponible, mais nous travaillons dur pour vous l'apporter bientôt.\n\nRestez à l'écoute !"
-  },
-  "inbox": {
-    "title": "Boîte de réception"
-  },
-  "timer": {
-    "title": "Minuteur",
-    "start": "Démarrer",
-    "stop": "Arrêter",
-    "reset": "Réinitialiser",
-    "start_pomodoro": "Démarrer Pomodoro",
-    "start_stopwatch": "Démarrer Chronomètre",
-    "start_break": "Démarrer une pause",
-    "pomo_running": "Pomodoro en cours",
-    "timer_running": "Timer en cours",
-    "time_left": "Temps restant : ${timeLeft}",
-    "pause": "Pause",
-    "resume": "Reprendre",
-    "duration": "Durée",
-    "elapsed_time": "Temps écoulé",
-    "remaining_time": "Temps restant",
-    "no_timer_running": "Aucun minuteur en cours",
-    "modes(map)": {
-      "pomodoro": "Pomodoro",
-      "stopwatch": "Chronomètre"
-    },
-    "select_task": "Sélectionner une tâche",
-    "select_task_to_start_timer": "Sélectionner une tâche pour démarrer le minuteur",
-    "completed": "Terminé !",
-    "pomodoro_completed_message": "Votre session pomodoro est terminée ! C'est l'heure de faire une pause.",
-    "stopwatch_completed_message": "Votre session de chronomètre a été terminée.",
-    "task_label": "Tâche"
-  },
   "paywall": {
     "title": "Obtenez AtomicBlend Cloud",
     "subtitle": "Profitez d'Atomic Blend sans restrictions et aidez l'initiative open source.",
@@ -845,22 +464,23 @@
     "validation_failed_description": "Veuillez vérifier votre connexion Internet et redémarrer l'application.",
     "mobile_app_required": "Application mobile requise",
     "payment_on_mobile_for_better_xp": "Pour vous offrir la meilleure expérience possible, le paiement et la configuration du compte ne sont disponibles que sur l'application mobile.",
-    "ios": "iOS", 
+    "ios": "iOS",
     "android": "Android"
   },
-  "search": {
-    "title": "Rechercher",
-    "results": {
-      "zero": "Aucun résultat trouvé",
-      "one": "1 résultat trouvé",
-      "other": "${n} résultats trouvés"
+  "my_notes": {
+    "title": "Mes Notes",
+    "delete_note": {
+      "title": "Supprimer la note",
+      "description": "Êtes-vous sûr de vouloir supprimer cette note ?",
+      "warning": "Cette action ne peut pas être annulée."
     }
   },
-
-  "my_notes": {
-    "title": "Mes Notes"
+  "recently_deleted": {
+    "title": "Récemment supprimées",
+    "no_notes": "Aucune note récemment supprimée"
   },
   "organize": {
-    "title": "Organiser"
+    "title": "Organiser",
+    "latest_items": "Derniers éléments"
   }
 }

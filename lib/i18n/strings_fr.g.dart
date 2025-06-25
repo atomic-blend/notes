@@ -99,6 +99,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsPaywallFr paywall = _TranslationsPaywallFr._(_root);
 	@override late final _TranslationsSearchFr search = _TranslationsSearchFr._(_root);
 	@override late final _TranslationsMyNotesFr my_notes = _TranslationsMyNotesFr._(_root);
+	@override late final _TranslationsRecentlyDeletedFr recently_deleted = _TranslationsRecentlyDeletedFr._(_root);
 	@override late final _TranslationsOrganizeFr organize = _TranslationsOrganizeFr._(_root);
 }
 
@@ -855,6 +856,20 @@ class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
 
 	// Translations
 	@override String get title => 'Mes Notes';
+	@override late final _TranslationsMyNotesDeleteNoteFr delete_note = _TranslationsMyNotesDeleteNoteFr._(_root);
+	@override String get no_notes => 'Aucune note pour le moment';
+}
+
+// Path: recently_deleted
+class _TranslationsRecentlyDeletedFr implements TranslationsRecentlyDeletedEn {
+	_TranslationsRecentlyDeletedFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Récemment supprimées';
+	@override String get description => 'Ces notes ont été récemment supprimées et peuvent être restaurées.';
+	@override String get no_notes => 'Aucune note récemment supprimée';
 }
 
 // Path: organize
@@ -865,6 +880,7 @@ class _TranslationsOrganizeFr implements TranslationsOrganizeEn {
 
 	// Translations
 	@override String get title => 'Organiser';
+	@override String get latest_items => 'Derniers éléments';
 }
 
 // Path: auth.not_logged_in
@@ -1421,6 +1437,18 @@ class _TranslationsPaywallPricing$rcMonthlyFr implements TranslationsPaywallPric
 	@override String get price => '3.99€/mo';
 	@override String get billed => 'facturé à 3.99€/mois';
 	@override String get discount => '';
+}
+
+// Path: my_notes.delete_note
+class _TranslationsMyNotesDeleteNoteFr implements TranslationsMyNotesDeleteNoteEn {
+	_TranslationsMyNotesDeleteNoteFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Supprimer la note';
+	@override String get description => 'Êtes-vous sûr de vouloir supprimer cette note ?';
+	@override String get warning => 'Cette action ne peut pas être annulée.';
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -2218,7 +2246,15 @@ extension on TranslationsFr {
 				other: '${n} résultats trouvés',
 			);
 			case 'my_notes.title': return 'Mes Notes';
+			case 'my_notes.delete_note.title': return 'Supprimer la note';
+			case 'my_notes.delete_note.description': return 'Êtes-vous sûr de vouloir supprimer cette note ?';
+			case 'my_notes.delete_note.warning': return 'Cette action ne peut pas être annulée.';
+			case 'my_notes.no_notes': return 'Aucune note pour le moment';
+			case 'recently_deleted.title': return 'Récemment supprimées';
+			case 'recently_deleted.description': return 'Ces notes ont été récemment supprimées et peuvent être restaurées.';
+			case 'recently_deleted.no_notes': return 'Aucune note récemment supprimée';
 			case 'organize.title': return 'Organiser';
+			case 'organize.latest_items': return 'Derniers éléments';
 			default: return null;
 		}
 	}

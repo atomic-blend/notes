@@ -37,10 +37,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
     context.read<AuthBloc>().add(const RefreshUser());
     PaywallUtils.resetPaywall();
 
-    if (!isDesktop(context)) {
-      RevenueCatService.initPlatformState();
-    }
-
     if (context.read<AuthBloc>().state.user != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (context.read<AuthBloc>().state.user?.devices == null) {
@@ -184,7 +180,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 .firstOrNull
                 ?.appBar;
 
-
             // on desktop, move the 4th primary menu item to the end of the list
             final primaryMenuItems =
                 $constants.navigation.primaryMenuItems(context).toList();
@@ -231,7 +226,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                         controller: _primarySideMenuController,
                         mode: SideMenuMode.open,
                         minWidth: getSize(context).width * 0.08,
-                        maxWidth: 180,
                         backgroundColor: getTheme(context).surfaceContainer,
                         hasResizer: false,
                         hasResizerToggle: false,
@@ -567,7 +561,7 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
             if (!kIsWeb && Platform.isMacOS) {
               return TitlebarSafeArea(child: renderedBody);
             }
-            return renderedBody;
+            return SafeArea(child: renderedBody);
           });
         });
       },
@@ -583,12 +577,18 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
       encryptionService ??=
           EncryptionService(userSalt: authState.user!.keySet.salt);
       encryptionService!.hydrateKey();
+      if (isPaymentSupported()) {
+        RevenueCatService.logIn(authState.user!.id!);
+      }
     }
 
     // if the user is logged out, show the login modal
     if (authState is LoggedOut && !_isLoginModalVisible) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showLoginModal(context);
+        if (isPaymentSupported()) {
+          RevenueCatService.logOut();
+        }
       });
     }
   }
@@ -599,21 +599,28 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
           context: context,
           barrierDismissible: false,
           builder: (context) => Dialog(
-                child: LoginOrRegisterModal(
-                  onAuthSuccess: () => setState(() {
-                    _isLoginModalVisible = false;
-                  }),
+                child: SizedBox(
+                  width: getSize(context).width * 0.5,
+                  child: LoginOrRegisterModal(
+                    onAuthSuccess: () => setState(() {
+                      _isLoginModalVisible = false;
+                    }),
+                  ),
                 ),
               ));
     } else {
       showModalBottomSheet(
         isDismissible: false,
         isScrollControlled: true,
+        enableDrag: false,
         context: context,
-        builder: (context) => LoginOrRegisterModal(
-          onAuthSuccess: () => setState(() {
-            _isLoginModalVisible = false;
-          }),
+        builder: (context) => SizedBox(
+          height: getSize(context).height * 0.88,
+          child: LoginOrRegisterModal(
+            onAuthSuccess: () => setState(() {
+              _isLoginModalVisible = false;
+            }),
+          ),
         ),
       );
     }
