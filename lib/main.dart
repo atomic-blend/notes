@@ -66,7 +66,7 @@ FutureOr<void> main() async {
     userData = rawUserData != null ? json.decode(rawUserData) : null;
     userKey = prefs?.getString("key");
 
-    if (!Platform.isLinux) {
+    if (kIsWeb || !Platform.isLinux) {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
