@@ -1,5 +1,6 @@
 import 'package:notes/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
+import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ class SyncService {
     // Sync data
     context.read<TagBloc>().add(const LoadTags());
     context.read<FolderBloc>().add(const LoadFolders());
+    context.read<NoteBloc>().add(const LoadNotes());
   }
 
   static void syncUserData(BuildContext context) {
