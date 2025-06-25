@@ -204,7 +204,19 @@ class Navigation {
           color: getTheme(context).secondary,
           onTap: (index) {
             if (isDesktop(context)) {
-              return;
+              showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        child: SizedBox(
+                          height: getSize(context).height * 0.8,
+                          width: getSize(context).width * 0.8,
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular($constants.corners.md),
+                            child: const NoteDetail(),
+                          ),
+                        ),
+                      ));
             } else {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const NoteDetail()));

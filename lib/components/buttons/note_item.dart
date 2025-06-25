@@ -83,8 +83,26 @@ class NoteItem extends StatelessWidget {
       ]),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NoteDetail(note: note)));
+          if (isDesktop(context)) {
+            showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                      child: SizedBox(
+                        height: getSize(context).height * 0.8,
+                        width: getSize(context).width * 0.8,
+                        child: ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular($constants.corners.md),
+                          child: NoteDetail(note: note),
+                        ),
+                      ),
+                    ));
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NoteDetail(note: note)));
+          }
         },
         child: ElevatedContainer(
           width: double.infinity,
