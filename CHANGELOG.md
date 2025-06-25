@@ -2,6 +2,37 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.0 - 2025-06-25
+#### Bug Fixes
+- login modal size - (ae4f5a9) - Brandon Guigo
+- login UI - (60992d2) - Brandon Guigo
+- payment issues - (c417cdc) - Brandon Guigo
+- desktop ui - (5cc8aa8) - Brandon Guigo
+- argo2 for web + fix app layout crash - (6edebff) - Brandon Guigo
+- log out the user when refresh token fails - (929d922) - Brandon Guigo
+- error in payment - (e3d7b92) - Brandon Guigo
+- clean translations - (eea6bf0) - Brandon Guigo
+- linter - (9daa405) - Brandon Guigo
+#### Features
+- delete note virtually to have a "recently deleted section" - (66041fb) - Brandon Guigo
+- soft delete of notes - (5d7b2e4) - Brandon Guigo
+- add organize page - (8c1d894) - Brandon Guigo
+- add organize page with tags and folder management - (a5ffda8) - Brandon Guigo
+- search notes working - (b1cabba) - Brandon Guigo
+- sort notes by date (most recent) by default - (2256190) - Brandon Guigo
+- be able to open a note - (4aa1724) - Brandon Guigo
+- add or update a note when closing the note - (648bb6b) - Brandon Guigo
+- add note editor - (112c88f) - Brandon Guigo
+- add ui of no notes + bloc builder - (cba9906) - Brandon Guigo
+- sync notes with other items - (bc50905) - Brandon Guigo
+- add the note bloc and edit note service to work - (6273108) - Brandon Guigo
+- add note service - (d925f5a) - Brandon Guigo
+- add note entity - (cbc6757) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.0.2 [skip ci] - (3a6f8bf) - GitHub Actions
+
+- - -
+
 ## 0.0.2 - 2025-06-12
 #### Bug Fixes
 - remove drawer - (381bf3c) - Brandon Guigo
