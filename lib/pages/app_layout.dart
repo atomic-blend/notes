@@ -598,10 +598,15 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
       showDialog(
           context: context,
           barrierDismissible: false,
-          builder: (context) => LoginOrRegisterModal(
-                onAuthSuccess: () => setState(() {
-                  _isLoginModalVisible = false;
-                }),
+          builder: (context) => Dialog(
+                child: SizedBox(
+                  width: getSize(context).width * 0.5,
+                  child: LoginOrRegisterModal(
+                    onAuthSuccess: () => setState(() {
+                      _isLoginModalVisible = false;
+                    }),
+                  ),
+                ),
               ));
     } else {
       showModalBottomSheet(
