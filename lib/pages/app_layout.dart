@@ -37,10 +37,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
     context.read<AuthBloc>().add(const RefreshUser());
     PaywallUtils.resetPaywall();
 
-    if (!isPaymentSupported()) {
-      RevenueCatService.initPlatformState();
-    }
-
     if (context.read<AuthBloc>().state.user != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (context.read<AuthBloc>().state.user?.devices == null) {
