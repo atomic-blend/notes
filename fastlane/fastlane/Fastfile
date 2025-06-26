@@ -27,7 +27,7 @@ platform :ios do
 
   lane :build_beta do
     Dir.chdir("..") do
-        sh('fvm flutter build ipa --flavor prod --release -t lib/main_prod.dart --release --dart-define APP_ENV=prod --dart-define APPLE_REVENUE_CAT_API_KEY=' + ENV["APPLE_REVENUE_CAT_API_KEY"])
+        sh('fvm flutter build ipa --flavor prod --release -t lib/main_prod.dart --release')
     end
   end
 
@@ -76,8 +76,8 @@ platform :android do
             package_name: "fr.atomicblend.notes",
             track: "alpha",
             json_key: "/Users/brandonguigo/playstore_key.json",
-            aab: "../build/notes/outputs/bundle/prodRelease/notes-prod-release.aab",
-            # mapping_paths: ["../build/app/outputs/bundle/prodRelease/native-debug-symbols.zip"]
+            aab: "../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
+            mapping_paths: ["../build/app/outputs/bundle/prodRelease/native-debug-symbols.zip"]
             )
     end
 
