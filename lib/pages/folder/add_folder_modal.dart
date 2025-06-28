@@ -83,8 +83,8 @@ class _AddFolderModalState extends State<AddFolderModal> {
                       child: AutoSizeText(
                         maxLines: 1,
                         widget.folder == null
-                            ? context.t.tasks.folders.add_folder
-                            : context.t.tasks.folders.edit_folder,
+                            ? context.t.folders.add_folder
+                            : context.t.folders.edit_folder,
                         style: getTextTheme(context).titleMedium!.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -102,10 +102,10 @@ class _AddFolderModalState extends State<AddFolderModal> {
                         children: [
                           AppTextFormField(
                             controller: _nameController,
-                            labelText: context.t.tasks.folders.name,
-                            hintText: context.t.tasks.folders.name_hint,
+                            labelText: context.t.folders.name,
+                            hintText: context.t.folders.name_hint,
                             labelDescription:
-                                context.t.tasks.folders.name_description,
+                                context.t.folders.name_description,
                             trailing: CustomPopup(
                                 content: SizedBox(
                                   height: 250,
@@ -153,7 +153,7 @@ class _AddFolderModalState extends State<AddFolderModal> {
                                         ),
                                         searchViewConfig: SearchViewConfig(
                                           hintText: context
-                                              .t.habits.add.search_emoji_hint,
+                                              .t.folders.search_emoji_hint,
                                         )),
                                   ),
                                 ),
@@ -180,7 +180,7 @@ class _AddFolderModalState extends State<AddFolderModal> {
                                 )),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return context.t.tasks.folders.name_required;
+                                return context.t.folders.name_required;
                               }
                               return null;
                             },
@@ -190,9 +190,9 @@ class _AddFolderModalState extends State<AddFolderModal> {
                           ),
                           AbColorPicker(
                             color: _color,
-                            labelText: context.t.tasks.folders.color,
+                            labelText: context.t.folders.color,
                             labelDescription:
-                                context.t.tasks.folders.color_description,
+                                context.t.folders.color_description,
                             onColorChanged: (color) {
                               setState(() {
                                 _color = color;
@@ -211,11 +211,11 @@ class _AddFolderModalState extends State<AddFolderModal> {
                                     context: context,
                                     builder: (context) => DeleteConfirmModal(
                                           title: context
-                                              .t.tasks.folders.delete_folder,
-                                          description: context.t.tasks.folders
-                                              .delete_folder_description,
-                                          warning: context.t.tasks.folders
-                                              .delete_folder_warning,
+                                              .t.folders.delete.title,
+                                          description: context.t.folders
+                                              .delete.description,
+                                          warning: context.t.folders
+                                              .delete.warning,
                                           onDelete: () {
                                             if (!context.mounted) return;
                                             context
