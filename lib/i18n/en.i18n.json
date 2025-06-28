@@ -453,6 +453,18 @@
         "price": "\\$3.99/mo",
         "billed": "billed at \\$3.99/month",
         "discount": ""
+      },
+      "cloud_yearly": {
+        "title": "Yearly",
+        "price": "\\$3.33/mo",
+        "billed": "billed at \\$39.99/year",
+        "discount": "16% off"
+      },
+      "cloud_monthly": {
+        "title": "Monthly",
+        "price": "\\$3.99/mo",
+        "billed": "billed at \\$3.99/month",
+        "discount": ""
       }
     },
     "no_package_selected": "No package selected",
