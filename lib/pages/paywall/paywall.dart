@@ -253,7 +253,7 @@ class _PaywallState extends State<Paywall> {
                   PrimaryButtonSquare(
                       text: context.t.paywall.pricing[_package?.identifier]
                               ?.start_button ??
-                          context.t.actions.subscribe,
+                          context.t.actions.subscribe,  
                       onPressed: () async {
                         if (_package == null) {
                           ScaffoldMessenger.of(context).showSnackBar(

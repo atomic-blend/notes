@@ -5,9 +5,9 @@ import 'package:jiffy/jiffy.dart';
 extension DateTimeExtension on DateTime {
   String formatDueDate(BuildContext context) {
     if (isToday()) {
-      return context.t.tasks.due_dates.today;
+      return context.t.dates.today;
     } else if (isTomorrow()) {
-      return context.t.tasks.due_dates.tomorrow;
+      return context.t.dates.tomorrow;
     } else {
       return Jiffy.parseFromDateTime(this).toLocal().yMMMMd;
     }

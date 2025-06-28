@@ -60,6 +60,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsMyNotesEn my_notes = TranslationsMyNotesEn._(_root);
 	late final TranslationsRecentlyDeletedEn recently_deleted = TranslationsRecentlyDeletedEn._(_root);
 	late final TranslationsOrganizeEn organize = TranslationsOrganizeEn._(_root);
+	late final TranslationsFoldersEn folders = TranslationsFoldersEn._(_root);
+	late final TranslationsSearchEn search = TranslationsSearchEn._(_root);
+	late final TranslationsDatesEn dates = TranslationsDatesEn._(_root);
+	late final TranslationsTimeUnitsEn time_units = TranslationsTimeUnitsEn._(_root);
 }
 
 // Path: auth
@@ -456,6 +460,62 @@ class TranslationsOrganizeEn {
 	String get latest_items => 'Latest items';
 }
 
+// Path: folders
+class TranslationsFoldersEn {
+	TranslationsFoldersEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Folders';
+	String get add_folder => 'Add Folder';
+	String get edit_folder => 'Edit Folder';
+	String get name => 'Folder Name';
+	String get name_hint => 'Work';
+	String get name_description => 'Define a name for your folder, this will help you remember what it is about and be shown in notifications.';
+	String get name_required => 'Name is required';
+	String get color => 'Color';
+	String get color_description => 'Choose a color for your folder, this will help you remember what it is about and be shown in notifications.';
+	String get primary => 'Primary';
+	String get accent => 'Accent';
+	String get wheel => 'Color wheel';
+	String get search_emoji_hint => 'Search for an emoji';
+	String get no_folders => 'No folders yet';
+	late final TranslationsFoldersDeleteEn delete = TranslationsFoldersDeleteEn._(_root);
+}
+
+// Path: search
+class TranslationsSearchEn {
+	TranslationsSearchEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Search';
+}
+
+// Path: dates
+class TranslationsDatesEn {
+	TranslationsDatesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get today => 'Today';
+	String get tomorrow => 'Tomorrow';
+}
+
+// Path: time_units
+class TranslationsTimeUnitsEn {
+	TranslationsTimeUnitsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsTimeUnitsShortEn short = TranslationsTimeUnitsShortEn._(_root);
+	late final TranslationsTimeUnitsLongEn long = TranslationsTimeUnitsLongEn._(_root);
+}
+
 // Path: auth.not_logged_in
 class TranslationsAuthNotLoggedInEn {
 	TranslationsAuthNotLoggedInEn._(this._root);
@@ -781,6 +841,54 @@ class TranslationsMyNotesDeleteNoteEn {
 	String get title => 'Delete note';
 	String get description => 'Are you sure you want to delete this note?';
 	String get warning => 'This action cannot be undone.';
+}
+
+// Path: folders.delete
+class TranslationsFoldersDeleteEn {
+	TranslationsFoldersDeleteEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Delete folder';
+	String get description => 'Are you sure you want to delete this folder?';
+	String get warning => 'This action cannot be undone and the folder will be removed from all tasks associated.';
+}
+
+// Path: time_units.short
+class TranslationsTimeUnitsShortEn {
+	TranslationsTimeUnitsShortEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get day => 'd';
+	String get hour => 'h';
+	String get minute => 'm';
+}
+
+// Path: time_units.long
+class TranslationsTimeUnitsLongEn {
+	TranslationsTimeUnitsLongEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String day({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'days',
+		one: 'day',
+		other: 'days',
+	);
+	String hour({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'hours',
+		one: 'hour',
+		other: 'hours',
+	);
+	String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'minutes',
+		one: 'minute',
+		other: 'minutes',
+	);
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -1300,6 +1408,44 @@ extension on Translations {
 			case 'recently_deleted.no_notes': return 'No recently deleted notes';
 			case 'organize.title': return 'Organize';
 			case 'organize.latest_items': return 'Latest items';
+			case 'folders.title': return 'Folders';
+			case 'folders.add_folder': return 'Add Folder';
+			case 'folders.edit_folder': return 'Edit Folder';
+			case 'folders.name': return 'Folder Name';
+			case 'folders.name_hint': return 'Work';
+			case 'folders.name_description': return 'Define a name for your folder, this will help you remember what it is about and be shown in notifications.';
+			case 'folders.name_required': return 'Name is required';
+			case 'folders.color': return 'Color';
+			case 'folders.color_description': return 'Choose a color for your folder, this will help you remember what it is about and be shown in notifications.';
+			case 'folders.primary': return 'Primary';
+			case 'folders.accent': return 'Accent';
+			case 'folders.wheel': return 'Color wheel';
+			case 'folders.search_emoji_hint': return 'Search for an emoji';
+			case 'folders.no_folders': return 'No folders yet';
+			case 'folders.delete.title': return 'Delete folder';
+			case 'folders.delete.description': return 'Are you sure you want to delete this folder?';
+			case 'folders.delete.warning': return 'This action cannot be undone and the folder will be removed from all tasks associated.';
+			case 'search.title': return 'Search';
+			case 'dates.today': return 'Today';
+			case 'dates.tomorrow': return 'Tomorrow';
+			case 'time_units.short.day': return 'd';
+			case 'time_units.short.hour': return 'h';
+			case 'time_units.short.minute': return 'm';
+			case 'time_units.long.day': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'days',
+				one: 'day',
+				other: 'days',
+			);
+			case 'time_units.long.hour': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'hours',
+				one: 'hour',
+				other: 'hours',
+			);
+			case 'time_units.long.minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'minutes',
+				one: 'minute',
+				other: 'minutes',
+			);
 			default: return null;
 		}
 	}

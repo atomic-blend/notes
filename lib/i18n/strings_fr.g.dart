@@ -57,6 +57,10 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsMyNotesFr my_notes = _TranslationsMyNotesFr._(_root);
 	@override late final _TranslationsRecentlyDeletedFr recently_deleted = _TranslationsRecentlyDeletedFr._(_root);
 	@override late final _TranslationsOrganizeFr organize = _TranslationsOrganizeFr._(_root);
+	@override late final _TranslationsFoldersFr folders = _TranslationsFoldersFr._(_root);
+	@override late final _TranslationsSearchFr search = _TranslationsSearchFr._(_root);
+	@override late final _TranslationsDatesFr dates = _TranslationsDatesFr._(_root);
+	@override late final _TranslationsTimeUnitsFr time_units = _TranslationsTimeUnitsFr._(_root);
 }
 
 // Path: auth
@@ -450,6 +454,62 @@ class _TranslationsOrganizeFr implements TranslationsOrganizeEn {
 	@override String get latest_items => 'Derniers éléments';
 }
 
+// Path: folders
+class _TranslationsFoldersFr implements TranslationsFoldersEn {
+	_TranslationsFoldersFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dossiers';
+	@override String get add_folder => 'Ajouter un dossier';
+	@override String get edit_folder => 'Modifier le dossier';
+	@override String get name => 'Nom du dossier';
+	@override String get name_hint => 'Travail';
+	@override String get name_description => 'Définissez un nom pour votre dossier, il sera affiché dans le tableau de bord et dans les notifications.';
+	@override String get name_required => 'Le nom du dossier est requis';
+	@override String get color => 'Couleur du dossier';
+	@override String get color_description => 'Choisissez une couleur pour votre dossier, cela vous aidera à le distinguer des autres.';
+	@override String get primary => 'Primaire';
+	@override String get accent => 'Accent';
+	@override String get no_folders => 'Aucun dossier pour le moment';
+	@override String get wheel => 'Roue';
+	@override String get search_emoji_hint => 'Rechercher un emoji';
+	@override late final _TranslationsFoldersDeleteFr delete = _TranslationsFoldersDeleteFr._(_root);
+}
+
+// Path: search
+class _TranslationsSearchFr implements TranslationsSearchEn {
+	_TranslationsSearchFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Rechercher';
+}
+
+// Path: dates
+class _TranslationsDatesFr implements TranslationsDatesEn {
+	_TranslationsDatesFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Aujourd\'hui';
+	@override String get tomorrow => 'Demain';
+}
+
+// Path: time_units
+class _TranslationsTimeUnitsFr implements TranslationsTimeUnitsEn {
+	_TranslationsTimeUnitsFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsTimeUnitsShortFr short = _TranslationsTimeUnitsShortFr._(_root);
+	@override late final _TranslationsTimeUnitsLongFr long = _TranslationsTimeUnitsLongFr._(_root);
+}
+
 // Path: auth.not_logged_in
 class _TranslationsAuthNotLoggedInFr implements TranslationsAuthNotLoggedInEn {
 	_TranslationsAuthNotLoggedInFr._(this._root);
@@ -775,6 +835,54 @@ class _TranslationsMyNotesDeleteNoteFr implements TranslationsMyNotesDeleteNoteE
 	@override String get title => 'Supprimer la note';
 	@override String get description => 'Êtes-vous sûr de vouloir supprimer cette note ?';
 	@override String get warning => 'Cette action ne peut pas être annulée.';
+}
+
+// Path: folders.delete
+class _TranslationsFoldersDeleteFr implements TranslationsFoldersDeleteEn {
+	_TranslationsFoldersDeleteFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Supprimer le dossier';
+	@override String get description => 'Êtes-vous sûr de vouloir supprimer ce dossier ?';
+	@override String get warning => 'Cette action est irréversible et le dossier sera supprimé de tous les éléments associés.';
+}
+
+// Path: time_units.short
+class _TranslationsTimeUnitsShortFr implements TranslationsTimeUnitsShortEn {
+	_TranslationsTimeUnitsShortFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get day => 'j';
+	@override String get hour => 'h';
+	@override String get minute => 'm';
+}
+
+// Path: time_units.long
+class _TranslationsTimeUnitsLongFr implements TranslationsTimeUnitsLongEn {
+	_TranslationsTimeUnitsLongFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String day({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'jour',
+		one: 'jour',
+		other: 'jours',
+	);
+	@override String hour({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'heure',
+		one: 'heure',
+		other: 'heures',
+	);
+	@override String minute({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'minute',
+		one: 'minute',
+		other: 'minutes',
+	);
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -1291,6 +1399,44 @@ extension on TranslationsFr {
 			case 'recently_deleted.no_notes': return 'Aucune note récemment supprimée';
 			case 'organize.title': return 'Organiser';
 			case 'organize.latest_items': return 'Derniers éléments';
+			case 'folders.title': return 'Dossiers';
+			case 'folders.add_folder': return 'Ajouter un dossier';
+			case 'folders.edit_folder': return 'Modifier le dossier';
+			case 'folders.name': return 'Nom du dossier';
+			case 'folders.name_hint': return 'Travail';
+			case 'folders.name_description': return 'Définissez un nom pour votre dossier, il sera affiché dans le tableau de bord et dans les notifications.';
+			case 'folders.name_required': return 'Le nom du dossier est requis';
+			case 'folders.color': return 'Couleur du dossier';
+			case 'folders.color_description': return 'Choisissez une couleur pour votre dossier, cela vous aidera à le distinguer des autres.';
+			case 'folders.primary': return 'Primaire';
+			case 'folders.accent': return 'Accent';
+			case 'folders.no_folders': return 'Aucun dossier pour le moment';
+			case 'folders.wheel': return 'Roue';
+			case 'folders.search_emoji_hint': return 'Rechercher un emoji';
+			case 'folders.delete.title': return 'Supprimer le dossier';
+			case 'folders.delete.description': return 'Êtes-vous sûr de vouloir supprimer ce dossier ?';
+			case 'folders.delete.warning': return 'Cette action est irréversible et le dossier sera supprimé de tous les éléments associés.';
+			case 'search.title': return 'Rechercher';
+			case 'dates.today': return 'Aujourd\'hui';
+			case 'dates.tomorrow': return 'Demain';
+			case 'time_units.short.day': return 'j';
+			case 'time_units.short.hour': return 'h';
+			case 'time_units.short.minute': return 'm';
+			case 'time_units.long.day': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'jour',
+				one: 'jour',
+				other: 'jours',
+			);
+			case 'time_units.long.hour': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'heure',
+				one: 'heure',
+				other: 'heures',
+			);
+			case 'time_units.long.minute': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'minute',
+				one: 'minute',
+				other: 'minutes',
+			);
 			default: return null;
 		}
 	}

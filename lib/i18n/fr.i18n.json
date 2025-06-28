@@ -494,5 +494,57 @@
   "organize": {
     "title": "Organiser",
     "latest_items": "Derniers éléments"
+  },
+  "folders": {
+    "title": "Dossiers",
+    "add_folder": "Ajouter un dossier",
+    "edit_folder": "Modifier le dossier",
+    "name": "Nom du dossier",
+    "name_hint": "Travail",
+    "name_description": "Définissez un nom pour votre dossier, il sera affiché dans le tableau de bord et dans les notifications.",
+    "name_required": "Le nom du dossier est requis",
+    "color": "Couleur du dossier",
+    "color_description": "Choisissez une couleur pour votre dossier, cela vous aidera à le distinguer des autres.",
+    "primary": "Primaire",
+    "accent": "Accent",
+    "no_folders": "Aucun dossier pour le moment",
+    "wheel": "Roue",
+    "search_emoji_hint": "Rechercher un emoji",
+    "delete": {
+      "title": "Supprimer le dossier",
+      "description": "Êtes-vous sûr de vouloir supprimer ce dossier ?",
+      "warning": "Cette action est irréversible et le dossier sera supprimé de tous les éléments associés."
+    }
+  },
+  "search": {
+    "title": "Rechercher"
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain"
+  },
+  "time_units": {
+    "short": {
+      "day": "j",
+      "hour": "h",
+      "minute": "m"
+    },
+    "long": {
+      "day": {
+        "zero": "jour",
+        "one": "jour",
+        "other": "jours"
+      },
+      "hour": {
+        "zero": "heure",
+        "one": "heure",
+        "other": "heures"
+      },
+      "minute": {
+        "zero": "minute",
+        "one": "minute",
+        "other": "minutes"
+      }
+    }
   }
 }

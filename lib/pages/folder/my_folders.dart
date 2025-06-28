@@ -26,7 +26,7 @@ class _MyFoldersState extends State<MyFolders> {
       appBar: AppBar(
         backgroundColor: getTheme(context).surface,
         title: Text(
-          context.t.tasks.folders.title,
+          context.t.folders.title,
           style: getTextTheme(context).titleSmall!.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -48,7 +48,7 @@ class _MyFoldersState extends State<MyFolders> {
             children: [
               if (folderState.folders?.isEmpty == true)
                 Text(
-                  context.t.tasks.folders.no_folders,
+                  context.t.folders.no_folders,
                   style: getTextTheme(context).bodyMedium,
                 )
               else if (folderState.folders?.isNotEmpty == true)
