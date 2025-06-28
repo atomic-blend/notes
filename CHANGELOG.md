@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.1 - 2025-06-28
+#### Bug Fixes
+- linter issues - (44afe21) - Brandon Guigo
+- translations for subscriptin page - (59dc932) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.1.0 [skip ci] - (b06d272) - GitHub Actions
+- fastfile - (f79183a) - Brandon Guigo
+
+- - -
+
 ## 0.1.0 - 2025-06-25
 #### Bug Fixes
 - login modal size - (ae4f5a9) - Brandon Guigo
