@@ -27,7 +27,7 @@ platform :ios do
 
   lane :build_beta do
     Dir.chdir("..") do
-        sh('fvm flutter build ipa --flavor prod --release -t lib/main_prod.dart --release')
+        sh('fvm flutter build ipa --flavor prod --release -t lib/main_prod.dart --dart-define APP_ENV=prod')
     end
   end
 
@@ -77,7 +77,7 @@ platform :android do
             track: "alpha",
             json_key: "/Users/brandonguigo/playstore_key.json",
             aab: "../build/app/outputs/bundle/prodRelease/app-prod-release.aab",
-            mapping_paths: ["../build/app/outputs/bundle/prodRelease/native-debug-symbols.zip"]
+            # mapping_paths: ["../build/app/outputs/bundle/prodRelease/native-debug-symbols.zip"]
             )
     end
 
