@@ -444,14 +444,14 @@
     "pricing(map)": {
       "\\$rc_annual": {
         "title": "Yearly",
-        "price": "\\$3.33/mo",
-        "billed": "billed at \\$39.99/year",
+        "price": "\\$39.99/year",
+        "billed": "1 month free trial",
         "discount": "16% off"
       },
       "\\$rc_monthly": {
         "title": "Monthly",
         "price": "\\$3.99/mo",
-        "billed": "billed at \\$3.99/month",
+        "billed": "1 week free trial",
         "discount": ""
       },
       "cloud_yearly": {

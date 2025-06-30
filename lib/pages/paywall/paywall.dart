@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:notes/blocs/auth/auth.bloc.dart';
@@ -13,11 +14,14 @@ import 'package:notes/utils/toast_helper.dart';
 import 'package:async/async.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:purchases_flutter/object_wrappers.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Paywall extends StatefulWidget {
   const Paywall({super.key});
@@ -43,23 +47,67 @@ class _PaywallState extends State<Paywall> {
 
   _fetchOfferings() {
     return _memoizer!.runOnce(() async {
-      final offerings = await RevenueCatService.getOfferings();
-      _package = offerings?.current?.availablePackages.firstWhere(
-        (package) => package.storeProduct.identifier == "cloud_yearly",
-        orElse: () => offerings.current!.availablePackages.first,
-      );
-      return offerings;
+      try {
+        if (kDebugMode) {
+          print('Paywall: Starting to fetch offerings...');
+        }
+        final offerings = await RevenueCatService.getOfferings();
+
+        if (kDebugMode) {
+          print(
+              'Paywall: Received offerings: ${offerings != null ? 'SUCCESS' : 'NULL'}');
+          if (offerings != null) {
+            print(
+                'Paywall: Current offering available: ${offerings.current != null ? 'YES' : 'NO'}');
+            if (offerings.current != null) {
+              print(
+                  'Paywall: Available packages count: ${offerings.current!.availablePackages.length}');
+            }
+          }
+        }
+
+        if (offerings?.current?.availablePackages.isNotEmpty == true) {
+          _package = offerings!.current!.availablePackages.firstWhere(
+            (package) => package.storeProduct.identifier == "cloud_yearly",
+            orElse: () => offerings.current!.availablePackages.first,
+          );
+          if (kDebugMode) {
+            print(
+                'Paywall: Selected package: ${_package?.storeProduct.identifier}');
+          }
+        } else {
+          if (kDebugMode) {
+            print('Paywall: No packages available');
+          }
+        }
+        return offerings;
+      } catch (e) {
+        if (kDebugMode) {
+          print('Paywall: Error in _fetchOfferings: $e');
+        }
+        rethrow;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print(
+          'Paywall: Building widget - purchaseSuccess: $_purchaseSuccess, purchaseFailed: $_purchaseFailed, isMakingPurchase: $_isMakingPurchase');
+    }
+
     if (_purchaseSuccess == true) {
       return _buildPurchaseSuccess(context);
     } else if (_purchaseFailed == true) {
       return _buildPurchaseFailed(context);
     } else if (_isMakingPurchase == true || _checkPurchaseTimer != null) {
       return _buildPurchaseLoading(context);
+    }
+    if (!kIsWeb && Platform.isIOS) {
+      _mobilePlatform = 0; // iOS
+    } else if (!kIsWeb && Platform.isAndroid) {
+      _mobilePlatform = 1; // Android
     }
 
     return Padding(
@@ -195,8 +243,8 @@ class _PaywallState extends State<Paywall> {
             SizedBox(
               height: $constants.insets.xs,
             ),
-            if (isDesktop(context)) _buildPaymentMobileOnly(context),
-            if (!isDesktop(context))
+            if (!isPaymentSupported()) ...[_buildPaymentMobileOnly(context)],
+            if (isPaymentSupported())
               Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -210,39 +258,60 @@ class _PaywallState extends State<Paywall> {
                               snapshot.data?.current?.availablePackages
                                       .isNotEmpty ==
                                   true) {
-                            _package = snapshot.data!.current!.availablePackages
-                                .firstWhere((package) =>
+                            final packages =
+                                snapshot.data!.current!.availablePackages;
+                            final yearlyPackage = packages
+                                .where((package) =>
                                     package.storeProduct.identifier ==
-                                    "cloud_yearly");
+                                    "cloud_yearly")
+                                .firstOrNull;
+                            _package = yearlyPackage ?? packages.first;
                           }
                         });
 
                         if (snapshot.connectionState ==
                                 ConnectionState.waiting ||
-                            snapshot.data == null) {
+                            snapshot.data == null ||
+                            snapshot.data!.current?.availablePackages.isEmpty ==
+                                true) {
                           return Center(
                             child: CircularProgressIndicator(
                               color: getTheme(context).primary,
                             ),
                           );
                         }
+
+                        final packages =
+                            snapshot.data!.current!.availablePackages;
+                        final monthlyPackage = packages
+                            .where((package) =>
+                                package.identifier == '\$rc_monthly')
+                            .firstOrNull;
+                        final annualPackage = packages
+                            .where((package) =>
+                                package.identifier == '\$rc_annual')
+                            .firstOrNull;
+
+                        if (monthlyPackage == null || annualPackage == null) {
+                          return Center(
+                            child: Text(
+                              'No subscription packages available',
+                              style: getTextTheme(context).bodyMedium,
+                            ),
+                          );
+                        }
+
                         return Row(
                           mainAxisSize: MainAxisSize.min,
                           spacing: $constants.insets.sm,
                           children: [
                             _buildPricingCard(
                               context,
-                              package: snapshot.data!.current!.availablePackages
-                                  .firstWhere(
-                                (package) =>
-                                    package.identifier == '\$rc_monthly',
-                              ),
+                              package: monthlyPackage,
                             ),
                             _buildPricingCard(
                               context,
-                              package: snapshot.data!.current!.availablePackages
-                                  .firstWhere((package) =>
-                                      package.identifier == '\$rc_annual'),
+                              package: annualPackage,
                             ),
                           ],
                         );
@@ -253,7 +322,7 @@ class _PaywallState extends State<Paywall> {
                   PrimaryButtonSquare(
                       text: context.t.paywall.pricing[_package?.identifier]
                               ?.start_button ??
-                          context.t.actions.subscribe,  
+                          context.t.actions.subscribe,
                       onPressed: () async {
                         if (_package == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -281,21 +350,6 @@ class _PaywallState extends State<Paywall> {
                         Expanded(
                           child: TextButton(
                               child: Text(
-                                context.t.paywall.restore_purchase,
-                                style:
-                                    getTextTheme(context).bodySmall!.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: getTheme(context).primary,
-                                        ),
-                                textAlign: TextAlign.center,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              }),
-                        ),
-                        Expanded(
-                          child: TextButton(
-                              child: Text(
                                 context.t.paywall.terms,
                                 style:
                                     getTextTheme(context).bodySmall!.copyWith(
@@ -305,7 +359,10 @@ class _PaywallState extends State<Paywall> {
                                 textAlign: TextAlign.center,
                               ),
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                const url =
+                                    "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/";
+                                launchUrl(Uri.parse(url),
+                                    mode: LaunchMode.externalApplication);
                               }),
                         ),
                         Expanded(
@@ -320,7 +377,10 @@ class _PaywallState extends State<Paywall> {
                                 textAlign: TextAlign.center,
                               ),
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                const url =
+                                    "https://brandonguigo.notion.site/Politique-de-confidentialit-17591ec0b6688166b781cf05f89d3a2d";
+                                launchUrlString(url,
+                                    mode: LaunchMode.externalApplication);
                               }),
                         ),
                       ],
@@ -343,7 +403,7 @@ class _PaywallState extends State<Paywall> {
           });
         },
         child: ElevatedContainer(
-          height: getSize(context).height * 0.1,
+          height: 90,
           width: double.infinity,
           borderRadius: $constants.corners.sm,
           border: _package == package
@@ -404,20 +464,21 @@ class _PaywallState extends State<Paywall> {
                   ),
                 Text(
                   context.t.paywall.pricing[package.identifier]!.title,
-                  style: getTextTheme(context).bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: getTextTheme(context).bodyMedium?.copyWith(),
                 ),
                 Text(
                   context.t.paywall.pricing[package.identifier]!.price,
-                  style: getTextTheme(context).bodyMedium,
-                ),
-                Text(
-                  context.t.paywall.pricing[package.identifier]!.billed,
-                  style: getTextTheme(context).bodySmall!.copyWith(
-                        color: Colors.grey.shade600,
+                  style: getTextTheme(context).bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                 ),
+                if (context.t.paywall.pricing[package.identifier]!.billed != "")
+                  Text(
+                    context.t.paywall.pricing[package.identifier]!.billed,
+                    style: getTextTheme(context).bodySmall!.copyWith(
+                          color: Colors.grey.shade600,
+                        ),
+                  ),
               ],
             ),
           ),
@@ -483,6 +544,14 @@ class _PaywallState extends State<Paywall> {
       return customerInfo;
     } catch (e) {
       // Handle purchase error
+      if (kDebugMode) {
+        print('Paywall purchase error: $e');
+      }
+      if (mounted) {
+        setState(() {
+          _isMakingPurchase = false;
+        });
+      }
       return null;
     }
   }
@@ -532,7 +601,9 @@ class _PaywallState extends State<Paywall> {
           children: [
             Lottie.asset(
               'assets/animations/credit_card_success.json',
-              width: getSize(context).width,
+              width: isDesktop(context)
+                  ? getSize(context).width * 0.3
+                  : getSize(context).width,
             ),
             SizedBox(
               height: $constants.insets.sm,
@@ -579,7 +650,9 @@ class _PaywallState extends State<Paywall> {
                 scale: 2,
                 child: Lottie.asset(
                   'assets/animations/failed.json',
-                  width: getSize(context).width,
+                  width: isDesktop(context)
+                      ? getSize(context).width * 0.3
+                      : getSize(context).width,
                 ),
               ),
             ),
@@ -634,7 +707,9 @@ class _PaywallState extends State<Paywall> {
             ),
             Lottie.asset(
               'assets/animations/apple_pay.json',
-              width: getSize(context).width,
+              width: isDesktop(context)
+                  ? getSize(context).width * 0.3
+                  : getSize(context).width,
             ),
             SizedBox(
               height: $constants.insets.lg,
@@ -668,7 +743,6 @@ class _PaywallState extends State<Paywall> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            height: getSize(context).height * 0.2,
             child: ElevatedContainer(
               padding: EdgeInsets.all($constants.insets.sm),
               child: Column(
@@ -712,7 +786,7 @@ class _PaywallState extends State<Paywall> {
                     version: QrVersions.auto,
                     data: _mobilePlatform == 0
                         ? "https://apps.apple.com/fr/app/atomic-task/id6743615832"
-                        : "https://play.google.com/store/apps/details?id=fr.atomicblend.notes",
+                        : "https://play.google.com/store/apps/details?id=fr.atomicblend.app",
                     size: 100.0,
                   ),
                 ],
