@@ -20,13 +20,13 @@ final class EditNote extends NoteEvent {
 }
 
 final class ArchiveNote extends NoteEvent {
-  const ArchiveNote(this.note);
-  final Note note;
+  const ArchiveNote(this.noteId);
+  final String noteId;
 }
 
 final class RestoreNote extends NoteEvent {
-  const RestoreNote(this.note);
-  final Note note;
+  const RestoreNote(this.noteId);
+  final String noteId;
 }
 
 final class DeleteNote extends NoteEvent {

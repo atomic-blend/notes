@@ -186,14 +186,28 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       syncResult: prevState.syncResult,
     ));
     try {
-      event.note.deleted = true;
-      await _noteService.updateNote(event.note);
+      final existingPatches = prevState.stagedPatches ?? [];
+      final patch = Patch(
+        id: ObjectId().hexString,
+        action: PatchAction.update,
+        patchDate: DateTime.now(),
+        itemType: ItemType.note,
+        itemId: event.noteId,
+        changes: [
+          PatchChange(
+            key: 'deleted',
+            value: true,
+          ),
+        ],
+      );
+      existingPatches.add(patch);
+      final updatedNotes = _applyPatchToState(state: prevState, patch: patch);
       emit(NoteArchived(
-        notes: prevState.notes,
-        stagedPatches: prevState.stagedPatches,
+        notes: updatedNotes,
+        stagedPatches: existingPatches,
         syncResult: prevState.syncResult,
       ));
-      add(const LoadNotes());
+      add(const SyncNotes());
     } catch (e) {
       emit(NoteError(
           notes: prevState.notes ?? [],
@@ -212,14 +226,28 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       syncResult: prevState.syncResult,
     ));
     try {
-      event.note.deleted = null;
-      await _noteService.updateNote(event.note);
+      final existingPatches = prevState.stagedPatches ?? [];
+      final patch = Patch(
+        id: ObjectId().hexString,
+        action: PatchAction.update,
+        patchDate: DateTime.now(),
+        itemType: ItemType.note,
+        itemId: event.noteId,
+        changes: [
+          PatchChange(
+            key: 'deleted',
+            value: null,
+          ),
+        ],
+      );
+      existingPatches.add(patch);
+      final updatedNotes = _applyPatchToState(state: prevState, patch: patch);
       emit(NoteRestored(
-        notes: prevState.notes,
-        stagedPatches: prevState.stagedPatches,
+        notes: updatedNotes,
+        stagedPatches: existingPatches,
         syncResult: prevState.syncResult,
       ));
-      add(const LoadNotes());
+      add(const SyncNotes());
     } catch (e) {
       emit(NoteError(
           notes: prevState.notes ?? [],
