@@ -4,10 +4,13 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:notes/entities/sync/conflicted_item/conflicted_item.dart';
+import 'package:notes/entities/sync/item_type/item_type.dart';
 import 'package:notes/entities/sync/patch/patch.dart';
 import 'package:notes/entities/sync/patch_action/patch_action.dart';
+import 'package:notes/entities/sync/patch_change/patch_change.dart';
 import 'package:notes/entities/sync/sync_result/sync_result.dart';
 import 'package:notes/services/note_service.dart';
+import 'package:objectid/objectid.dart';
 
 part 'note_event.dart';
 part 'note_state.dart';
@@ -86,8 +89,30 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       syncResult: prevState.syncResult,
     ));
     try {
-      await _noteService.createNote(event.note);
-      add(const LoadNotes());
+      final existingPatches = prevState.stagedPatches ?? [];
+      final patch = Patch(
+        id: ObjectId().hexString,
+        action: PatchAction.create,
+        patchDate: DateTime.now(),
+        itemType: ItemType.note,
+        itemId: "",
+        changes: [
+          PatchChange(
+            key: 'data',
+            value: event.note,
+          ),
+        ],
+      );
+      existingPatches.add(patch);
+
+      final updatedNotes = _applyPatchToState(state: prevState, patch: patch);
+
+      emit(NoteLoaded(
+        notes: updatedNotes,
+        stagedPatches: existingPatches,
+        syncResult: prevState.syncResult,
+      ));
+      add(const SyncNotes());
     } catch (e) {
       emit(NoteError(
           notes: prevState.notes ?? [],
