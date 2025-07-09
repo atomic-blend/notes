@@ -87,13 +87,13 @@ class _MyTagsState extends State<MyTags> {
                               onPressed: (context) {
                                 showDialog(
                                     context: context,
-                                    builder: (context) => DeleteConfirmModal(
+                                    builder: (context) => ABModal(
                                           title: context.t.tags.delete.title,
                                           description:
                                               context.t.tags.delete.description,
                                           warning:
                                               context.t.tags.delete.warning,
-                                          onDelete: () {
+                                          onConfirm: () {
                                             context
                                                 .read<TagBloc>()
                                                 .add(DeleteTag(tag.id!));

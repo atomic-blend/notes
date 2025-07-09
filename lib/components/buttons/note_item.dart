@@ -42,11 +42,11 @@ class NoteItem extends StatelessWidget {
               onPressed: (context) {
                 showDialog(
                   context: context,
-                  builder: (context) => DeleteConfirmModal(
+                  builder: (context) => ABModal(
                     title: context.t.my_notes.delete_note.title,
                     description: context.t.my_notes.delete_note.description,
                     warning: context.t.my_notes.delete_note.warning,
-                    onDelete: () {
+                    onConfirm: () {
                       context.read<NoteBloc>().add(ArchiveNote(note));
                     },
                   ),
