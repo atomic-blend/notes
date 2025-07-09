@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:notes/entities/sync/conflicted_item/conflicted_item.dart';
 import 'package:notes/entities/sync/patch/patch.dart';
+import 'package:notes/entities/sync/patch_action/patch_action.dart';
 import 'package:notes/entities/sync/sync_result/sync_result.dart';
 import 'package:notes/services/note_service.dart';
 
@@ -291,5 +292,34 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       ));
       add(const LoadNotes());
     }
+  }
+
+  List<Note> _applyPatchToState(
+      {required NoteState state, required Patch patch}) {
+    final notes = List<Note>.from(state.notes ?? []);
+    final noteIndex = notes.indexWhere((note) => note.id == patch.itemId);
+
+    switch (patch.action) {
+      case PatchAction.create:
+        if (noteIndex == -1) {
+          final newNote = patch.changes.first.value as Note;
+          notes.add(newNote);
+        }
+        break;
+      case PatchAction.update:
+        if (noteIndex != -1) {
+          final note = notes[noteIndex];
+          for (var change in patch.changes) {
+            note.updateField(change.key, change.value);
+          }
+        }
+        break;
+      case PatchAction.delete:
+        if (noteIndex != -1) {
+          notes.removeAt(noteIndex);
+        }
+        break;
+    }
+    return notes;
   }
 }
