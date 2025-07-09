@@ -36,3 +36,13 @@ final class DeleteNote extends NoteEvent {
 final class SyncNotes extends NoteEvent {
   const SyncNotes();
 }
+
+final class ForceNotePatch extends NoteEvent {
+  const ForceNotePatch(this.patch);
+  final Patch patch;
+}
+
+final class DiscardNotePatch extends NoteEvent {
+  const DiscardNotePatch(this.patch);
+  final Patch patch;
+}

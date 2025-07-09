@@ -53,6 +53,10 @@ class NoteUpdated extends NoteState {
   const NoteUpdated({super.notes, super.stagedPatches, super.syncResult});
 }
 
+class NoteEdited extends NoteState {
+  const NoteEdited({super.notes, super.stagedPatches, super.syncResult});
+}
+
 class NoteDeleting extends NoteState {
   const NoteDeleting({super.notes, super.stagedPatches, super.syncResult});
 }

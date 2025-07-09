@@ -22,6 +22,8 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
     on<ArchiveNote>(_onArchiveNote);
     on<RestoreNote>(_onRestoreNote);
     on<SyncNotes>(_onSyncNotes);
+    on<ForceNotePatch>(_onForceNotePatch);
+    on<DiscardNotePatch>(_onDiscardNotePatch);
   }
 
   @override
@@ -218,6 +220,68 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         stagedPatches: newPatchList,
       ));
       add(const LoadNotes());
+    } catch (e) {
+      emit(NoteError(
+        notes: prevState.notes ?? [],
+        stagedPatches: prevState.stagedPatches,
+        syncResult: prevState.syncResult,
+        message: e.toString(),
+      ));
+      add(const LoadNotes());
+    }
+  }
+
+  FutureOr<void> _onForceNotePatch(
+      ForceNotePatch event, Emitter<NoteState> emit) async {
+    final prevState = state;
+    emit(NoteLoading(
+      notes: prevState.notes,
+      stagedPatches: prevState.stagedPatches,
+      syncResult: prevState.syncResult,
+    ));
+    try {
+      final existingPatches = prevState.stagedPatches ?? [];
+      final patchIndex =
+          existingPatches.indexWhere((p) => p.id == event.patch.id);
+      if (patchIndex != -1) {
+        existingPatches[patchIndex].force = true;
+      } else {
+        event.patch.force = true;
+        existingPatches.add(event.patch);
+      }
+      emit(NoteEdited(
+        notes: prevState.notes ?? [],
+        stagedPatches: existingPatches,
+        syncResult: prevState.syncResult,
+      ));
+      add(const SyncNotes());
+    } catch (e) {
+      emit(NoteError(
+        notes: prevState.notes ?? [],
+        stagedPatches: prevState.stagedPatches,
+        syncResult: prevState.syncResult,
+        message: e.toString(),
+      ));
+      add(const LoadNotes());
+    }
+  }
+
+  FutureOr<void> _onDiscardNotePatch(
+      DiscardNotePatch event, Emitter<NoteState> emit) async {
+    final prevState = state;
+    emit(NoteLoading(
+      notes: prevState.notes,
+      stagedPatches: prevState.stagedPatches,
+      syncResult: prevState.syncResult,
+    ));
+    try {
+      final existingPatches = prevState.stagedPatches ?? [];
+      existingPatches.removeWhere((p) => p.id == event.patch.id);
+      emit(NoteEdited(
+        notes: prevState.notes ?? [],
+        stagedPatches: existingPatches,
+        syncResult: prevState.syncResult,
+      ));
     } catch (e) {
       emit(NoteError(
         notes: prevState.notes ?? [],
