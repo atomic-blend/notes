@@ -32,3 +32,7 @@ final class DeleteNote extends NoteEvent {
   const DeleteNote(this.note);
   final Note note;
 }
+
+final class SyncNotes extends NoteEvent {
+  const SyncNotes();
+}
