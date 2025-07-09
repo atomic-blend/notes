@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:notes/entities/note/note_entity.dart';
+import 'package:notes/entities/sync/conflicted_item/conflicted_item.dart';
 import 'package:notes/entities/sync/patch/patch.dart';
 import 'package:notes/entities/sync/sync_result/sync_result.dart';
 import 'package:notes/services/note_service.dart';
@@ -173,7 +174,8 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       emit(NoteRestored(
         notes: prevState.notes,
         stagedPatches: prevState.stagedPatches,
-        syncResult: prevState.syncResult,));
+        syncResult: prevState.syncResult,
+      ));
       add(const LoadNotes());
     } catch (e) {
       emit(NoteError(
@@ -185,5 +187,45 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
     }
   }
 
-  FutureOr<void> _onSyncNotes(SyncNotes event, Emitter<NoteState> emit) async {}
+  FutureOr<void> _onSyncNotes(SyncNotes event, Emitter<NoteState> emit) async {
+    final prevState = state;
+    emit(
+      NoteSyncInProgress(
+        notes: prevState.notes ?? [],
+        stagedPatches: prevState.stagedPatches,
+        syncResult: prevState.syncResult,
+      ),
+    );
+    try {
+      if (prevState.notes == null) {
+        add(const LoadNotes());
+        return;
+      }
+      final syncResult = await _noteService.patchNotes(
+        prevState.stagedPatches ?? [],
+      );
+
+      final newConflictList = <ConflictedItem>[];
+      newConflictList.addAll(syncResult.conflicts);
+
+      final newPatchList = List<Patch>.from(prevState.stagedPatches ?? []);
+      newPatchList
+          .removeWhere((patch) => syncResult.success.contains(patch.id));
+
+      emit(NoteSyncSuccess(
+        notes: prevState.notes ?? [],
+        syncResult: syncResult,
+        stagedPatches: newPatchList,
+      ));
+      add(const LoadNotes());
+    } catch (e) {
+      emit(NoteError(
+        notes: prevState.notes ?? [],
+        stagedPatches: prevState.stagedPatches,
+        syncResult: prevState.syncResult,
+        message: e.toString(),
+      ));
+      add(const LoadNotes());
+    }
+  }
 }

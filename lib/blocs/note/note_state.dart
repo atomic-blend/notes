@@ -26,7 +26,11 @@ class NoteLoaded extends NoteState {
 }
 
 class NoteError extends NoteState {
-  const NoteError({super.notes, super.stagedPatches, super.syncResult, required this.message});
+  const NoteError(
+      {super.notes,
+      super.stagedPatches,
+      super.syncResult,
+      required this.message});
   final String message;
 
   @override
@@ -71,4 +75,13 @@ class NoteRestoring extends NoteState {
 
 class NoteRestored extends NoteState {
   const NoteRestored({super.notes, super.stagedPatches, super.syncResult});
+}
+
+class NoteSyncInProgress extends NoteState {
+  const NoteSyncInProgress(
+      {super.notes, super.stagedPatches, super.syncResult});
+}
+
+class NoteSyncSuccess extends NoteState {
+  const NoteSyncSuccess({super.notes, super.stagedPatches, super.syncResult});
 }
