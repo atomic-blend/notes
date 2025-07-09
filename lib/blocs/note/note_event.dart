@@ -14,8 +14,9 @@ final class AddNote extends NoteEvent {
 }
 
 final class EditNote extends NoteEvent {
-  const EditNote(this.note);
-  final Note note;
+  const EditNote(this.noteId, this.changes);
+  final String noteId;
+  final List<PatchChange> changes;
 }
 
 final class ArchiveNote extends NoteEvent {

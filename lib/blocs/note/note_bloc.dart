@@ -131,8 +131,23 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       syncResult: prevState.syncResult,
     ));
     try {
-      await _noteService.updateNote(event.note);
-      add(const LoadNotes());
+      final existingPatches = prevState.stagedPatches ?? [];
+      final patch = Patch(
+        id: ObjectId().hexString,
+        action: PatchAction.update,
+        patchDate: DateTime.now(),
+        itemType: ItemType.note,
+        itemId: event.noteId,
+        changes: event.changes,
+      );
+      existingPatches.add(patch);
+      final updatedNotes = _applyPatchToState(state: prevState, patch: patch);
+      emit(NoteEdited(
+        notes: updatedNotes,
+        stagedPatches: existingPatches,
+        syncResult: prevState.syncResult,
+      ));
+      add(const SyncNotes());
     } catch (e) {
       emit(NoteError(
           notes: prevState.notes ?? [],

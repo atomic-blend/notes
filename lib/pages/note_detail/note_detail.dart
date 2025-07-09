@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
+import 'package:notes/entities/sync/patch_change/patch_change.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 
@@ -108,13 +109,13 @@ class _NoteDetailState extends State<NoteDetail> {
         AddNote(newNote),
       );
     } else {
-      // Update existing note
-      Note updatedNote = widget.note!.copyWith(
-        content: jsonEncode(_controller!.document.toJson()),
-        updatedAt: DateTime.now(),
-      );
       _noteBloc!.add(
-        EditNote(updatedNote),
+        EditNote(widget.note!.id!, [
+          PatchChange(
+            key: 'content',
+            value: jsonEncode(_controller!.document.toJson()),
+          ),
+        ]),
       );
     }
   }
