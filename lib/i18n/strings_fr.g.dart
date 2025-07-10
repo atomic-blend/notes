@@ -918,10 +918,16 @@ class _TranslationsSyncDetailsFr implements TranslationsSyncDetailsEn {
 	// Translations
 	@override String get title => 'Détails';
 	@override String get tasks => 'Tâches';
+	@override String get notes => 'Notes';
 	@override String task_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 		zero: 'Aucune tâche',
 		one: '1 tâche',
 		other: '${n} tâches',
+	);
+	@override String notes_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'Aucune note',
+		one: '1 note',
+		other: '${n} notes',
 	);
 }
 
@@ -1533,10 +1539,16 @@ extension on TranslationsFr {
 			);
 			case 'sync.details.title': return 'Détails';
 			case 'sync.details.tasks': return 'Tâches';
+			case 'sync.details.notes': return 'Notes';
 			case 'sync.details.task_items': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
 				zero: 'Aucune tâche',
 				one: '1 tâche',
 				other: '${n} tâches',
+			);
+			case 'sync.details.notes_items': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'Aucune note',
+				one: '1 note',
+				other: '${n} notes',
 			);
 			case 'sync.sync_now': return 'Synchroniser maintenant';
 			case 'sync.conflict_resolver.title': return 'Résolveur de Conflits';

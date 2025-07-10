@@ -289,8 +289,8 @@ class _SyncStatusState extends State<SyncStatus> {
                                       ),
                                       _buildSyncItemRow(
                                         context,
-                                        title: context.t.sync.details.tasks,
-                                        icon: CupertinoIcons.checkmark_square,
+                                        title: context.t.sync.details.notes,
+                                        icon: CupertinoIcons.doc,
                                         noteState: noteState,
                                       )
                                     ],
@@ -326,12 +326,15 @@ class _SyncStatusState extends State<SyncStatus> {
               Positioned(
                 right: $constants.insets.sm,
                 top: $constants.insets.sm,
-                child: ElevatedContainer(
-                  borderRadius: $constants.corners.full,
-                  padding: EdgeInsets.all($constants.insets.xs),
-                  child: const Icon(
-                    CupertinoIcons.xmark,
-                    size: 18,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: ElevatedContainer(
+                    borderRadius: $constants.corners.full,
+                    padding: EdgeInsets.all($constants.insets.xs),
+                    child: const Icon(
+                      CupertinoIcons.xmark,
+                      size: 18,
+                    ),
                   ),
                 ),
               )
@@ -378,7 +381,7 @@ class _SyncStatusState extends State<SyncStatus> {
                     if (!_isTaskBlocLoading(noteState: noteState) &&
                         !_taskHasConflictedItems(noteState: noteState))
                       Text(
-                          context.t.sync.details.task_items(
+                          context.t.sync.details.notes_items(
                             n: noteState.notes?.length ?? 0,
                           ),
                           style: getTextTheme(context).bodyMedium!.copyWith()),

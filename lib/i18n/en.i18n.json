@@ -565,10 +565,16 @@
     "details": {
       "title": "Details",
       "tasks": "Tasks",
+      "notes": "Notes",
       "task_items": {
         "zero": "No tasks",
         "one": "1 task",
         "other": "${n} tasks"
+      },
+      "notes_items": {
+        "zero": "No notes",
+        "one": "1 note",
+        "other": "${n} notes"
       }
     },
     "sync_now": "Sync now",

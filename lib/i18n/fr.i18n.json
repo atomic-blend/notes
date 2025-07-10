@@ -562,10 +562,16 @@
     "details": {
       "title": "Détails",
       "tasks": "Tâches",
+      "notes": "Notes",
       "task_items": {
         "zero": "Aucune tâche",
         "one": "1 tâche",
         "other": "${n} tâches"
+      },
+      "notes_items": {
+        "zero": "Aucune note",
+        "one": "1 note",
+        "other": "${n} notes"
       }
     },
     "sync_now": "Synchroniser maintenant",

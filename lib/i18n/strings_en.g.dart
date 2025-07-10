@@ -924,10 +924,16 @@ class TranslationsSyncDetailsEn {
 	// Translations
 	String get title => 'Details';
 	String get tasks => 'Tasks';
+	String get notes => 'Notes';
 	String task_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 		zero: 'No tasks',
 		one: '1 task',
 		other: '${n} tasks',
+	);
+	String notes_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+		zero: 'No notes',
+		one: '1 note',
+		other: '${n} notes',
 	);
 }
 
@@ -1542,10 +1548,16 @@ extension on Translations {
 			);
 			case 'sync.details.title': return 'Details';
 			case 'sync.details.tasks': return 'Tasks';
+			case 'sync.details.notes': return 'Notes';
 			case 'sync.details.task_items': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
 				zero: 'No tasks',
 				one: '1 task',
 				other: '${n} tasks',
+			);
+			case 'sync.details.notes_items': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n,
+				zero: 'No notes',
+				one: '1 note',
+				other: '${n} notes',
 			);
 			case 'sync.sync_now': return 'Sync now';
 			case 'sync.conflict_resolver.title': return 'Conflict Resolver';
