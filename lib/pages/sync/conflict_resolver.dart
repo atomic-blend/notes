@@ -6,6 +6,7 @@ import 'package:notes/entities/sync/item_type/item_type.dart';
 import 'package:notes/entities/sync/patch/patch.dart';
 import 'package:notes/entities/sync/patch_change/patch_change.dart';
 import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/pages/sync/item_ui/notes_detail_card.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 import 'package:collection/collection.dart';
@@ -98,16 +99,15 @@ class _ConflictResolverState extends State<ConflictResolver> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ElevatedContainer(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          vertical: $constants.insets.sm,
-                          horizontal: $constants.insets.sm,
-                        ),
-                        child: Column(
-                          children: [
-                            _getItemUi(context, patch?.itemType, patch?.itemId)
-                          ],
+                      Expanded(
+                        child: ElevatedContainer(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            vertical: $constants.insets.sm,
+                            horizontal: $constants.insets.sm,
+                          ),
+                          child: _getItemUi(
+                              context, patch?.itemType, patch?.itemId),
                         ),
                       ),
                       SizedBox(
@@ -286,7 +286,12 @@ class _ConflictResolverState extends State<ConflictResolver> {
         return const SizedBox.shrink();
       case ItemType.note:
         // Handle note patch changes if needed
-        return const SizedBox.shrink();
+        final newContent =
+            changes?.where((change) => change.key == "content").firstOrNull;
+        if (newContent == null) {
+          return const SizedBox.shrink(); // No content change
+        }
+        return NotesDetailCard(content: newContent.value);
       default:
         // Handle other item types if needed
         return const SizedBox.shrink();
@@ -328,11 +333,18 @@ class _ConflictResolverState extends State<ConflictResolver> {
   _getItemUi(BuildContext context, ItemType? type, String? itemId) {
     switch (type) {
       case ItemType.task:
-        // Return TaskCard or similar widget for tasks
         return const SizedBox.shrink(); // Placeholder for task UI
       case ItemType.note:
+        final noteState = context.read<NoteBloc>().state;
+        final note = noteState.notes?.firstWhereOrNull((n) => n.id == itemId);
+        if (note == null) {
+          return const SizedBox.shrink(); // Placeholder if note not found
+        }
+
         // Return NoteCard or similar widget for notes
-        return const SizedBox.shrink(); // Placeholder for note UI
+        return NotesDetailCard(
+          note: note,
+        );
       default:
         return const SizedBox.shrink(); // Placeholder for other item types
     }
