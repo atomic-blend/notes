@@ -2,6 +2,33 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.0 - 2025-07-10
+#### Bug Fixes
+- check for conflicts when openning a note - (c1d7a5e) - Brandon Guigo
+- exception when validating or discarding the last conflict - (8194047) - Brandon Guigo
+- some bugs with the patch for create / edit / delete - (1f12589) - Brandon Guigo
+- refactor confirm modal - (19cf03d) - Brandon Guigo
+- paywall issues like task app - (4c9d5c4) - Brandon Guigo
+#### Features
+- first part of conflict resolver - (d81e632) - Brandon Guigo
+- add conflict card + fix sync service - (d294b73) - Brandon Guigo
+- add conflict resolver - (5b8370f) - Brandon Guigo
+- migrate delete notes to patches - (83e487f) - Brandon Guigo
+- migrate archive / restore to patches - (7cacbc4) - Brandon Guigo
+- convert edit to patch usage - (0466ab9) - Brandon Guigo
+- migrate add note to patch - (df3fb9c) - Brandon Guigo
+- add apply patch to state - (f0dcee9) - Brandon Guigo
+- add discard / force patch notes - (3f424f1) - Brandon Guigo
+- add on sync method - (177daa0) - Brandon Guigo
+- update bloc to support new state structure - (375c0c9) - Brandon Guigo
+- add patch in notes service - (598ce9a) - Brandon Guigo
+- add sync entities - (3928126) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.1.1 [skip ci] - (667c404) - GitHub Actions
+- update fastfile [skip ci] - (3fd6d77) - Brandon Guigo
+
+- - -
+
 ## 0.1.1 - 2025-06-28
 #### Bug Fixes
 - linter issues - (44afe21) - Brandon Guigo
