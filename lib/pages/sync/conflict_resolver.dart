@@ -68,12 +68,14 @@ class _ConflictResolverState extends State<ConflictResolver> {
                           vertical: $constants.insets.sm,
                           horizontal: $constants.insets.sm,
                         ),
-                        child: LinearProgressIndicator(
-                          value: _selectedIndex / conflicts.length,
-                          borderRadius: BorderRadius.circular(10),
-                          backgroundColor: Colors.grey[300],
-                          color: Colors.blue,
-                        ),
+                        child: _selectedIndex != conflicts.length
+                            ? LinearProgressIndicator(
+                                value: _selectedIndex / conflicts.length,
+                                borderRadius: BorderRadius.circular(10),
+                                backgroundColor: Colors.grey[300],
+                                color: Colors.blue,
+                              )
+                            : const SizedBox.shrink(),
                       ),
                     ),
                     Positioned(
@@ -123,6 +125,9 @@ class _ConflictResolverState extends State<ConflictResolver> {
                         ),
                         child: ElevatedContainer(
                           width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: $constants.insets.sm,
+                          ),
                           child: Column(
                             children: [
                               SizedBox(
@@ -184,14 +189,13 @@ class _ConflictResolverState extends State<ConflictResolver> {
                             _discardPatchAll(context, patches);
                           } else {
                             _discardPatch(context, patch);
-                            if (_selectedIndex < conflicts.length - 1) {
-                              setState(() {
-                                _selectedIndex++;
-                              });
-                            }
                           }
-                          if (_selectedIndex == conflicts.length) {
+                          if (_selectedIndex == conflicts.length - 1) {
                             Navigator.pop(context);
+                          } else {
+                            setState(() {
+                              _selectedIndex++;
+                            });
                           }
                         },
                         child: ElevatedContainer(
@@ -232,14 +236,13 @@ class _ConflictResolverState extends State<ConflictResolver> {
                             _forcePatchAll(context, patches);
                           } else {
                             _forcePatch(context, patch);
-                            if (_selectedIndex < conflicts.length - 1) {
-                              setState(() {
-                                _selectedIndex++;
-                              });
-                            }
                           }
-                          if (_selectedIndex == conflicts.length) {
+                          if (_selectedIndex == conflicts.length - 1) {
                             Navigator.pop(context);
+                          } else {
+                            setState(() {
+                              _selectedIndex++;
+                            });
                           }
                         },
                         child: ElevatedContainer(
@@ -304,6 +307,7 @@ class _ConflictResolverState extends State<ConflictResolver> {
         break;
       case ItemType.note:
         // Handle note patching if needed
+        context.read<NoteBloc>().add(ForceNotePatch(patch));
         break;
     }
   }
@@ -320,6 +324,7 @@ class _ConflictResolverState extends State<ConflictResolver> {
         break;
       case ItemType.note:
         // Handle note patching if needed
+        context.read<NoteBloc>().add(DiscardNotePatch(patch));
         break;
     }
   }

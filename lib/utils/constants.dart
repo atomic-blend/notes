@@ -1,6 +1,5 @@
 import 'package:notes/blocs/auth/auth.bloc.dart';
 import 'package:notes/components/app/bottom_navigation.dart';
-import 'package:notes/components/buttons/account_avatar_with_sync_status.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';

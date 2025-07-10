@@ -11,10 +11,10 @@ class NotesDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String noteContent = content ?? note?.content ?? '';
     return FleatherEditor(
         readOnly: true,
         controller: FleatherController(
-            document: ParchmentDocument.fromJson(
-                content ?? json.decode(note?.content ?? ''))));
+            document: ParchmentDocument.fromJson(json.decode(noteContent))));
   }
 }
