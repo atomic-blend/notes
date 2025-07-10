@@ -444,14 +444,14 @@
     "pricing(map)": {
       "\\$rc_annual": {
         "title": "Yearly",
-        "price": "\\$3.33/mo",
-        "billed": "billed at \\$39.99/year",
+        "price": "\\$39.99/year",
+        "billed": "1 month free trial",
         "discount": "16% off"
       },
       "\\$rc_monthly": {
         "title": "Monthly",
         "price": "\\$3.99/mo",
-        "billed": "billed at \\$3.99/month",
+        "billed": "1 week free trial",
         "discount": ""
       },
       "cloud_yearly": {
@@ -549,5 +549,77 @@
         "other": "minutes"
       }
     }
+  },
+  "sync": {
+    "title": "Synchronization",
+    "description": "Keep your data up to date across all your devices",
+    "status": "Status",
+    "loading": "Loading...",
+    "up_to_date": "Up to date",
+    "conflicts": "Conflicts",
+    "x_items_have_conflicts": {
+      "zero": "No items have conflicts",
+      "one": "1 item has conflicts",
+      "other": "${n} items have conflicts"
+    },
+    "details": {
+      "title": "Details",
+      "tasks": "Tasks",
+      "notes": "Notes",
+      "task_items": {
+        "zero": "No tasks",
+        "one": "1 task",
+        "other": "${n} tasks"
+      },
+      "notes_items": {
+        "zero": "No notes",
+        "one": "1 note",
+        "other": "${n} notes"
+      }
+    },
+    "sync_now": "Sync now",
+    "conflict_resolver": {
+      "title": "Conflict Resolver",
+      "patch_date": "Update date: ${date}",
+      "item_type(map)": {
+        "task": "Task",
+        "note": "Note"
+      },
+      "choose_between": "Choose between accepting or refusing the changes",
+      "refuse": "Refuse",
+      "accept": "Accept",
+      "upcoming": "Upcoming",
+      "in_app_version": "In-app",
+      "changes_to_apply": "Changes to apply",
+      "apply_to_all": "Apply decision to all conflicts",
+      "fields(map)": {
+        "title": "Title",
+        "end_date": "End date",
+        "description": "Notes",
+        "start_date": "Start date",
+        "reminders_title": "Reminders",
+        "reminders": {
+          "zero": "No reminders",
+          "one": "1 reminder",
+          "other": "${n} reminders"
+        },
+        "undefined": "Undefined",
+        "priority": "Priority",
+        "folder": "Folder",
+        "tags": {
+          "zero": "No tags",
+          "one": "1 tag",
+          "other": "${n} tags"
+        }
+      },
+      "progress": "Progress"
+    }
+  },
+  "conflict_detected_modal": {
+    "title": "Conflict Detected",
+    "description": "Previous edits of this task made while offline conflicts with the current version of the task.",
+    "warning": "You can either resolve the conflicts now or come back later to resolve them.",
+    "resolve_now": "Resolve",
+    "later": "Later"
   }
 }

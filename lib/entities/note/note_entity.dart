@@ -97,4 +97,27 @@ class Note with _$Note {
         ? '${firstBlockContent.substring(0, 30)}...'
         : firstBlockContent;
   }
+
+  void updateField(String key, dynamic value) {
+    switch (key) {
+      case 'id':
+        id = value as String?;
+        break;
+      case 'title':
+        title = value as String?;
+        break;
+      case 'content':
+        content = value as String?;
+        break;
+      case 'deleted':
+        deleted = value as bool?;
+        break;
+      case 'createdAt':
+        createdAt = DateTime.parse(value as String);
+        break;
+      case 'updatedAt':
+        updatedAt = DateTime.parse(value as String);
+        break;
+    }
+  }
 }

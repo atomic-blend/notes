@@ -14,21 +14,36 @@ final class AddNote extends NoteEvent {
 }
 
 final class EditNote extends NoteEvent {
-  const EditNote(this.note);
-  final Note note;
+  const EditNote(this.noteId, this.changes);
+  final String noteId;
+  final List<PatchChange> changes;
 }
 
 final class ArchiveNote extends NoteEvent {
-  const ArchiveNote(this.note);
-  final Note note;
+  const ArchiveNote(this.noteId);
+  final String noteId;
 }
 
 final class RestoreNote extends NoteEvent {
-  const RestoreNote(this.note);
-  final Note note;
+  const RestoreNote(this.noteId);
+  final String noteId;
 }
 
 final class DeleteNote extends NoteEvent {
   const DeleteNote(this.note);
   final Note note;
+}
+
+final class SyncNotes extends NoteEvent {
+  const SyncNotes();
+}
+
+final class ForceNotePatch extends NoteEvent {
+  const ForceNotePatch(this.patch);
+  final Patch patch;
+}
+
+final class DiscardNotePatch extends NoteEvent {
+  const DiscardNotePatch(this.patch);
+  final Patch patch;
 }

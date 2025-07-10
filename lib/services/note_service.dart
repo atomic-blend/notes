@@ -1,4 +1,11 @@
 import 'package:notes/entities/note/note_entity.dart';
+import 'package:notes/entities/sync/conflicted_item/conflicted_item.dart';
+import 'package:notes/entities/sync/item_type/item_type.dart';
+import 'package:notes/entities/sync/patch/patch.dart';
+import 'package:notes/entities/sync/patch_action/patch_action.dart';
+import 'package:notes/entities/sync/patch_change/patch_change.dart';
+import 'package:notes/entities/sync/patch_error/patch_error.dart';
+import 'package:notes/entities/sync/sync_result/sync_result.dart';
 import 'package:notes/services/user.service.dart';
 import 'package:notes/utils/api_client.dart';
 
@@ -21,7 +28,8 @@ class NoteService {
   }
 
   Future<bool> createNote(Note note) async {
-    final encryptedNote = await note.encrypt(encryptionService: encryptionService!);
+    final encryptedNote =
+        await note.encrypt(encryptionService: encryptionService!);
     final result = await globalApiClient.post('/notes', data: encryptedNote);
     if (result.statusCode == 201) {
       return true;
@@ -31,8 +39,10 @@ class NoteService {
   }
 
   Future<bool> updateNote(Note note) async {
-    final encryptedNote = await note.encrypt(encryptionService: encryptionService!);
-    final result = await globalApiClient.put('/notes/${note.id}', data: encryptedNote);
+    final encryptedNote =
+        await note.encrypt(encryptionService: encryptionService!);
+    final result =
+        await globalApiClient.put('/notes/${note.id}', data: encryptedNote);
     if (result.statusCode == 200) {
       return true;
     } else {
@@ -47,5 +57,118 @@ class NoteService {
     } else {
       throw Exception('note_delete_failed');
     }
+  }
+
+  Future<SyncResult> patchNotes(List<Patch> patches,
+      {int batchSize = 10}) async {
+    final eligiblePatches =
+        patches.where((patch) => patch.itemType == ItemType.note).toList();
+
+    if (eligiblePatches.isEmpty) {
+      return SyncResult(
+        success: [],
+        conflicts: [],
+        errors: [],
+        date: DateTime.now(),
+      );
+    }
+
+    final List<String> success = [];
+    final List<ConflictedItem> conflicts = [];
+    final List<PatchError> errors = [];
+
+    for (var i = 0; i < eligiblePatches.length; i += batchSize) {
+      final batch = eligiblePatches.sublist(
+        i,
+        (i + batchSize < eligiblePatches.length)
+            ? i + batchSize
+            : eligiblePatches.length,
+      );
+
+      try {
+        final List<Patch> encryptedPatches = [];
+
+        for (var patch in batch) {
+          // Create a copy of the patch to avoid modifying the original
+          final encryptedPatch = Patch(
+            id: patch.id,
+            itemType: patch.itemType,
+            itemId: patch.itemId,
+            action: patch.action,
+            changes: [],
+            patchDate: patch.patchDate,
+            force: patch.force,
+          );
+
+          if (patch.action == PatchAction.update) {
+            for (var change in patch.changes) {
+              final encryptedChange = PatchChange(
+                key: change.key,
+                value: change.value,
+              );
+              // if key is not part of nonEncryptedFields, encrypt it
+              if (!Note.nonEncryptedFields.contains(change.key) &&
+                  change.value != null) {
+                encryptedChange.value =
+                    await encryptionService!.encryptJson(change.value);
+              }
+              encryptedPatch.changes.add(encryptedChange);
+            }
+          } else if (patch.action == PatchAction.create) {
+            final data = patch.changes.first.value;
+            final encryptedChange = PatchChange(
+              key: patch.changes.first.key,
+              value: patch.changes.first.value,
+            );
+            if (data is! Map) {
+              final note = patch.changes.first.value as Note;
+              final encryptedNote =
+                  await note.encrypt(encryptionService: encryptionService!);
+              encryptedChange.value = encryptedNote;
+            }
+            encryptedPatch.changes.add(encryptedChange);
+          } else {
+            // For other actions (like delete), copy changes as-is
+            for (var change in patch.changes) {
+              encryptedPatch.changes.add(PatchChange(
+                key: change.key,
+                value: change.value,
+              ));
+            }
+          }
+
+          encryptedPatches.add(encryptedPatch);
+        }
+
+        final result = await globalApiClient.post(
+          '/notes/patch',
+          data: encryptedPatches.map((e) => e.toJson()).toList(),
+        );
+
+        if (result.statusCode == 200) {
+          final responseData = result.data as Map<String, dynamic>;
+          final syncResult = SyncResult.fromJson(responseData);
+          success.addAll(syncResult.success);
+          conflicts.addAll(syncResult.conflicts);
+          errors.addAll(syncResult.errors);
+        } else {
+          throw Exception('patch_notes_failed');
+        }
+      } catch (e) {
+        for (var patch in batch) {
+          errors.add(PatchError(
+            patchId: patch.id,
+            errorCode: e.toString(),
+          ));
+        }
+      }
+    }
+
+    return SyncResult(
+      success: success,
+      conflicts: conflicts,
+      errors: errors,
+      date: DateTime.now(),
+    );
   }
 }

@@ -61,6 +61,8 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsSearchFr search = _TranslationsSearchFr._(_root);
 	@override late final _TranslationsDatesFr dates = _TranslationsDatesFr._(_root);
 	@override late final _TranslationsTimeUnitsFr time_units = _TranslationsTimeUnitsFr._(_root);
+	@override late final _TranslationsSyncFr sync = _TranslationsSyncFr._(_root);
+	@override late final _TranslationsConflictDetectedModalFr conflict_detected_modal = _TranslationsConflictDetectedModalFr._(_root);
 }
 
 // Path: auth
@@ -510,6 +512,43 @@ class _TranslationsTimeUnitsFr implements TranslationsTimeUnitsEn {
 	@override late final _TranslationsTimeUnitsLongFr long = _TranslationsTimeUnitsLongFr._(_root);
 }
 
+// Path: sync
+class _TranslationsSyncFr implements TranslationsSyncEn {
+	_TranslationsSyncFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Synchronisation';
+	@override String get description => 'Gardez vos données à jour sur tous vos appareils';
+	@override String get status => 'État';
+	@override String get loading => 'Chargement...';
+	@override String get up_to_date => 'À jour';
+	@override String get conflicts => 'Conflits';
+	@override String x_items_have_conflicts({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'Aucun élément n\'a de conflits',
+		one: '1 élément a des conflits',
+		other: '${n} éléments ont des conflits',
+	);
+	@override late final _TranslationsSyncDetailsFr details = _TranslationsSyncDetailsFr._(_root);
+	@override String get sync_now => 'Synchroniser maintenant';
+	@override late final _TranslationsSyncConflictResolverFr conflict_resolver = _TranslationsSyncConflictResolverFr._(_root);
+}
+
+// Path: conflict_detected_modal
+class _TranslationsConflictDetectedModalFr implements TranslationsConflictDetectedModalEn {
+	_TranslationsConflictDetectedModalFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Conflit détecté';
+	@override String get description => 'Les modifications précédentes de cette tâche effectuées hors ligne entrent en conflit avec la version actuelle de la tâche.';
+	@override String get warning => 'Vous pouvez soit résoudre les conflits maintenant, soit revenir plus tard pour les résoudre.';
+	@override String get resolve_now => 'Résoudre';
+	@override String get later => 'Plus tard';
+}
+
 // Path: auth.not_logged_in
 class _TranslationsAuthNotLoggedInFr implements TranslationsAuthNotLoggedInEn {
 	_TranslationsAuthNotLoggedInFr._(this._root);
@@ -883,6 +922,71 @@ class _TranslationsTimeUnitsLongFr implements TranslationsTimeUnitsLongEn {
 		one: 'minute',
 		other: 'minutes',
 	);
+}
+
+// Path: sync.details
+class _TranslationsSyncDetailsFr implements TranslationsSyncDetailsEn {
+	_TranslationsSyncDetailsFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Détails';
+	@override String get tasks => 'Tâches';
+	@override String get notes => 'Notes';
+	@override String task_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'Aucune tâche',
+		one: '1 tâche',
+		other: '${n} tâches',
+	);
+	@override String notes_items({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+		zero: 'Aucune note',
+		one: '1 note',
+		other: '${n} notes',
+	);
+}
+
+// Path: sync.conflict_resolver
+class _TranslationsSyncConflictResolverFr implements TranslationsSyncConflictResolverEn {
+	_TranslationsSyncConflictResolverFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Résolveur de Conflits';
+	@override String patch_date({required Object date}) => 'Date de mise à jour : ${date}';
+	@override Map<String, String> get item_type => {
+		'task': 'Tâche',
+		'note': 'Note',
+	};
+	@override String get choose_between => 'Choisissez entre accepter ou refuser les modifications';
+	@override String get refuse => 'Refuser';
+	@override String get accept => 'Accepter';
+	@override String get upcoming => 'À venir';
+	@override String get in_app_version => 'Dans l\'application';
+	@override String get apply_to_all => 'Appliquer la décision à tous les conflits';
+	@override String get changes_to_apply => 'Modifications à appliquer';
+	@override Map<String, dynamic> get fields => {
+		'title': 'Titre',
+		'end_date': 'Date de fin',
+		'description': 'Notes',
+		'undefined': 'Non défini',
+		'start_date': 'Date de début',
+		'reminders_title': 'Rappels',
+		'reminders': ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+			zero: 'Aucun rappel',
+			one: '1 rappel',
+			other: '${n} rappels',
+		),
+		'priority': 'Priorité',
+		'folder': 'Dossier',
+		'tags': ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+			zero: 'Aucun tag',
+			one: '1 tag',
+			other: '${n} tags',
+		),
+	};
+	@override String get progress => 'Progression';
 }
 
 // Path: settings.app_settings.selfHostedUrl
@@ -1437,6 +1541,66 @@ extension on TranslationsFr {
 				one: 'minute',
 				other: 'minutes',
 			);
+			case 'sync.title': return 'Synchronisation';
+			case 'sync.description': return 'Gardez vos données à jour sur tous vos appareils';
+			case 'sync.status': return 'État';
+			case 'sync.loading': return 'Chargement...';
+			case 'sync.up_to_date': return 'À jour';
+			case 'sync.conflicts': return 'Conflits';
+			case 'sync.x_items_have_conflicts': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'Aucun élément n\'a de conflits',
+				one: '1 élément a des conflits',
+				other: '${n} éléments ont des conflits',
+			);
+			case 'sync.details.title': return 'Détails';
+			case 'sync.details.tasks': return 'Tâches';
+			case 'sync.details.notes': return 'Notes';
+			case 'sync.details.task_items': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'Aucune tâche',
+				one: '1 tâche',
+				other: '${n} tâches',
+			);
+			case 'sync.details.notes_items': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'Aucune note',
+				one: '1 note',
+				other: '${n} notes',
+			);
+			case 'sync.sync_now': return 'Synchroniser maintenant';
+			case 'sync.conflict_resolver.title': return 'Résolveur de Conflits';
+			case 'sync.conflict_resolver.patch_date': return ({required Object date}) => 'Date de mise à jour : ${date}';
+			case 'sync.conflict_resolver.item_type.task': return 'Tâche';
+			case 'sync.conflict_resolver.item_type.note': return 'Note';
+			case 'sync.conflict_resolver.choose_between': return 'Choisissez entre accepter ou refuser les modifications';
+			case 'sync.conflict_resolver.refuse': return 'Refuser';
+			case 'sync.conflict_resolver.accept': return 'Accepter';
+			case 'sync.conflict_resolver.upcoming': return 'À venir';
+			case 'sync.conflict_resolver.in_app_version': return 'Dans l\'application';
+			case 'sync.conflict_resolver.apply_to_all': return 'Appliquer la décision à tous les conflits';
+			case 'sync.conflict_resolver.changes_to_apply': return 'Modifications à appliquer';
+			case 'sync.conflict_resolver.fields.title': return 'Titre';
+			case 'sync.conflict_resolver.fields.end_date': return 'Date de fin';
+			case 'sync.conflict_resolver.fields.description': return 'Notes';
+			case 'sync.conflict_resolver.fields.undefined': return 'Non défini';
+			case 'sync.conflict_resolver.fields.start_date': return 'Date de début';
+			case 'sync.conflict_resolver.fields.reminders_title': return 'Rappels';
+			case 'sync.conflict_resolver.fields.reminders': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'Aucun rappel',
+				one: '1 rappel',
+				other: '${n} rappels',
+			);
+			case 'sync.conflict_resolver.fields.priority': return 'Priorité';
+			case 'sync.conflict_resolver.fields.folder': return 'Dossier';
+			case 'sync.conflict_resolver.fields.tags': return ({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fr'))(n,
+				zero: 'Aucun tag',
+				one: '1 tag',
+				other: '${n} tags',
+			);
+			case 'sync.conflict_resolver.progress': return 'Progression';
+			case 'conflict_detected_modal.title': return 'Conflit détecté';
+			case 'conflict_detected_modal.description': return 'Les modifications précédentes de cette tâche effectuées hors ligne entrent en conflit avec la version actuelle de la tâche.';
+			case 'conflict_detected_modal.warning': return 'Vous pouvez soit résoudre les conflits maintenant, soit revenir plus tard pour les résoudre.';
+			case 'conflict_detected_modal.resolve_now': return 'Résoudre';
+			case 'conflict_detected_modal.later': return 'Plus tard';
 			default: return null;
 		}
 	}
