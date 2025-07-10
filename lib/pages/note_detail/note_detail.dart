@@ -4,9 +4,12 @@ import 'package:fleather/fleather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
+import 'package:notes/components/modals/delete_confirm_modal.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:notes/entities/sync/patch_change/patch_change.dart';
+import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/pages/sync/conflict_resolver.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 
@@ -64,32 +67,37 @@ class _NoteDetailState extends State<NoteDetail> {
               )
             : Container(),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
-        child: Column(
-          children: [
-            if (isDesktop(context))
-              FleatherToolbar.basic(controller: _controller!),
-            Expanded(
-              child: ElevatedContainer(
-                padding: EdgeInsets.symmetric(
-                  horizontal: $constants.insets.sm,
-                  vertical: $constants.insets.sm,
-                ),
-                child: FleatherEditor(
-                  controller: _controller!,
+      body: BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _checkIfNoteIsConflicted(context, noteState);
+        });
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
+          child: Column(
+            children: [
+              if (isDesktop(context))
+                FleatherToolbar.basic(controller: _controller!),
+              Expanded(
+                child: ElevatedContainer(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: $constants.insets.sm,
+                    vertical: $constants.insets.sm,
+                  ),
+                  child: FleatherEditor(
+                    controller: _controller!,
+                  ),
                 ),
               ),
-            ),
-            if (!isDesktop(context)) ...[
-              FleatherToolbar.basic(controller: _controller!),
-              SizedBox(
-                height: $constants.insets.lg,
-              ),
-            ]
-          ],
-        ),
-      ),
+              if (!isDesktop(context)) ...[
+                FleatherToolbar.basic(controller: _controller!),
+                SizedBox(
+                  height: $constants.insets.lg,
+                ),
+              ]
+            ],
+          ),
+        );
+      }),
     );
   }
 
@@ -117,6 +125,43 @@ class _NoteDetailState extends State<NoteDetail> {
           ),
         ]),
       );
+    }
+  }
+
+  _checkIfNoteIsConflicted(BuildContext context, NoteState taskState) async {
+    final patches = taskState.stagedPatches
+        ?.where((element) => element.itemId == widget.note!.id)
+        .toList();
+    for (var patch in patches ?? []) {
+      final conflicts = taskState.syncResult?.conflicts
+          .where((element) => element.patchId == patch.id)
+          .toList();
+      if (conflicts != null && conflicts.isNotEmpty) {
+        final result = await showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => ABModal(
+                  title: context.t.conflict_detected_modal.title,
+                  description: context.t.conflict_detected_modal.description,
+                  warning: context.t.conflict_detected_modal.warning,
+                  confirmText: context.t.conflict_detected_modal.resolve_now,
+                  confirmColor: getTheme(context).primary,
+                  cancelText: context.t.conflict_detected_modal.later,
+                  cancelColor: getTheme(context).surfaceContainer,
+                ));
+        if (!context.mounted) return;
+        if (result == true) {
+          Future.delayed(Duration.zero, () {
+            if (context.mounted) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ConflictResolver()));
+            }
+          });
+        }
+        Navigator.pop(context);
+      }
     }
   }
 }

@@ -62,6 +62,7 @@ class TranslationsFr implements Translations {
 	@override late final _TranslationsDatesFr dates = _TranslationsDatesFr._(_root);
 	@override late final _TranslationsTimeUnitsFr time_units = _TranslationsTimeUnitsFr._(_root);
 	@override late final _TranslationsSyncFr sync = _TranslationsSyncFr._(_root);
+	@override late final _TranslationsConflictDetectedModalFr conflict_detected_modal = _TranslationsConflictDetectedModalFr._(_root);
 }
 
 // Path: auth
@@ -532,6 +533,20 @@ class _TranslationsSyncFr implements TranslationsSyncEn {
 	@override late final _TranslationsSyncDetailsFr details = _TranslationsSyncDetailsFr._(_root);
 	@override String get sync_now => 'Synchroniser maintenant';
 	@override late final _TranslationsSyncConflictResolverFr conflict_resolver = _TranslationsSyncConflictResolverFr._(_root);
+}
+
+// Path: conflict_detected_modal
+class _TranslationsConflictDetectedModalFr implements TranslationsConflictDetectedModalEn {
+	_TranslationsConflictDetectedModalFr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Conflit détecté';
+	@override String get description => 'Les modifications précédentes de cette tâche effectuées hors ligne entrent en conflit avec la version actuelle de la tâche.';
+	@override String get warning => 'Vous pouvez soit résoudre les conflits maintenant, soit revenir plus tard pour les résoudre.';
+	@override String get resolve_now => 'Résoudre';
+	@override String get later => 'Plus tard';
 }
 
 // Path: auth.not_logged_in
@@ -1581,6 +1596,11 @@ extension on TranslationsFr {
 				other: '${n} tags',
 			);
 			case 'sync.conflict_resolver.progress': return 'Progression';
+			case 'conflict_detected_modal.title': return 'Conflit détecté';
+			case 'conflict_detected_modal.description': return 'Les modifications précédentes de cette tâche effectuées hors ligne entrent en conflit avec la version actuelle de la tâche.';
+			case 'conflict_detected_modal.warning': return 'Vous pouvez soit résoudre les conflits maintenant, soit revenir plus tard pour les résoudre.';
+			case 'conflict_detected_modal.resolve_now': return 'Résoudre';
+			case 'conflict_detected_modal.later': return 'Plus tard';
 			default: return null;
 		}
 	}

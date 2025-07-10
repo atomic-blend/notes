@@ -65,6 +65,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDatesEn dates = TranslationsDatesEn._(_root);
 	late final TranslationsTimeUnitsEn time_units = TranslationsTimeUnitsEn._(_root);
 	late final TranslationsSyncEn sync = TranslationsSyncEn._(_root);
+	late final TranslationsConflictDetectedModalEn conflict_detected_modal = TranslationsConflictDetectedModalEn._(_root);
 }
 
 // Path: auth
@@ -538,6 +539,20 @@ class TranslationsSyncEn {
 	late final TranslationsSyncDetailsEn details = TranslationsSyncDetailsEn._(_root);
 	String get sync_now => 'Sync now';
 	late final TranslationsSyncConflictResolverEn conflict_resolver = TranslationsSyncConflictResolverEn._(_root);
+}
+
+// Path: conflict_detected_modal
+class TranslationsConflictDetectedModalEn {
+	TranslationsConflictDetectedModalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Conflict Detected';
+	String get description => 'Previous edits of this task made while offline conflicts with the current version of the task.';
+	String get warning => 'You can either resolve the conflicts now or come back later to resolve them.';
+	String get resolve_now => 'Resolve';
+	String get later => 'Later';
 }
 
 // Path: auth.not_logged_in
@@ -1590,6 +1605,11 @@ extension on Translations {
 				other: '${n} tags',
 			);
 			case 'sync.conflict_resolver.progress': return 'Progress';
+			case 'conflict_detected_modal.title': return 'Conflict Detected';
+			case 'conflict_detected_modal.description': return 'Previous edits of this task made while offline conflicts with the current version of the task.';
+			case 'conflict_detected_modal.warning': return 'You can either resolve the conflicts now or come back later to resolve them.';
+			case 'conflict_detected_modal.resolve_now': return 'Resolve';
+			case 'conflict_detected_modal.later': return 'Later';
 			default: return null;
 		}
 	}
