@@ -12,7 +12,7 @@ class SyncService {
     // Sync data
     context.read<TagBloc>().add(const LoadTags());
     context.read<FolderBloc>().add(const LoadFolders());
-    context.read<NoteBloc>().add(const LoadNotes());
+    context.read<NoteBloc>().add(const SyncNotes());
   }
 
   static void syncUserData(BuildContext context) {

@@ -209,14 +209,14 @@ class _AddFolderModalState extends State<AddFolderModal> {
                               onPressed: () async {
                                 await showDialog(
                                     context: context,
-                                    builder: (context) => DeleteConfirmModal(
+                                    builder: (context) => ABModal(
                                           title: context
                                               .t.folders.delete.title,
                                           description: context.t.folders
                                               .delete.description,
                                           warning: context.t.folders
                                               .delete.warning,
-                                          onDelete: () {
+                                          onConfirm: () {
                                             if (!context.mounted) return;
                                             context
                                                 .read<FolderBloc>()

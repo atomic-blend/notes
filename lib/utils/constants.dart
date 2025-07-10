@@ -1,6 +1,5 @@
 import 'package:notes/blocs/auth/auth.bloc.dart';
 import 'package:notes/components/app/bottom_navigation.dart';
-import 'package:notes/components/buttons/account_avatar_with_sync_status.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
@@ -8,6 +7,7 @@ import 'package:notes/pages/more_apps/more_apps.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
+import 'package:notes/pages/sync/sync_status.dart';
 import 'package:notes/services/sync.service.dart';
 import 'package:notes/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
@@ -147,7 +147,7 @@ class Navigation {
                 if (authState is LoggedIn && !isDesktop(context)) {
                   return Padding(
                     padding: EdgeInsets.only(right: $constants.insets.sm),
-                    child: const AccountAvatarWithSyncStatus(),
+                    child: const SyncStatus(),
                   );
                 }
                 return Container();
@@ -183,7 +183,7 @@ class Navigation {
                   if (authState is LoggedIn && !isDesktop(context)) {
                     return Padding(
                       padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const AccountAvatarWithSyncStatus(),
+                      child: const SyncStatus(),
                     );
                   }
                   return Container();
@@ -251,7 +251,7 @@ class Navigation {
                   if (authState is LoggedIn && !isDesktop(context)) {
                     return Padding(
                       padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const AccountAvatarWithSyncStatus(),
+                      child: const SyncStatus(),
                     );
                   }
                   return Container();
@@ -285,7 +285,7 @@ class Navigation {
                   if (authState is LoggedIn && !isDesktop(context)) {
                     return Padding(
                       padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const AccountAvatarWithSyncStatus(),
+                      child: const SyncStatus(),
                     );
                   }
                   return Container();

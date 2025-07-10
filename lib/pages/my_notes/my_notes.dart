@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/buttons/note_item.dart';
 import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:notes/pages/sync/conflict_card.dart';
 import 'package:notes/utils/constants.dart';
 import 'package:notes/utils/shortcuts.dart';
 
@@ -29,6 +30,12 @@ class _MyNotesState extends State<MyNotes> {
         ),
         child: Column(
           children: [
+            ConflictCard(
+              color: getTheme(context).surfaceContainer,
+              padding: EdgeInsets.only(
+                bottom: $constants.insets.xs,
+              ),
+            ),
             if (activeNotes.isNotEmpty)
               ...activeNotes.sorted((a, b) {
                 if (a.createdAt == null || b.createdAt == null) return 0;
