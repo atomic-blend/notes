@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.0 - 2025-07-30
+#### Bug Fixes
+- add missing pkg directory - (00e2ca0) - Brandon Guigo
+- ignore pkg dir when linting - (8658492) - Brandon Guigo
+- update flutter version in cicd - (4f13e44) - Brandon Guigo
+- login and key restoration bug - (95e9c28) - Brandon Guigo
+#### Features
+- convert the aes data key to age - (6f9b66f) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.2.0 [skip ci] - (4409dab) - GitHub Actions
+
+- - -
+
 ## 0.2.0 - 2025-07-10
 #### Bug Fixes
 - check for conflicts when openning a note - (c1d7a5e) - Brandon Guigo
