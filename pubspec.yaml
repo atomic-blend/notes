@@ -141,6 +141,7 @@ flutter:
     - assets/configs/
     - assets/images/
     - assets/animations/
+    # ignore
     - pkg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
