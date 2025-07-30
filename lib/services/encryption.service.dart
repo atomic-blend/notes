@@ -16,7 +16,7 @@ class EncryptionService {
   final argon2 = Argon2BytesGenerator();
 
   EncryptionService({required String userSalt}) {
-    this.userSalt = Uint8List.fromList(userSalt.codeUnits);
+    this.userSalt = Uint8List.fromList(utf8.encode(userSalt));
     final argon2parameters = Argon2Parameters(
         Argon2Parameters.ARGON2_id, this.userSalt,
         desiredKeyLength: 32);
@@ -36,7 +36,7 @@ class EncryptionService {
     restoreArgon2.init(restoreArgon2parameters);
 
     // Generate user key from password
-    final passwordBytes = Uint8List.fromList(password.codeUnits);
+    final passwordBytes = Uint8List.fromList(utf8.encode(password));
     final Uint8List uKey = Uint8List(32);
     restoreArgon2.deriveKey(passwordBytes, passwordBytes.length, uKey, 0);
 
@@ -65,8 +65,8 @@ class EncryptionService {
     }
 
     // Store the data key in the storage
-    userKey = base64.encode(dataKey);
-    prefs?.setString("key", base64.encode(dataKey));
+    userKey = utf8.decode(dataKey);
+    prefs?.setString("key", userKey ?? "");
 
     // Store the age public key in the storage
     agePublicKey = keySet.publicKey;
@@ -93,8 +93,8 @@ class EncryptionService {
         desiredKeyLength: 32);
     mnemonicArgon2.init(mnemonicArgon2parameters);
 
-    mnemonicArgon2.deriveKey(Uint8List.fromList(mnemonic.codeUnits),
-        mnemonic.codeUnits.length, mnemonicKey, 0);
+    mnemonicArgon2.deriveKey(Uint8List.fromList(utf8.encode(mnemonic)),
+        utf8.encode(mnemonic).length, mnemonicKey, 0);
 
     final encryptedMnemonicDataKey = base64.decode(backupKey);
     final iv =
@@ -153,7 +153,7 @@ class EncryptionService {
     argon2.init(argon2parameters);
 
     // generate user key from password
-    final passwordBytes = Uint8List.fromList(password.codeUnits);
+    final passwordBytes = Uint8List.fromList(utf8.encode(password));
     final Uint8List uKey = Uint8List(32);
     argon2.deriveKey(passwordBytes, passwordBytes.length, uKey, 0);
 
@@ -191,7 +191,7 @@ class EncryptionService {
     mnemonicArgon2.init(mnemonicArgon2parameters);
 
     final mnemonicKey = Uint8List(32);
-    mnemonicArgon2.deriveKey(Uint8List.fromList(mnemonicPass.codeUnits),
+    mnemonicArgon2.deriveKey(Uint8List.fromList(utf8.encode(mnemonicPass)),
         mnemonicPass.length, mnemonicKey, 0);
 
     final mnemonicIv = generateRandomBytes(12);
@@ -245,7 +245,7 @@ class EncryptionService {
     argon2.init(argon2parameters);
 
     // generate user key from password
-    final passwordBytes = Uint8List.fromList(currentPassword.codeUnits);
+    final passwordBytes = Uint8List.fromList(utf8.encode(currentPassword));
     final Uint8List uKey = Uint8List(32);
     argon2.deriveKey(passwordBytes, passwordBytes.length, uKey, 0);
 
@@ -283,7 +283,7 @@ class EncryptionService {
     newArgon2.init(newArgon2parameters);
 
     // generate user key from password
-    final newPasswordBytes = Uint8List.fromList(newPassword.codeUnits);
+    final newPasswordBytes = Uint8List.fromList(utf8.encode(newPassword));
     final Uint8List newUKey = Uint8List(32);
     newArgon2.deriveKey(newPasswordBytes, newPasswordBytes.length, newUKey, 0);
 
@@ -326,7 +326,7 @@ class EncryptionService {
 
     // Add timestamp to ensure different results on each call
     final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final timestampBytes = timestamp.toString().codeUnits;
+    final timestampBytes = utf8.encode(timestamp.toString());
 
     // Fill the remaining bytes with timestamp data (making sure not to exceed 32 bytes)
     for (int i = 0; i < min(timestampBytes.length, 16); i++) {
