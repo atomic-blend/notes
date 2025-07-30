@@ -130,7 +130,7 @@ class _NoteDetailState extends State<NoteDetail> {
 
   _checkIfNoteIsConflicted(BuildContext context, NoteState taskState) async {
     final patches = taskState.stagedPatches
-        ?.where((element) => element.itemId == widget.note!.id)
+        ?.where((element) => element.itemId == widget.note?.id)
         .toList();
     for (var patch in patches ?? []) {
       final conflicts = taskState.syncResult?.conflicts

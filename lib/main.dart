@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_age/flutter_age.dart';
 import 'package:notes/blocs/app/app.bloc.dart';
 import 'package:notes/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
@@ -37,6 +38,7 @@ SharedPreferences? prefs;
 FcmService? fcmService;
 Map<String, dynamic>? userData;
 String? userKey;
+String? agePublicKey;
 
 FutureOr<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +57,8 @@ FutureOr<void> main() async {
   }, appRunner: () async {
     tz.initializeTimeZones();
 
+    await FlutterAge.init();
+
     if (!kIsWeb && Platform.isMacOS) {
       await WindowManipulator.initialize();
       WindowManipulator.makeTitlebarTransparent();
@@ -67,6 +71,7 @@ FutureOr<void> main() async {
     final rawUserData = prefs?.getString("user");
     userData = rawUserData != null ? json.decode(rawUserData) : null;
     userKey = prefs?.getString("key");
+    agePublicKey = prefs?.getString("agePublicKey");
 
     if (isPaymentSupported()) {
       await RevenueCatService.initPlatformState();
@@ -89,9 +94,9 @@ FutureOr<void> main() async {
     }
 
     HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: kIsWeb
-          ? HydratedStorage.webStorageDirectory
-          : await getApplicationDocumentsDirectory(),
+      storageDirectory: kIsWeb || kIsWasm
+          ? HydratedStorageDirectory.web
+          : HydratedStorageDirectory((await getTemporaryDirectory()).path),
     );
 
     await LocaleSettings.useDeviceLocale();
