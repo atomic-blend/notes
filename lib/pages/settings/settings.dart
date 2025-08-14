@@ -1,9 +1,9 @@
-import 'package:notes/blocs/auth/auth.bloc.dart';
-import 'package:notes/components/buttons/icon_text_button.dart';
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/components/buttons/icon_text_button.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/settings/screens/app_settings.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

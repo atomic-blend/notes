@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:notes/services/encryption.service.dart';
+import 'package:ab_shared/services/encryption.service.dart';
 
 part 'note_entity.freezed.dart';
 part 'note_entity.g.dart';

@@ -6,13 +6,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
-import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/folder/my_folders.dart';
 import 'package:notes/pages/recently_deleted/recently_deleted.dart';
 import 'package:notes/pages/tags/my_tags.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 
 class Organize extends StatefulWidget {
   const Organize({super.key});

@@ -1,13 +1,13 @@
-import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:notes/components/buttons/primary_button_square.dart';
-import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:ab_shared/components/buttons/primary_button_square.dart';
+import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/main.dart';
 import 'package:notes/pages/sync/conflict_card.dart';
 import 'package:notes/services/sync.service.dart';
-import 'package:notes/utils/api_client.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +110,7 @@ class _SyncStatusState extends State<SyncStatus> {
   }
 
   Widget _buildSyncModal(BuildContext context) {
-    var selfHostedUrl = ApiClient.getSelfHostedRestApiUrl();
+    var selfHostedUrl = globalApiClient?.getSelfHostedRestApiUrl();
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
       return BlocBuilder<NoteBloc, NoteState>(
         builder: (context, noteState) {
@@ -189,8 +189,7 @@ class _SyncStatusState extends State<SyncStatus> {
                                             TextSpan(
                                                 text: selfHostedUrl != null &&
                                                         selfHostedUrl != ""
-                                                    ? Uri.parse(ApiClient
-                                                            .getSelfHostedRestApiUrl()!)
+                                                    ? Uri.parse(selfHostedUrl)
                                                         .host
                                                     : context.t.app_name_saas,
                                                 style: const TextStyle(

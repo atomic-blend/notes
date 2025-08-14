@@ -1,4 +1,5 @@
-import 'flavors.dart';
+
+import 'package:ab_shared/flavors.dart';
 
 import 'main.dart' as runner;
 
