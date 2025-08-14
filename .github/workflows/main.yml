@@ -23,9 +23,23 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
           cache: true
-
+          
+      - name: Check for Local Path Dependencies
+        run: |
+          echo "Checking pubspec.yaml for local path dependencies..."
+          if grep -A1 -B1 "^  [a-zA-Z0-9_-]:" pubspec.yaml | grep -q "path:"; then
+            echo "❌ ERROR: Local path dependencies found in pubspec.yaml!"
+            echo "The following lines contain 'path:' references under dependencies:"
+            grep -A1 -B1 "^  [a-zA-Z0-9_-]:" pubspec.yaml | grep -n "path:"
+            echo ""
+            echo "Please remove all local path dependencies before committing."
+            exit 1
+          else
+            echo "✅ No local path dependencies found in pubspec.yaml"
+          fi
       - name: Install Dependencies
         run: flutter pub get
+      
 
       - name: Lint
         run: dart analyze --fatal-infos
