@@ -1,5 +1,5 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
-import 'package:ab_shared/components/app/bottom_navigation.dart';
+import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
 import 'package:notes/pages/more_apps/more_apps.dart';
@@ -48,14 +48,8 @@ class NavConstants {
   List<NavigationItem> primaryMenuItems(BuildContext context) => [
         NavigationItem(
           key: const Key("my_notes"),
-          icon: const Icon(
-            LineAwesome.file,
-            size: 25,
-          ),
-          cupertinoIcon: const Icon(
-            CupertinoIcons.doc,
-            size: 25,
-          ),
+          icon: LineAwesome.file,
+          cupertinoIcon: CupertinoIcons.doc,
           label: context.t.my_notes.title,
           body: const MyNotes(),
           appBar: AppBar(
@@ -83,14 +77,8 @@ class NavConstants {
         ),
         NavigationItem(
           key: const Key("search"),
-          icon: const Icon(
-            LineAwesome.search_solid,
-            size: 25,
-          ),
-          cupertinoIcon: const Icon(
-            CupertinoIcons.search,
-            size: 25,
-          ),
+          icon: LineAwesome.search_solid,
+          cupertinoIcon: CupertinoIcons.search,
           label: context.t.search.title,
           body: const Search(),
           appBar: AppBar(
@@ -118,14 +106,8 @@ class NavConstants {
         ),
         NavigationItem(
           key: const Key("add_notes"),
-          icon: Icon(
-            LineAwesome.plus_solid,
-            color: getTheme(context).tertiary,
-          ),
-          cupertinoIcon: Icon(
-            CupertinoIcons.plus_circle_fill,
-            color: getTheme(context).secondary,
-          ),
+          icon: LineAwesome.plus_solid,
+          cupertinoIcon: CupertinoIcons.plus_circle_fill,
           label: context.t.actions.add,
           color: getTheme(context).secondary,
           onTap: (index) {
@@ -152,14 +134,8 @@ class NavConstants {
         ),
         NavigationItem(
           key: const Key("organize"),
-          icon: const Icon(
-            LineAwesome.filter_solid,
-            size: 25,
-          ),
-          cupertinoIcon: const Icon(
-            CupertinoIcons.square_fill_line_vertical_square,
-            size: 25,
-          ),
+          icon: LineAwesome.filter_solid,
+          cupertinoIcon: CupertinoIcons.square_fill_line_vertical_square,
           label: context.t.organize.title,
           body: const Organize(),
           appBar: AppBar(
@@ -186,14 +162,8 @@ class NavConstants {
         ),
         NavigationItem(
           key: const Key("more"),
-          icon: const Icon(
-            CupertinoIcons.ellipsis_circle_fill,
-            size: 25,
-          ),
-          cupertinoIcon: const Icon(
-            CupertinoIcons.ellipsis_circle_fill,
-            size: 25,
-          ),
+          icon: CupertinoIcons.ellipsis_circle_fill,
+          cupertinoIcon: CupertinoIcons.ellipsis_circle_fill,
           label: context.t.more.title,
           body: const MoreApps(),
           appBar: AppBar(
