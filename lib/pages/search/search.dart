@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/buttons/note_item.dart';
-import 'package:notes/components/forms/search_bar.dart';
-import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:ab_shared/components/forms/search_bar.dart';
+import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
-import 'package:notes/utils/constants.dart';
+import 'package:ab_shared/utils/constants.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});

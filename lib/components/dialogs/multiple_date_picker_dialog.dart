@@ -1,7 +1,7 @@
-import 'package:notes/components/buttons/primary_button_square.dart';
+import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:notes/i18n/strings.g.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 

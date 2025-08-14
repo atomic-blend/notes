@@ -1,8 +1,9 @@
-import 'package:notes/blocs/auth/auth.bloc.dart';
-import 'package:notes/pages/account/account.dart';
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/pages/account/account.dart';
+import 'package:notes/main.dart';
 import 'package:notes/services/sync.service.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,12 @@ class AccountAvatarWithSyncStatus extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            builder: (context) => const Account(),
+            builder: (context) => Account(
+              globalApiClient: globalApiClient!,
+              encryptionService: encryptionService!,
+              revenueCatService: revenueCatService!,
+              prefs: prefs!,
+            ),
           );
         },
         onDoubleTap: () {

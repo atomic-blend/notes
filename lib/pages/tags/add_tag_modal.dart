@@ -1,12 +1,12 @@
 import 'package:notes/blocs/tag/tag.bloc.dart';
-import 'package:notes/components/buttons/primary_button_square.dart';
-import 'package:notes/components/forms/ab_color_picker.dart';
-import 'package:notes/components/forms/app_text_form_field.dart';
+import 'package:ab_shared/components/buttons/primary_button_square.dart';
+import 'package:ab_shared/components/forms/ab_color_picker.dart';
+import 'package:ab_shared/components/forms/app_text_form_field.dart';
 import 'package:notes/components/modals/delete_confirm_modal.dart';
 import 'package:notes/entities/tag/tag.entity.dart';
 import 'package:notes/i18n/strings.g.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';

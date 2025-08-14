@@ -1,24 +1,24 @@
 import 'dart:io';
 
 import 'package:notes/blocs/app/app.bloc.dart';
-import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
-import 'package:notes/components/app/bottom_navigation.dart';
-import 'package:notes/components/responsive_stateful_widget.dart';
-import 'package:notes/components/widgets/elevated_container.dart';
-import 'package:notes/pages/auth/login_or_register_modal.dart';
-import 'package:notes/pages/paywall/paywall_utils.dart';
-import 'package:notes/services/device_info.service.dart';
-import 'package:notes/services/encryption.service.dart';
-import 'package:notes/services/revenue_cat_service.dart';
-import 'package:notes/services/user.service.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/components/app/bottom_navigation.dart';
+import 'package:ab_shared/components/responsive_stateful_widget.dart';
+import 'package:ab_shared/components/widgets/elevated_container.dart';
+import 'package:ab_shared/pages/auth/login_or_register_modal.dart';
+import 'package:ab_shared/pages/paywall/paywall_utils.dart';
+import 'package:ab_shared/services/device_info.service.dart';
+import 'package:ab_shared/services/encryption.service.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:macos_window_utils/widgets/titlebar_safe_area.dart';
+import 'package:notes/main.dart';
+import 'package:notes/utils/nav_constants.dart';
 
 class AppLayout extends ResponsiveStatefulWidget {
   const AppLayout({super.key});
@@ -35,16 +35,17 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
   @override
   void initState() {
     context.read<AuthBloc>().add(const RefreshUser());
-    PaywallUtils.resetPaywall();
+    PaywallUtils.resetPaywall(
+      prefs: prefs!,
+    );
 
     if (context.read<AuthBloc>().state.user != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (context.read<AuthBloc>().state.user?.devices == null) {
           context.read<AuthBloc>().state.user?.devices = [];
         }
-        deviceInfoService ??= DeviceInfoService();
-
-        final userDeviceInfo = await deviceInfoService!.getDeviceInfo();
+        final deviceInfoService = DeviceInfoService();
+        final userDeviceInfo = await deviceInfoService.getDeviceInfo();
 
         if (!context.mounted) return;
         // ignore: use_build_context_synchronously
@@ -73,7 +74,7 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 context: context, appState: appState, authState: authState);
 
             // get the secondary section based on the selected primary menu
-            final secondarySection = $constants.navigation
+            final secondarySection = $navConstants
                 .secondaryMenuSections(context)
                 .where(
                   (section) =>
@@ -82,7 +83,7 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 )
                 .firstOrNull;
 
-            var primaryMenuItem = $constants.navigation
+            var primaryMenuItem = $navConstants
                 .primaryMenuItems(context)
                 .where((item) =>
                     (item.key as ValueKey).value ==
@@ -127,7 +128,17 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                     backgroundColor: getTheme(context).surface,
                     body: body,
                     bottomNavigationBar: BottomNavigation(
-                      destinations: $constants.navigation
+                      onPrimaryMenuSelected: (key) {
+                        context.read<AppCubit>().changePrimaryMenuSelectedKey(
+                              key: key,
+                            );
+                      },
+                      onSecondaryMenuSelected: (key) {
+                        context.read<AppCubit>().changeSecondaryMenuSelectedKey(
+                              key: key,
+                            );
+                      },
+                      destinations: $navConstants
                           .primaryMenuItems(context)
                           .take(5)
                           .toList(),
@@ -155,7 +166,7 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 context: context, appState: appState, authState: authState);
 
             // get the secondary section based on the selected primary menu
-            final secondarySection = $constants.navigation
+            final secondarySection = $navConstants
                 .secondaryMenuSections(context)
                 .where(
                   (section) =>
@@ -165,14 +176,14 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 .firstOrNull;
 
             // by default, the primary menu is selected
-            Widget? body = $constants.navigation
+            Widget? body = $navConstants
                 .primaryMenuItems(context)
                 .where((item) =>
                     (item.key as ValueKey).value ==
                     appState.primaryMenuSelectedKey)
                 .firstOrNull
                 ?.body;
-            AppBar? appBar = $constants.navigation
+            AppBar? appBar = $navConstants
                 .primaryMenuItems(context)
                 .where((item) =>
                     (item.key as ValueKey).value ==
@@ -182,7 +193,7 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
 
             // on desktop, move the 4th primary menu item to the end of the list
             final primaryMenuItems =
-                $constants.navigation.primaryMenuItems(context).toList();
+                $navConstants.primaryMenuItems(context).toList();
             if (primaryMenuItems.length > 4) {
               final itemToMove = primaryMenuItems.removeAt(4);
               primaryMenuItems.add(itemToMove);
@@ -574,20 +585,20 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
     required AuthState authState,
   }) {
     if (authState is LoggedIn) {
-      encryptionService ??=
-          EncryptionService(userSalt: authState.user!.keySet.salt);
-      if (isPaymentSupported()) {
-        RevenueCatService.logIn(authState.user!.id!);
-      }
+      encryptionService ??= EncryptionService(
+        userSalt: authState.user!.keySet.salt,
+        prefs: prefs!,
+        userKey: userKey,
+        agePublicKey: agePublicKey,
+      );
+      if (isPaymentSupported()) revenueCatService?.logIn(authState.user!.id!);
     }
 
     // if the user is logged out, show the login modal
     if (authState is LoggedOut && !_isLoginModalVisible) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (isPaymentSupported()) revenueCatService?.logOut();
         _showLoginModal(context);
-        if (isPaymentSupported()) {
-          RevenueCatService.logOut();
-        }
       });
     }
   }
@@ -601,6 +612,10 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 child: SizedBox(
                   width: getSize(context).width * 0.5,
                   child: LoginOrRegisterModal(
+                    encryptionService: encryptionService!,
+                    globalApiClient: globalApiClient!,
+                    prefs: prefs!,
+                    env: env!,
                     onAuthSuccess: () => setState(() {
                       _isLoginModalVisible = false;
                     }),
@@ -616,6 +631,10 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
         builder: (context) => SizedBox(
           height: getSize(context).height * 0.88,
           child: LoginOrRegisterModal(
+            encryptionService: encryptionService,
+            globalApiClient: globalApiClient,
+            prefs: prefs!,
+            env: env!,
             onAuthSuccess: () => setState(() {
               _isLoginModalVisible = false;
             }),
