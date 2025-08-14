@@ -68,7 +68,9 @@ class _MoreAppsState extends State<MoreApps> {
                             SizedBox(
                               height: $constants.insets.sm,
                             ),
-                            isDesktop(context) ? e.icon : e.cupertinoIcon,
+                            isDesktop(context)
+                                ? Icon(e.icon)
+                                : Icon(e.cupertinoIcon),
                             SizedBox(
                               height: $constants.insets.xxs,
                             ),
