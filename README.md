@@ -28,7 +28,11 @@ To get started, check out our **[CONTRIBUTING.md](./CONTRIBUTING.md)** file.
 - 🔥 **Website**: [atomicblend.io](https://atomicblend.io) *(Coming Soon!)*  
 - 📜 **Docs**: [atomicblend.io/docs](https://atomic-blend.gitbook.io/docs) 
 - 🐙 **GitHub**: [github.com/atomic-blend](https://github.com/atomic-blend)  
-- 💬 **Community**: [Discord](https://discord.gg/uVK5Ekqne8)  
+- 💬 **Communities**:
+  - [Discord](https://discord.gg/uVK5Ekqne8)
+  - [Matrix space](https://matrix.to/#/#atomic-blend:matrix.org)
+    - Make sure to join the individual rooms in the space
+    - Having difficulties? [Join the **General** room directly](https://matrix.to/#/!jDFVnGnuAbTFudEDqi:matrix.org?via=matrix.org)
 
 ## 📜 License
 Atomic Blend is licensed under the AGPL v3 License – ensuring freedom and openness while requiring modifications to be shared with the community.
