@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.5 - 2025-09-15
+#### Bug Fixes
+- remove from build env in the copy of the built web-app - (e85f454) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.4 [skip ci] - (e18fae6) - GitHub Actions
+
+- - -
+
 ## 0.3.4 - 2025-09-15
 #### Bug Fixes
 - remove bad dependency - (f466406) - Brandon Guigo
