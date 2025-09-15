@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.1 - 2025-09-15
+#### Bug Fixes
+- update cicd to use new self-hosted runners + build docker images - (d3e85b2) - Brandon Guigo
+- update to the new navbar - (83b778d) - Brandon Guigo
+- test script for path dependency with correct yaml indentation matching - (aad0d08) - Brandon Guigo
+- add cicd check for local path - (22b2e98) - Brandon Guigo
+- wrong key in app cubit init - (5453ecb) - Brandon Guigo
+- refactor with shared package - (93d1048) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.0 [skip ci] - (b48058f) - GitHub Actions
+- update to latest shared package - (b46b288) - Brandon Guigo
+
+- - -
+
 ## 0.3.0 - 2025-07-30
 #### Bug Fixes
 - add missing pkg directory - (00e2ca0) - Brandon Guigo
