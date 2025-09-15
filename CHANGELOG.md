@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.2 - 2025-09-15
+#### Bug Fixes
+- make the cicd build flutter web app before docker images - (98b5922) - Brandon Guigo
+- update notes to latest shared and flutter_age - (6c8d758) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.1 [skip ci] - (0a846d0) - GitHub Actions
+- update docker build to a matrix based job - (534d7d2) - Brandon Guigo
+
+- - -
+
 ## 0.3.1 - 2025-09-15
 #### Bug Fixes
 - update cicd to use new self-hosted runners + build docker images - (d3e85b2) - Brandon Guigo
