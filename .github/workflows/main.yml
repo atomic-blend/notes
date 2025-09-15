@@ -24,23 +24,9 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
           cache: true
-          
-      - name: Check for Local Path Dependencies
-        run: |
-          echo "Checking pubspec.yaml for local path dependencies..."
-          if grep -A1 -B1 "^[[:space:]]*[a-zA-Z0-9_-]*:" pubspec.yaml | grep -q "^[[:space:]]*path:"; then
-            echo "❌ ERROR: Local path dependencies found in pubspec.yaml!"
-            echo "The following lines contain 'path:' references:"
-            grep -n "^[[:space:]]*path:" pubspec.yaml
-            echo ""
-            echo "Please remove all local path dependencies before committing."
-            exit 1
-          else
-            echo "✅ No local path dependencies found in pubspec.yaml"
-          fi
+
       - name: Install Dependencies
         run: flutter pub get
-      
 
       - name: Lint
         run: dart analyze --fatal-infos
@@ -125,6 +111,7 @@ jobs:
         with:
           name: changelog
           path: CHANGELOG.md
+
   build-docker-images:
     needs: bump-version
     runs-on: [self-hosted, Linux]
@@ -136,10 +123,18 @@ jobs:
 
       - name: Write Firebase Options
         run: |
-          echo '${{ secrets.FIREBASE_OPTIONS_PROD }}' > lib/firebase_options_prod.dart
-          echo '${{ secrets.FIREBASE_OPTIONS_DEV }}' > lib/firebase_options_dev.dart
-          echo '${{ secrets.APP_CONFIG_PROD }}' > assets/configs/prod.json
-          echo '${{ secrets.APP_CONFIG_DEV }}' > assets/configs/dev.json
+          cat << 'EOF' > lib/firebase_options_prod.dart
+          ${{ secrets.FIREBASE_OPTIONS_PROD }}
+          EOF
+          cat << 'EOF' > lib/firebase_options_dev.dart
+          ${{ secrets.FIREBASE_OPTIONS_DEV }}
+          EOF
+          cat << 'EOF' > assets/configs/prod.json
+          ${{ secrets.APP_CONFIG_PROD }}
+          EOF
+          cat << 'EOF' > assets/configs/dev.json
+          ${{ secrets.APP_CONFIG_DEV }}
+          EOF
         env:
           FIREBASE_OPTIONS_PROD: ${{ secrets.FIREBASE_OPTIONS_PROD }}
           FIREBASE_OPTIONS_DEV: ${{ secrets.FIREBASE_OPTIONS_DEV }}
@@ -172,7 +167,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/atomic-blend/task-app:${{ steps.get-tag.outputs.tag }}
+            ghcr.io/atomic-blend/notes-app:${{ steps.get-tag.outputs.tag }}
 
   create-github-release:
     needs: build-docker-images

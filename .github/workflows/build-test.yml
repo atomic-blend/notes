@@ -12,7 +12,7 @@ on:
 
 env:
   FLUTTER_VERSION: "3.32.5"
-
+  OS: "debian12"
 jobs:
   test-coverage:
     runs-on: [self-hosted, Linux]
