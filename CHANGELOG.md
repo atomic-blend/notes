@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.3 - 2025-09-15
+#### Bug Fixes
+- creation of firebase and config files from secrets - (9ef8f6f) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.2 [skip ci] - (f2208f8) - GitHub Actions
+
+- - -
+
 ## 0.3.2 - 2025-09-15
 #### Bug Fixes
 - make the cicd build flutter web app before docker images - (98b5922) - Brandon Guigo
