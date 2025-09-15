@@ -14,8 +14,8 @@ class AppState with _$AppState {
       Map<String, bool>? showcasePageStatus}) = _AppState;
 
   factory AppState.initial() => _AppState(
-        primaryMenuSelectedKey: 'tasks',
-        secondaryMenuSelectedKey: 'overview',
+        primaryMenuSelectedKey: 'my_notes',
+        secondaryMenuSelectedKey: '',
       );
 
   factory AppState.fromJson(Map<String, dynamic> stored) =>

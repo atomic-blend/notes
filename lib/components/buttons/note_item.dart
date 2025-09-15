@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/modals/delete_confirm_modal.dart';
-import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 
 class NoteItem extends StatelessWidget {
   final Note note;

@@ -1,4 +1,4 @@
-import 'package:notes/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';

@@ -1,13 +1,15 @@
-import 'package:notes/components/buttons/icon_text_button.dart';
-import 'package:notes/components/widgets/elevated_container.dart';
+import 'package:ab_shared/components/buttons/icon_text_button.dart';
+import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
-import 'package:notes/pages/account/account.dart';
+import 'package:ab_shared/pages/account/account.dart';
+import 'package:notes/main.dart';
 import 'package:notes/pages/settings/settings.dart';
-import 'package:notes/utils/constants.dart';
-import 'package:notes/utils/shortcuts.dart';
+import 'package:ab_shared/utils/constants.dart';
+import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:notes/utils/nav_constants.dart';
 
 class MoreApps extends StatefulWidget {
   const MoreApps({super.key});
@@ -20,7 +22,7 @@ class _MoreAppsState extends State<MoreApps> {
   @override
   Widget build(BuildContext context) {
     final restOfNavigation =
-        $constants.navigation.primaryMenuItems(context).sublist(5);
+        $navConstants.primaryMenuItems(context).sublist(5);
     return SafeArea(
       child: Padding(
         padding: isDesktop(context)
@@ -66,7 +68,9 @@ class _MoreAppsState extends State<MoreApps> {
                             SizedBox(
                               height: $constants.insets.sm,
                             ),
-                            isDesktop(context) ? e.icon : e.cupertinoIcon,
+                            isDesktop(context)
+                                ? Icon(e.icon)
+                                : Icon(e.cupertinoIcon),
                             SizedBox(
                               height: $constants.insets.xxs,
                             ),
@@ -108,7 +112,12 @@ class _MoreAppsState extends State<MoreApps> {
                           showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
-                            builder: (context) => const Account(),
+                            builder: (context) => Account(
+                              globalApiClient: globalApiClient!,
+                              encryptionService: encryptionService!,
+                              revenueCatService: revenueCatService!,
+                              prefs: prefs!,
+                            ),
                           );
                         },
                       ),

@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:notes/entities/note/note_entity.dart';
-import 'package:notes/entities/sync/conflicted_item/conflicted_item.dart';
-import 'package:notes/entities/sync/item_type/item_type.dart';
-import 'package:notes/entities/sync/patch/patch.dart';
-import 'package:notes/entities/sync/patch_action/patch_action.dart';
-import 'package:notes/entities/sync/patch_change/patch_change.dart';
-import 'package:notes/entities/sync/sync_result/sync_result.dart';
+import 'package:ab_shared/entities/sync/conflicted_item/conflicted_item.dart';
+import 'package:ab_shared/entities/sync/item_type/item_type.dart';
+import 'package:ab_shared/entities/sync/patch/patch.dart';
+import 'package:ab_shared/entities/sync/patch_action/patch_action.dart';
+import 'package:ab_shared/entities/sync/patch_change/patch_change.dart';
+import 'package:ab_shared/entities/sync/sync_result/sync_result.dart';
 import 'package:notes/services/note_service.dart';
 import 'package:objectid/objectid.dart';
 
