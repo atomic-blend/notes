@@ -147,6 +147,11 @@ jobs:
         with:
           name: changelog
           path: CHANGELOG.md
+      - name: Upload pubspec.yaml
+        uses: actions/upload-artifact@v4
+        with:
+          name: pubspec
+          path: pubspec.yaml
       - name: Store the tag in the output
         id: released-tag
         run: |
@@ -584,14 +589,16 @@ jobs:
         with:
           name: android-aab
           path: ./build/app/outputs/bundle/prodRelease/
+      - name: Download pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec
+          path: ./
       - name: Write Play Store Key
         run: |
           cat > playstore_key.json << 'EOF'
           ${{ secrets.PLAY_STORE_KEY }}
           EOF
-      - name: Apply the released version to the pubspec.yaml
-        run: |
-          sed -i "s/version: .*/version: ${{ needs.bump-version.outputs.tag }}/" pubspec.yaml
 
       - name: Publish Android App to Play Store
         continue-on-error: true
@@ -619,10 +626,11 @@ jobs:
         with:
           name: ios-app
           path: build/ios/ipa
-      
-      - name: Apply the released version to the pubspec.yaml
-        run: |
-          sed -i "s/version: .*/version: ${{ needs.bump-version.outputs.tag }}/" pubspec.yaml
+      - name: Download pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec
+          path: ./
 
       - name: Publish iOS App to TestFlight
         continue-on-error: true
@@ -704,15 +712,16 @@ jobs:
         with:
           name: changelog
           path: ./
+      - name: Download pubspec.yaml
+        uses: actions/download-artifact@v4
+        with:
+          name: pubspec
+          path: ./
 
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
           go-version: "stable"
-
-      - name: Apply the released version to the pubspec.yaml
-        run: |
-          sed -i "s/version: .*/version: ${{ needs.bump-version.outputs.tag }}/" pubspec.yaml
       - name: Download Linux App Artifact
         uses: actions/download-artifact@v4
         with:
