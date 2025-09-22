@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.7 - 2025-09-22
+#### Bug Fixes
+- restore pubspec in build steps too - (21a7f54) - Brandon Guigo
+- use artifact to store / restore pubspec after bump - (4438939) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.6 [skip ci] - (3515bf0) - GitHub Actions
+
+- - -
+
 ## 0.3.6 - 2025-09-22
 #### Bug Fixes
 - wrong version is used to push the apps - (7b3790f) - Brandon Guigo
