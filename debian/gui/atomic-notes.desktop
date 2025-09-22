@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=0.7.2
+Name=Atomic Notes
+GenericName=Atomic Notes
+Comment=End-to-end encrypted note app
+Terminal=false
+Type=Application
+Categories=Utility
+Keywords=Flutter;notes
