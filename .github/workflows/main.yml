@@ -81,6 +81,8 @@ jobs:
   bump-version:
     needs: test-coverage
     runs-on: [self-hosted, Linux]
+    outputs:
+      tag: ${{ steps.released-tag.outputs.tag }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -145,6 +147,11 @@ jobs:
         with:
           name: changelog
           path: CHANGELOG.md
+      - name: Store the tag in the output
+        id: released-tag
+        run: |
+          TAG=$(git describe --abbrev=0 --tags)
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
   build-app-for-web:
     needs: bump-version
     runs-on: [self-hosted, Linux, docker-builder]
@@ -229,11 +236,6 @@ jobs:
           cat > assets/configs/dev.json << 'EOF'
           ${{ secrets.APP_CONFIG_DEV }}
           EOF
-      - name: Get tag
-        id: get-tag
-        run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
       - name: Build Web App
         run: |
           flutter clean
@@ -243,8 +245,8 @@ jobs:
 
       - name: Update version
         run: |
-          sed -i "s/Version: .*/Version: ${{ steps.get-tag.outputs.tag }}/" debian/debian.yaml
-          sed -i "s/Version=.*$/Version=${{ steps.get-tag.outputs.tag }}/" debian/gui/atomic-notes.desktop
+          sed -i "s/Version: .*/Version: ${{ needs.bump-version.outputs.tag }}/" debian/debian.yaml
+          sed -i "s/Version=.*$/Version=${{ needs.bump-version.outputs.tag }}/" debian/gui/atomic-notes.desktop
       
       - name: Package Linux App
         run: |
@@ -255,7 +257,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-app
-          path: debian/packages/atomic-notes_${{ steps.get-tag.outputs.tag }}_amd64.deb
+          path: debian/packages/atomic-notes_${{ needs.bump-version.outputs.tag }}_amd64.deb
 
   build-app-for-android:
     needs: bump-version
@@ -330,13 +332,6 @@ jobs:
           cat > playstore_key.json << 'EOF'
           ${{ secrets.PLAY_STORE_KEY }}
           EOF
-
-      - name: Get tag
-        id: get-tag
-        run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          
       - name: Configure Gradle
         run: |
           rm -f ~/.gradle/gradle.properties
@@ -407,12 +402,6 @@ jobs:
           EOF
 
 
-      - name: Get tag
-        id: get-tag
-        run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          
       - name: Clean and prepare build
         run: |
           # Ruby + CocoaPods environment
@@ -443,13 +432,13 @@ jobs:
         run: |
           npm install -g appdmg
           appdmg macos_dmg/config.json macos_dmg/AtomicNotes.dmg
-          mv macos_dmg/AtomicNotes.dmg macos_dmg/atomic-notes-${{ steps.get-tag.outputs.tag }}-macos.dmg
+          mv macos_dmg/AtomicNotes.dmg macos_dmg/atomic-notes-${{ needs.bump-version.outputs.tag }}-macos.dmg
 
       - name: Upload MacOS App
         uses: actions/upload-artifact@v4
         with:
           name: macos-app
-          path: macos_dmg/atomic-notes-${{ steps.get-tag.outputs.tag }}-macos.dmg
+          path: macos_dmg/atomic-notes-${{ needs.bump-version.outputs.tag }}-macos.dmg
   build-app-for-ios:
     needs: bump-version
     runs-on: [self-hosted, MacOS]
@@ -485,12 +474,6 @@ jobs:
           ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_PROD }}
           EOF
 
-      - name: Get tag
-        id: get-tag
-        run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          
       - name: Clean and prepare build
         run: |
           # Ruby + CocoaPods environment
@@ -553,12 +536,6 @@ jobs:
           "@
           Set-Content -Path "assets/configs/dev.json" -Value $appConfigDev -NoNewline
 
-      - name: Get tag
-        id: get-tag
-        run: |
-          $TAG = git describe --abbrev=0 --tags
-          echo "tag=$TAG" >> $env:GITHUB_OUTPUT
-          
       - name: Clean and prepare build
         run: |
           $flutterpath = "$env:HOME\devtools\flutter\bin"
@@ -578,16 +555,17 @@ jobs:
           $innopath = "C:\Program Files (x86)\Inno Setup 6"
           $env:PATH += ";$innopath"
           iscc .\innosetup.iss
-          mv output\AtomicNotesInstaller.exe output\atomic-notes-${{ steps.get-tag.outputs.tag }}-windows-installer.exe
+          mv output\AtomicNotesInstaller.exe output\atomic-notes-${{ needs.bump-version.outputs.tag }}-windows-installer.exe
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
         with:
           name: windows-app
-          path: output\atomic-notes-${{ steps.get-tag.outputs.tag }}-windows-installer.exe
+          path: output\atomic-notes-${{ needs.bump-version.outputs.tag }}-windows-installer.exe
 
 
   publish-android-app:
     needs: 
+      - bump-version
       - build-app-for-linux
       - build-app-for-web
       - build-app-for-windows
@@ -611,6 +589,9 @@ jobs:
           cat > playstore_key.json << 'EOF'
           ${{ secrets.PLAY_STORE_KEY }}
           EOF
+      - name: Apply the released version to the pubspec.yaml
+        run: |
+          sed -i "s/version: .*/version: ${{ needs.bump-version.outputs.tag }}/" pubspec.yaml
 
       - name: Publish Android App to Play Store
         continue-on-error: true
@@ -619,6 +600,7 @@ jobs:
           fastlane android upload_beta
   publish-ios-app:
     needs: 
+      - bump-version
       - build-app-for-linux
       - build-app-for-web
       - build-app-for-windows
@@ -637,6 +619,10 @@ jobs:
         with:
           name: ios-app
           path: build/ios/ipa
+      
+      - name: Apply the released version to the pubspec.yaml
+        run: |
+          sed -i "s/version: .*/version: ${{ needs.bump-version.outputs.tag }}/" pubspec.yaml
 
       - name: Publish iOS App to TestFlight
         continue-on-error: true
@@ -648,6 +634,7 @@ jobs:
 
   publish-docker-images:
     needs: 
+      - bump-version
       - build-app-for-linux
       - build-app-for-android
       - build-app-for-web
@@ -687,11 +674,6 @@ jobs:
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Get tag
-        id: get-tag
-        run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
@@ -701,11 +683,12 @@ jobs:
           platforms: ${{ matrix.platform }}
           push: true
           tags: |
-            ghcr.io/atomic-blend/notes-app:${{ steps.get-tag.outputs.tag }}
+            ghcr.io/atomic-blend/notes-app:${{ needs.bump-version.outputs.tag }}
 
 
   create-github-release:
     needs: 
+      - bump-version
       - publish-docker-images
       - publish-android-app
       - publish-ios-app
@@ -727,11 +710,9 @@ jobs:
         with:
           go-version: "stable"
 
-      - name: Get tag
-        id: get-tag
+      - name: Apply the released version to the pubspec.yaml
         run: |
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          sed -i "s/version: .*/version: ${{ needs.bump-version.outputs.tag }}/" pubspec.yaml
       - name: Download Linux App Artifact
         uses: actions/download-artifact@v4
         with:
@@ -750,7 +731,7 @@ jobs:
           path: ./build/app/outputs/flutter-apk/
       - name: Rename the Android App file
         run: |
-          mv build/app/outputs/flutter-apk/app-prod-release.apk build/app/outputs/flutter-apk/atomic-notes-${{ steps.get-tag.outputs.tag }}.apk
+          mv build/app/outputs/flutter-apk/app-prod-release.apk build/app/outputs/flutter-apk/atomic-notes-${{ needs.bump-version.outputs.tag }}.apk
 
       - name: Download MacOS App Artifact
         uses: actions/download-artifact@v4
@@ -765,7 +746,7 @@ jobs:
       - name: Create GitHub Release
         run: |
           echo "Creating GitHub release"
-          TAG=$(git describe --abbrev=0 --tags)
+          TAG=${{ needs.bump-version.outputs.tag }}
           echo "Release tag: $TAG"
 
           # Extract changelog for the current version - improved approach
