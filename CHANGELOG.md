@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.6 - 2025-09-22
+#### Bug Fixes
+- wrong version is used to push the apps - (7b3790f) - Brandon Guigo
+- update the pipeline and build files for windows and debian packages - (0e64141) - Brandon Guigo
+- update pr pipeline - (3f1e8bc) - Brandon Guigo
+- update fastlane file - (693a9da) - Brandon Guigo
+- update flutter dependencies and remove fastlane plugin - (58acbf6) - Brandon Guigo
+- update android components - (050b838) - Brandon Guigo
+- update the fastfile - (4320f12) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.5 [skip ci] - (d0ebfd1) - GitHub Actions
+
+- - -
+
 ## 0.3.5 - 2025-09-15
 #### Bug Fixes
 - remove from build env in the copy of the built web-app - (e85f454) - Brandon Guigo
