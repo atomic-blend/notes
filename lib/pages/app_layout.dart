@@ -131,31 +131,36 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                         body: body,
                       ),
                       Positioned(
-                      bottom: $constants.insets.lg,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: $constants.insets.md),
-                        child: ABNavbar(
-                          backgroundColor: getTheme(context).surfaceContainer,
-                        onPrimaryMenuSelected: (key) {
-                          context.read<AppCubit>().changePrimaryMenuSelectedKey(
-                                key: key,
-                              );
-                        },
-                        onSecondaryMenuSelected: (key) {
-                          context.read<AppCubit>().changeSecondaryMenuSelectedKey(
-                                key: key,
-                              );
-                        },
-                        destinations: $navConstants
-                            .primaryMenuItems(context)
-                            .take(5)
-                            .toList(),
-                        primaryMenuKey: appState.primaryMenuSelectedKey,
-                                          ), 
+                        bottom: $constants.insets.lg,
+                        left: 0,
+                        right: 0,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: $constants.insets.md),
+                          child: ABNavbar(
+                            backgroundColor: getTheme(context).surfaceContainer,
+                            onPrimaryMenuSelected: (key) {
+                              context
+                                  .read<AppCubit>()
+                                  .changePrimaryMenuSelectedKey(
+                                    key: key,
+                                  );
+                            },
+                            onSecondaryMenuSelected: (key) {
+                              context
+                                  .read<AppCubit>()
+                                  .changeSecondaryMenuSelectedKey(
+                                    key: key,
+                                  );
+                            },
+                            destinations: $navConstants
+                                .primaryMenuItems(context)
+                                .take(5)
+                                .toList(),
+                            primaryMenuKey: appState.primaryMenuSelectedKey,
+                          ),
+                        ),
                       ),
-                    ),  
                     ],
                   ),
                 )
@@ -393,11 +398,10 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                                                                 ),
                                                                 child: isApple(
                                                                         context)
-                                                                    ? Icon(
-                                                                        item
-                                                                            .cupertinoIcon)
-                                                                    : Icon(
-                                                                        item.icon)),
+                                                                    ? Icon(item
+                                                                        .cupertinoIcon)
+                                                                    : Icon(item
+                                                                        .icon)),
                                                       ),
                                                     ],
                                                   ),
@@ -551,11 +555,10 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                                                               ),
                                                               child: isApple(
                                                                       context)
-                                                                  ? Icon(
-                                                                      item
-                                                                          .cupertinoIcon)
-                                                                  : Icon(
-                                                                      item.icon)),
+                                                                  ? Icon(item
+                                                                      .cupertinoIcon)
+                                                                  : Icon(item
+                                                                      .icon)),
                                                     ),
                                                   ],
                                                 ),
@@ -628,8 +631,8 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
                 child: SizedBox(
                   width: getSize(context).width * 0.5,
                   child: LoginOrRegisterModal(
-                    encryptionService: encryptionService!,
-                    globalApiClient: globalApiClient!,
+                    encryptionService: encryptionService,
+                    globalApiClient: globalApiClient,
                     prefs: prefs!,
                     env: env!,
                     onAuthSuccess: () => setState(() {
