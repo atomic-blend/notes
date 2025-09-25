@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.3.8 - 2025-09-25
+#### Bug Fixes
+- move pkg to the web directory - (ac4e5ab) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.7 [skip ci] - (e41af8a) - GitHub Actions
+
+- - -
+
 ## 0.3.7 - 2025-09-22
 #### Bug Fixes
 - restore pubspec in build steps too - (21a7f54) - Brandon Guigo
