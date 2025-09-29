@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:ab_shared/components/app/ab_navbar.dart';
+import 'package:ab_shared/pages/auth/sso_module.dart';
 import 'package:notes/blocs/app/app.bloc.dart';
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:ab_shared/components/responsive_stateful_widget.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
-import 'package:ab_shared/pages/auth/login_or_register_modal.dart';
 import 'package:ab_shared/pages/paywall/paywall_utils.dart';
 import 'package:ab_shared/services/device_info.service.dart';
 import 'package:ab_shared/services/encryption.service.dart';
@@ -28,7 +28,6 @@ class AppLayout extends ResponsiveStatefulWidget {
 }
 
 class AppLayoutState extends ResponsiveState<AppLayout> {
-  bool _isLoginModalVisible = false;
   final SideMenuController _secondarySideMenuController = SideMenuController();
   final SideMenuController _primarySideMenuController = SideMenuController();
 
@@ -60,6 +59,27 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
       });
     }
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget body = buildMobile(context);
+    if (isDesktop(context)) {
+      body = buildDesktop(context);
+    }
+    return BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
+      if (authState is! LoggedIn) {
+        return Scaffold(
+          body: SSOModule(
+            encryptionService: encryptionService,
+            globalApiClient: globalApiClient,
+            prefs: prefs,
+            env: env,
+          ),
+        );
+      }
+      return body;
+    });
   }
 
   @override
@@ -612,58 +632,6 @@ class AppLayoutState extends ResponsiveState<AppLayout> {
       );
       if (isPaymentSupported()) revenueCatService?.logIn(authState.user!.id!);
     }
-
-    // if the user is logged out, show the login modal
-    if (authState is LoggedOut && !_isLoginModalVisible) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (isPaymentSupported()) revenueCatService?.logOut();
-        _showLoginModal(context);
-      });
-    }
-  }
-
-  void _showLoginModal(BuildContext context) {
-    if (kIsWeb || Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => Dialog(
-                child: SizedBox(
-                  width: getSize(context).width * 0.5,
-                  child: LoginOrRegisterModal(
-                    encryptionService: encryptionService,
-                    globalApiClient: globalApiClient,
-                    prefs: prefs!,
-                    env: env!,
-                    onAuthSuccess: () => setState(() {
-                      _isLoginModalVisible = false;
-                    }),
-                  ),
-                ),
-              ));
-    } else {
-      showModalBottomSheet(
-        isDismissible: false,
-        isScrollControlled: true,
-        enableDrag: false,
-        context: context,
-        builder: (context) => SizedBox(
-          height: getSize(context).height * 0.88,
-          child: LoginOrRegisterModal(
-            encryptionService: encryptionService,
-            globalApiClient: globalApiClient,
-            prefs: prefs!,
-            env: env!,
-            onAuthSuccess: () => setState(() {
-              _isLoginModalVisible = false;
-            }),
-          ),
-        ),
-      );
-    }
-    setState(() {
-      _isLoginModalVisible = true;
-    });
   }
 
   String _getInitials(String name) {
