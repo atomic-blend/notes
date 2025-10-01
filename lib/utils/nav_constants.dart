@@ -4,7 +4,6 @@ import 'package:ab_shared/pages/account/account.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
-import 'package:notes/pages/more_apps/more_apps.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
 import 'package:notes/pages/settings/settings.dart';
