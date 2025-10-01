@@ -114,36 +114,6 @@ class NavConstants {
           subItems: const [],
         ),
         NavigationItem(
-          key: const Key("more"),
-          icon: CupertinoIcons.ellipsis_circle_fill,
-          cupertinoIcon: CupertinoIcons.ellipsis_circle_fill,
-          label: context.t.more.title,
-          mobileOnly: true,
-          body: const MoreApps(),
-          appBar: AppBar(
-              key: const Key("more"),
-              backgroundColor: getTheme(context).surface,
-              leading: Container(),
-              title: Text(
-                context.t.more.title,
-                style: getTextTheme(context).headlineSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              actions: [
-                BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                  if (authState is LoggedIn && !isDesktop(context)) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const SyncStatus(),
-                    );
-                  }
-                  return Container();
-                })
-              ]),
-          subItems: const [],
-        ),
-        NavigationItem(
           key: const Key("account"),
           icon: LineAwesome.user_solid,
           cupertinoIcon: CupertinoIcons.person,
@@ -154,7 +124,6 @@ class NavConstants {
             prefs: prefs,
           ),
           subItems: const [],
-          desktopOnly: true,
           appBar: AppBar(
               key: const Key("account"),
               backgroundColor: getTheme(context).surfaceContainer,
@@ -178,7 +147,6 @@ class NavConstants {
           label: "Settings",
           body: const Settings(),
           subItems: const [],
-          desktopOnly: true,
           appBar: AppBar(
               key: const Key("settings"),
               backgroundColor: getTheme(context).surfaceContainer,
