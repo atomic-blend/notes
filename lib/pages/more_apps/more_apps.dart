@@ -21,8 +21,7 @@ class MoreApps extends StatefulWidget {
 class _MoreAppsState extends State<MoreApps> {
   @override
   Widget build(BuildContext context) {
-    final restOfNavigation =
-        $navConstants.primaryMenuItems(context).sublist(5);
+    final restOfNavigation = $navConstants.primaryMenuItems(context).sublist(4);
     return SafeArea(
       child: Padding(
         padding: isDesktop(context)

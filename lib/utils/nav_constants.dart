@@ -1,13 +1,13 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/app/ab_navbar.dart';
+import 'package:ab_shared/pages/account/account.dart';
 import 'package:notes/i18n/strings.g.dart';
+import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
-import 'package:notes/pages/more_apps/more_apps.dart';
-import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
+import 'package:notes/pages/settings/settings.dart';
 import 'package:notes/pages/sync/sync_status.dart';
-import 'package:notes/services/sync.service.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -19,29 +19,6 @@ final $navConstants = NavConstants();
 
 @immutable
 class NavConstants {
-  List<NavigationSection> secondaryMenuSections(BuildContext context) => [
-        const NavigationSection(
-          key: Key("notes"),
-          items: [],
-        ),
-        const NavigationSection(
-          key: Key("calendar"),
-          items: [],
-        ),
-        const NavigationSection(
-          key: Key("add_task"),
-          items: [],
-        ),
-        const NavigationSection(
-          key: Key("habits"),
-          items: [],
-        ),
-        const NavigationSection(
-          key: Key("more"),
-          items: [],
-        ),
-      ];
-
   // list of fixed items, limited to 5 on mobile
   // on mobile: the rest is added as a grid on the more apps page (last item to the right)
   // on desktop: the more apps page is moved at the end of the menu
@@ -74,6 +51,7 @@ class NavConstants {
               }),
             ],
           ),
+          subItems: const [],
         ),
         NavigationItem(
           key: const Key("search"),
@@ -103,34 +81,7 @@ class NavConstants {
                   return Container();
                 })
               ]),
-        ),
-        NavigationItem(
-          key: const Key("add_notes"),
-          icon: LineAwesome.plus_solid,
-          cupertinoIcon: CupertinoIcons.plus_circle_fill,
-          label: context.t.actions.add,
-          color: getTheme(context).secondary,
-          onTap: (index) {
-            if (isDesktop(context)) {
-              showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                        child: SizedBox(
-                          height: getSize(context).height * 0.8,
-                          width: getSize(context).width * 0.8,
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular($constants.corners.md),
-                            child: const NoteDetail(),
-                          ),
-                        ),
-                      ));
-            } else {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const NoteDetail()));
-            }
-            SyncService.sync(context);
-          },
+          subItems: const [],
         ),
         NavigationItem(
           key: const Key("organize"),
@@ -159,31 +110,54 @@ class NavConstants {
                   return Container();
                 })
               ]),
+          subItems: const [],
         ),
         NavigationItem(
-          key: const Key("more"),
-          icon: CupertinoIcons.ellipsis_circle_fill,
-          cupertinoIcon: CupertinoIcons.ellipsis_circle_fill,
-          label: context.t.more.title,
-          body: const MoreApps(),
+          key: const Key("account"),
+          icon: LineAwesome.user_solid,
+          cupertinoIcon: CupertinoIcons.person,
+          label: "Account",
+          body: Account(
+            globalApiClient: globalApiClient,
+            encryptionService: encryptionService,
+            prefs: prefs,
+          ),
+          subItems: const [],
           appBar: AppBar(
-              key: const Key("more"),
-              backgroundColor: getTheme(context).surface,
+              key: const Key("account"),
+              backgroundColor: getTheme(context).surfaceContainer,
               leading: Container(),
               title: Text(
-                context.t.more.title,
+                "Account",
                 style: getTextTheme(context).headlineSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
               ),
               actions: [
                 BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                  if (authState is LoggedIn && !isDesktop(context)) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const SyncStatus(),
-                    );
-                  }
+                  return Container();
+                })
+              ]),
+        ),
+        NavigationItem(
+          key: const Key("settings"),
+          icon: LineAwesome.cog_solid,
+          cupertinoIcon: CupertinoIcons.gear,
+          label: "Settings",
+          body: const Settings(),
+          subItems: const [],
+          appBar: AppBar(
+              key: const Key("settings"),
+              backgroundColor: getTheme(context).surfaceContainer,
+              leading: Container(),
+              title: Text(
+                "Settings",
+                style: getTextTheme(context).headlineSmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              actions: [
+                BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
                   return Container();
                 })
               ]),
