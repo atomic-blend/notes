@@ -93,19 +93,6 @@
       "confirm_reset": "Confirm reset"
     }
   },
-  "settings": {
-    "title": "Settings",
-    "app_settings": {
-      "title": "App Settings",
-      "selfHostedUrl": {
-        "title": "Self-Hosted URL",
-        "description": "If you are using a self-hosted instance of Atomic Blend, you can enter the URL here.",
-        "placeholder": "Enter the URL of your instance",
-        "not_set": "Not set"
-      }
-    },
-    "logout": "Logout"
-  },
   "tags": {
     "title": "Tags",
     "add_modal": {
