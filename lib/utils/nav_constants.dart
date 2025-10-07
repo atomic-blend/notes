@@ -7,7 +7,7 @@ import 'package:notes/pages/my_notes/my_notes.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
-import 'package:notes/pages/settings/settings.dart';
+import 'package:ab_shared/pages/settings/settings.dart';
 import 'package:notes/pages/sync/sync_status.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
