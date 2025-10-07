@@ -34,7 +34,7 @@ class _AppSettingsState extends State<AppSettings> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           spacing: $constants.insets.xs,
           children: [
             const Icon(LineAwesome.mobile_solid),
@@ -45,8 +45,7 @@ class _AppSettingsState extends State<AppSettings> {
           ],
         ),
       ),
-      body: SafeArea(
-          child: Padding(
+      body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: $constants.insets.sm, vertical: $constants.insets.sm),
         child: Column(
@@ -70,7 +69,7 @@ class _AppSettingsState extends State<AppSettings> {
             )
           ],
         ),
-      )),
+      ),
     );
   }
 }

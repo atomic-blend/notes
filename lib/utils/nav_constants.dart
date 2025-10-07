@@ -148,13 +148,18 @@ class NavConstants {
           subItems: const [],
           appBar: AppBar(
               key: const Key("settings"),
-              backgroundColor: getTheme(context).surfaceContainer,
-              leading: Container(),
-              title: Text(
-                "Settings",
-                style: getTextTheme(context).headlineSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+              backgroundColor: getTheme(context).surface,
+              title: Row(
+                children: [
+                  const Icon(LineAwesome.cog_solid),
+                  SizedBox(width: $constants.insets.xs),
+                  Text(
+                    "Settings",
+                    style: getTextTheme(context).headlineSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
               ),
               actions: [
                 BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
