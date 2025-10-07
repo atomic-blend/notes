@@ -4,9 +4,10 @@ import 'package:ab_shared/pages/account/account.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
+import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
-import 'package:notes/pages/settings/settings.dart';
+import 'package:ab_shared/pages/settings/settings.dart';
 import 'package:notes/pages/sync/sync_status.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,13 +32,17 @@ class NavConstants {
           body: const MyNotes(),
           appBar: AppBar(
             key: const Key("my_notes"),
-            backgroundColor: getTheme(context).surface,
-            leading: Container(),
-            title: Text(
-              context.t.my_notes.title,
-              style: getTextTheme(context).headlineSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+            title: Row(
+              children: [
+                const Icon(LineAwesome.file),
+                SizedBox(width: $constants.insets.xs),
+                Text(
+                  context.t.my_notes.title,
+                  style: getTextTheme(context).headlineSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
             ),
             actions: [
               BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
@@ -51,6 +56,20 @@ class NavConstants {
               }),
             ],
           ),
+          action: NavigationAction(
+            icon: LineAwesome.plus_solid,
+            label: "Add Note",
+            onTap: () {
+              if (isDesktop(context)) {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(child: NoteDetail()));
+              } else {
+                showModalBottomSheet(
+                    context: context, builder: (context) => const NoteDetail());
+              }
+            },
+          ),
           subItems: const [],
         ),
         NavigationItem(
@@ -61,9 +80,6 @@ class NavConstants {
           body: const Search(),
           appBar: AppBar(
               key: const Key("search"),
-              backgroundColor: getTheme(context).surface,
-              surfaceTintColor: getTheme(context).surface,
-              leading: Container(),
               title: Text(
                 context.t.search.title,
                 style: getTextTheme(context).headlineSmall!.copyWith(
@@ -81,6 +97,20 @@ class NavConstants {
                   return Container();
                 })
               ]),
+          action: NavigationAction(
+            icon: LineAwesome.plus_solid,
+            label: "Add Note",
+            onTap: () {
+              if (isDesktop(context)) {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(child: NoteDetail()));
+              } else {
+                showModalBottomSheet(
+                    context: context, builder: (context) => const NoteDetail());
+              }
+            },
+          ),
           subItems: const [],
         ),
         NavigationItem(
@@ -91,8 +121,6 @@ class NavConstants {
           body: const Organize(),
           appBar: AppBar(
               key: const Key("organize"),
-              backgroundColor: getTheme(context).surface,
-              leading: Container(),
               title: Text(
                 context.t.organize.title,
                 style: getTextTheme(context).headlineSmall!.copyWith(
@@ -110,6 +138,20 @@ class NavConstants {
                   return Container();
                 })
               ]),
+          action: NavigationAction(
+            icon: LineAwesome.plus_solid,
+            label: "Add Note",
+            onTap: () {
+              if (isDesktop(context)) {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(child: NoteDetail()));
+              } else {
+                showModalBottomSheet(
+                    context: context, builder: (context) => const NoteDetail());
+              }
+            },
+          ),
           subItems: const [],
         ),
         NavigationItem(
@@ -125,8 +167,6 @@ class NavConstants {
           subItems: const [],
           appBar: AppBar(
               key: const Key("account"),
-              backgroundColor: getTheme(context).surfaceContainer,
-              leading: Container(),
               title: Text(
                 "Account",
                 style: getTextTheme(context).headlineSmall!.copyWith(
@@ -148,13 +188,18 @@ class NavConstants {
           subItems: const [],
           appBar: AppBar(
               key: const Key("settings"),
-              backgroundColor: getTheme(context).surfaceContainer,
-              leading: Container(),
-              title: Text(
-                "Settings",
-                style: getTextTheme(context).headlineSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+              backgroundColor: getTheme(context).surface,
+              title: Row(
+                children: [
+                  const Icon(LineAwesome.cog_solid),
+                  SizedBox(width: $constants.insets.xs),
+                  Text(
+                    "Settings",
+                    style: getTextTheme(context).headlineSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
               ),
               actions: [
                 BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {

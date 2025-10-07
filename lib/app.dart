@@ -1,12 +1,21 @@
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/components/app/app_layout.dart';
 import 'package:ab_shared/flavors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_side_menu/flutter_side_menu.dart';
+import 'package:notes/blocs/app/app.bloc.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
-import 'package:notes/pages/app_layout.dart';
 import 'package:ab_shared/utils/app_theme.dart';
+import 'package:ab_shared/components/ab_toast.dart';
 import 'package:fleather/l10n/fleather_localizations.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:notes/utils/nav_constants.dart';
+
+final SideMenuController sideMenuController = SideMenuController();
+final ABToastController abToastController = ABToastController();
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -29,7 +38,26 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: env!.debugShowCheckedModeBanner,
       title: F.title,
       home: _flavorBanner(
-        child: const Scaffold(body: AppLayout()),
+        child: BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
+          return BlocBuilder<AppCubit, AppState>(
+            builder: (context, appState) {
+              return AppLayout(
+                primaryMenuItems: $navConstants.primaryMenuItems(context),
+                authBloc: context.read<AuthBloc>(),
+                appCubit: context.read<AppCubit>(),
+                sideMenuController: sideMenuController,
+                abToastController: abToastController,
+                encryptionService: encryptionService,
+                globalApiClient: globalApiClient,
+                prefs: prefs,
+                env: env,
+                userKey: userKey,
+                agePublicKey: agePublicKey,
+                revenueCatService: revenueCatService,
+              );
+            },
+          );
+        }),
         show: kDebugMode && env!.debugShowCheckedModeBanner,
       ),
     );
