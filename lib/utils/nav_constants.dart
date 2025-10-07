@@ -31,13 +31,17 @@ class NavConstants {
           body: const MyNotes(),
           appBar: AppBar(
             key: const Key("my_notes"),
-            backgroundColor: getTheme(context).surface,
-            leading: Container(),
-            title: Text(
-              context.t.my_notes.title,
-              style: getTextTheme(context).headlineSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+            title: Row(
+              children: [
+                const Icon(LineAwesome.file),
+                SizedBox(width: $constants.insets.xs),
+                Text(
+                  context.t.my_notes.title,
+                  style: getTextTheme(context).headlineSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
             ),
             actions: [
               BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
@@ -61,9 +65,6 @@ class NavConstants {
           body: const Search(),
           appBar: AppBar(
               key: const Key("search"),
-              backgroundColor: getTheme(context).surface,
-              surfaceTintColor: getTheme(context).surface,
-              leading: Container(),
               title: Text(
                 context.t.search.title,
                 style: getTextTheme(context).headlineSmall!.copyWith(
@@ -91,8 +92,6 @@ class NavConstants {
           body: const Organize(),
           appBar: AppBar(
               key: const Key("organize"),
-              backgroundColor: getTheme(context).surface,
-              leading: Container(),
               title: Text(
                 context.t.organize.title,
                 style: getTextTheme(context).headlineSmall!.copyWith(
@@ -125,8 +124,6 @@ class NavConstants {
           subItems: const [],
           appBar: AppBar(
               key: const Key("account"),
-              backgroundColor: getTheme(context).surfaceContainer,
-              leading: Container(),
               title: Text(
                 "Account",
                 style: getTextTheme(context).headlineSmall!.copyWith(
