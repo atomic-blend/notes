@@ -57,15 +57,6 @@ class App extends StatelessWidget {
                 userKey: userKey,
                 agePublicKey: agePublicKey,
                 revenueCatService: revenueCatService,
-                centerActionCallback: () {
-                  SyncService.sync(context);
-                },
-                centerActionIcon: LineAwesome.plus_solid,
-                composerWidget: const NoteDetail(),
-                syncCallback: () {
-                  SyncService.sync(context);
-                },
-                centerActionEnabled: true,
               );
             },
           );

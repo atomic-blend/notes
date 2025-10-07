@@ -4,6 +4,7 @@ import 'package:ab_shared/pages/account/account.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/main.dart';
 import 'package:notes/pages/my_notes/my_notes.dart';
+import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
 import 'package:notes/pages/settings/settings.dart';
@@ -55,6 +56,20 @@ class NavConstants {
               }),
             ],
           ),
+          action: NavigationAction(
+            icon: LineAwesome.plus_solid,
+            label: "Add Note",
+            onTap: () {
+              if (isDesktop(context)) {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(child: NoteDetail()));
+              } else {
+                showModalBottomSheet(
+                    context: context, builder: (context) => const NoteDetail());
+              }
+            },
+          ),
           subItems: const [],
         ),
         NavigationItem(
@@ -82,6 +97,20 @@ class NavConstants {
                   return Container();
                 })
               ]),
+          action: NavigationAction(
+            icon: LineAwesome.plus_solid,
+            label: "Add Note",
+            onTap: () {
+              if (isDesktop(context)) {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(child: NoteDetail()));
+              } else {
+                showModalBottomSheet(
+                    context: context, builder: (context) => const NoteDetail());
+              }
+            },
+          ),
           subItems: const [],
         ),
         NavigationItem(
@@ -109,6 +138,20 @@ class NavConstants {
                   return Container();
                 })
               ]),
+          action: NavigationAction(
+            icon: LineAwesome.plus_solid,
+            label: "Add Note",
+            onTap: () {
+              if (isDesktop(context)) {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Dialog(child: NoteDetail()));
+              } else {
+                showModalBottomSheet(
+                    context: context, builder: (context) => const NoteDetail());
+              }
+            },
+          ),
           subItems: const [],
         ),
         NavigationItem(
