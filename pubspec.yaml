@@ -36,12 +36,12 @@ dependencies:
   flutter_age:
     git:
       url: https://github.com/atomic-blend/flutter_age.git
-      ref: v0.0.6
+      ref: v0.0.7
 
   ab_shared:
     git:
       url: https://github.com/atomic-blend/app-shared.git
-      ref: v0.8.0
+      ref: v0.8.1
     # path: ../ab_shared
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,7 +72,7 @@ dependencies:
   toastification: ^3.0.3
   flutter_slidable: ^4.0.0
   rename_app: ^1.6.1
-  flutter_native_splash: ^2.4.4
+  flutter_native_splash: ^2.4.6
   lottie: ^3.3.1
   flutter_animate: ^4.5.2
   calendar_date_picker2: ^1.1.9
