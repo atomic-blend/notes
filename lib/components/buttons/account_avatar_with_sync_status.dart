@@ -1,6 +1,5 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
-import 'package:ab_shared/pages/account/account.dart';
-import 'package:notes/main.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes/services/sync.service.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -18,16 +17,7 @@ class AccountAvatarWithSyncStatus extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
       return GestureDetector(
         onTap: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) => Account(
-              globalApiClient: globalApiClient!,
-              encryptionService: encryptionService!,
-              revenueCatService: revenueCatService!,
-              prefs: prefs!,
-            ),
-          );
+          context.go("/account");
         },
         onDoubleTap: () {
           SyncService.sync(context);
@@ -90,6 +80,6 @@ class AccountAvatarWithSyncStatus extends StatelessWidget {
 
   _isLoading({AuthState? authState}) {
     if (authState == null) return false;
-      return authState is Loading;
+    return authState is Loading;
   }
 }

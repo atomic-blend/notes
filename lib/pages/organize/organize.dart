@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
@@ -13,6 +14,16 @@ import 'package:notes/pages/recently_deleted/recently_deleted.dart';
 import 'package:notes/pages/tags/my_tags.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+
+part 'organize.g.dart';
+
+@TypedGoRoute<OrganizeRoute>(path: '/organize', name: "organize")
+class OrganizeRoute extends GoRouteData with _$OrganizeRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const Organize();
+  }
+}
 
 class Organize extends StatefulWidget {
   const Organize({super.key});
