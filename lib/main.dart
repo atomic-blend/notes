@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:ab_shared/services/encryption.service.dart';
@@ -29,25 +28,17 @@ import 'package:macos_window_utils/window_manipulator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizer/sizer.dart';
+import 'package:notes/utils/get_it.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:toastification/toastification.dart';
 
 import 'app.dart';
 import 'firebase_options.dart';
 
-EnvModel? env;
-SharedPreferences? prefs;
-FcmService? fcmService;
-Map<String, dynamic>? userData;
-String? userKey;
-String? agePublicKey;
-EncryptionService? encryptionService;
-RevenueCatService? revenueCatService;
-ApiClient? globalApiClient;
-
 FutureOr<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await setupGetIt();
 
   await SentryFlutter.init((options) {
     String? dsn = const String.fromEnvironment(
@@ -55,7 +46,7 @@ FutureOr<void> main() async {
     );
 
     options.dsn = dsn;
-    options.environment = env?.env;
+    options.environment = getIt<EnvModel>().env;
 
     // Adds request headers and IP for users,
     // visit: https://docs.sentry.io/platforms/dart/data-management/data-collected/ for more info
@@ -63,16 +54,9 @@ FutureOr<void> main() async {
   }, appRunner: () async {
     tz.initializeTimeZones();
 
-    env = await EnvModel.create();
-    prefs = await SharedPreferences.getInstance();
     await LocaleSettings.useDeviceLocale();
 
     await FlutterAge.init();
-
-    globalApiClient = ApiClient(
-      env: env!,
-      prefs: prefs!,
-    ).init();
 
     if (!kIsWeb && Platform.isMacOS) {
       await WindowManipulator.initialize();
@@ -80,37 +64,15 @@ FutureOr<void> main() async {
       WindowManipulator.enableFullSizeContentView();
     }
 
-   
-
-    final rawUserData = prefs?.getString("user");
-    userData = rawUserData != null ? json.decode(rawUserData) : null;
-    userKey = prefs?.getString("key");
-    agePublicKey = prefs?.getString("agePublicKey");
-
-    // Only create encryption service if user data exists
-    if (userData != null && userData!['keySet'] != null) {
-      encryptionService = EncryptionService(
-        userSalt: userData?['keySet']['salt'],
-        prefs: prefs!,
-        userKey: userKey,
-        agePublicKey: agePublicKey,
-      );
-    }
-
     if (isPaymentSupported()) {
-      revenueCatService = RevenueCatService(
-        googleRevenueCatApiKey: env!.googleRevenueCatApiKey,
-        appleRevenueCatApiKey: env!.appleRevenueCatApiKey,
-      );
-      await revenueCatService!.initPlatformState();
+      await getIt<RevenueCatService>().initPlatformState();
     }
 
     if (kIsWeb || !Platform.isLinux) {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      fcmService = FcmService();
-      fcmService!.initFCM();
+      FcmService().initFCM();
 
       // Register background handler
       FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -130,38 +92,32 @@ FutureOr<void> main() async {
     await LocaleSettings.useDeviceLocale();
     Jiffy.setLocale(LocaleSettings.currentLocale.languageCode);
 
-    runApp(Sizer(builder: (context, orientation, screenType) {
-      return SentryWidget(
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => AppCubit()),
-              BlocProvider(create: (context) => AuthBloc(
-                prefs: prefs!,
-                onLogout: () {
-                  userKey = null;
-                  userData = null;
-                  prefs?.clear();
-                  globalApiClient?.setIdToken(null);
-                  Sentry.configureScope(
-                    (scope) => scope.setUser(SentryUser(id: null)),
-                  );
-                  encryptionService = null;
-                },
-                onLogin: (e) {
-                  encryptionService = e;
-                },
-                globalApiClient: globalApiClient!,
-                encryptionService: encryptionService,
-              )),
-              BlocProvider(create: (context) => TagBloc()),
+    runApp(SentryWidget(
+      child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => AppCubit()),
+            BlocProvider(
+                create: (context) => AuthBloc(
+                      onLogout: () {
+                        getIt<SharedPreferences>().clear();
+                        getIt<ApiClient>().setIdToken(null);
+                        Sentry.configureScope(
+                          (scope) => scope.setUser(SentryUser(id: null)),
+                        );
+                        getIt.unregister<EncryptionService>();
+                      },
+                      onLogin: (e) {
+                        getIt.registerSingleton<EncryptionService>(e);
+                      },
+                    )),
+            BlocProvider(create: (context) => TagBloc()),
               BlocProvider(create: (context) => FolderBloc()),
               BlocProvider(create: (context) => NoteBloc()),
-            ],
-            child: ab_shared_translations.TranslationProvider(
-              child: TranslationProvider(
-                  child: const ToastificationWrapper(child: App())),
-            )),
-      );
-    }));
+          ],
+          child: ab_shared_translations.TranslationProvider(
+            child:
+                TranslationProvider(child: ToastificationWrapper(child: App())),
+          )),
+    ));
   });
 }

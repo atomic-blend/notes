@@ -2,12 +2,23 @@ import 'package:collection/collection.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/buttons/note_item.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/pages/sync/conflict_card.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+
+part 'my_notes.g.dart';
+
+@TypedGoRoute<MyNotesRoute>(path: '/notes', name: "notes")
+class MyNotesRoute extends GoRouteData with _$MyNotesRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const MyNotes();
+  }
+}
 
 class MyNotes extends StatefulWidget {
   const MyNotes({super.key});
