@@ -1,9 +1,10 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/utils/api_client.dart';
+import 'package:get_it/get_it.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
-import 'package:notes/main.dart';
 import 'package:notes/pages/sync/conflict_card.dart';
 import 'package:notes/services/sync.service.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -22,6 +23,15 @@ class SyncStatus extends StatefulWidget {
 }
 
 class _SyncStatusState extends State<SyncStatus> {
+  final getIt = GetIt.instance;
+  late final ApiClient globalApiClient;
+
+  @override
+  void initState() {
+    super.initState();
+    globalApiClient = getIt<ApiClient>();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.customButton != null) {
@@ -110,7 +120,7 @@ class _SyncStatusState extends State<SyncStatus> {
   }
 
   Widget _buildSyncModal(BuildContext context) {
-    var selfHostedUrl = globalApiClient?.getSelfHostedRestApiUrl();
+    var selfHostedUrl = globalApiClient.getSelfHostedRestApiUrl();
     return BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
       return BlocBuilder<NoteBloc, NoteState>(
         builder: (context, noteState) {

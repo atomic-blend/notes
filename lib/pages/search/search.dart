@@ -7,6 +7,17 @@ import 'package:ab_shared/components/forms/search_bar.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/utils/constants.dart';
+import 'package:go_router/go_router.dart';
+
+part 'search.g.dart';
+
+@TypedGoRoute<SearchRoute>(path: '/search', name: "search")
+class SearchRoute extends GoRouteData with _$SearchRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const Search();
+  }
+}
 
 class Search extends StatefulWidget {
   const Search({super.key});

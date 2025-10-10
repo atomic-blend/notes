@@ -1,19 +1,9 @@
-import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/app/ab_navbar.dart';
-import 'package:ab_shared/pages/account/account.dart';
 import 'package:notes/i18n/strings.g.dart';
-import 'package:notes/main.dart';
-import 'package:notes/pages/my_notes/my_notes.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
-import 'package:notes/pages/organize/organize.dart';
-import 'package:notes/pages/search/search.dart';
-import 'package:ab_shared/pages/settings/settings.dart';
-import 'package:notes/pages/sync/sync_status.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:ab_shared/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 final $navConstants = NavConstants();
@@ -29,33 +19,7 @@ class NavConstants {
           icon: LineAwesome.file,
           cupertinoIcon: CupertinoIcons.doc,
           label: context.t.my_notes.title,
-          body: const MyNotes(),
-          appBar: AppBar(
-            key: const Key("my_notes"),
-            title: Row(
-              children: [
-                const Icon(LineAwesome.file),
-                SizedBox(width: $constants.insets.xs),
-                Text(
-                  context.t.my_notes.title,
-                  style: getTextTheme(context).headlineSmall!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ],
-            ),
-            actions: [
-              BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                if (authState is LoggedIn && !isDesktop(context)) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: $constants.insets.sm),
-                    child: const SyncStatus(),
-                  );
-                }
-                return Container();
-              }),
-            ],
-          ),
+          location: "/notes",
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -77,26 +41,7 @@ class NavConstants {
           icon: LineAwesome.search_solid,
           cupertinoIcon: CupertinoIcons.search,
           label: context.t.search.title,
-          body: const Search(),
-          appBar: AppBar(
-              key: const Key("search"),
-              title: Text(
-                context.t.search.title,
-                style: getTextTheme(context).headlineSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              actions: [
-                BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                  if (authState is LoggedIn && !isDesktop(context)) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const SyncStatus(),
-                    );
-                  }
-                  return Container();
-                })
-              ]),
+          location: "/search",
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -118,26 +63,7 @@ class NavConstants {
           icon: LineAwesome.filter_solid,
           cupertinoIcon: CupertinoIcons.square_fill_line_vertical_square,
           label: context.t.organize.title,
-          body: const Organize(),
-          appBar: AppBar(
-              key: const Key("organize"),
-              title: Text(
-                context.t.organize.title,
-                style: getTextTheme(context).headlineSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              actions: [
-                BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                  if (authState is LoggedIn && !isDesktop(context)) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: $constants.insets.sm),
-                      child: const SyncStatus(),
-                    );
-                  }
-                  return Container();
-                })
-              ]),
+          location: "/organize",
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -154,58 +80,21 @@ class NavConstants {
           ),
           subItems: const [],
         ),
-        NavigationItem(
-          key: const Key("account"),
+        const NavigationItem(
+          key: Key("account"),
           icon: LineAwesome.user_solid,
           cupertinoIcon: CupertinoIcons.person,
           label: "Account",
-          body: Account(
-            globalApiClient: globalApiClient,
-            encryptionService: encryptionService,
-            prefs: prefs,
-          ),
-          subItems: const [],
-          appBar: AppBar(
-              key: const Key("account"),
-              title: Text(
-                "Account",
-                style: getTextTheme(context).headlineSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              actions: [
-                BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                  return Container();
-                })
-              ]),
+          location: "/account",
+          subItems: [],
         ),
-        NavigationItem(
-          key: const Key("settings"),
+        const NavigationItem(
+          key: Key("settings"),
           icon: LineAwesome.cog_solid,
           cupertinoIcon: CupertinoIcons.gear,
           label: "Settings",
-          body: const Settings(),
-          subItems: const [],
-          appBar: AppBar(
-              key: const Key("settings"),
-              backgroundColor: getTheme(context).surface,
-              title: Row(
-                children: [
-                  const Icon(LineAwesome.cog_solid),
-                  SizedBox(width: $constants.insets.xs),
-                  Text(
-                    "Settings",
-                    style: getTextTheme(context).headlineSmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ],
-              ),
-              actions: [
-                BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
-                  return Container();
-                })
-              ]),
+          location: "/settings",
+          subItems: [],
         ),
       ];
 }
