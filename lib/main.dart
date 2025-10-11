@@ -40,13 +40,14 @@ FutureOr<void> main() async {
 
   await setupGetIt();
 
-  await SentryFlutter.init((options) {
+  await SentryFlutter.init((options) async {
     String? dsn = const String.fromEnvironment(
       'SENTRY_DSN',
     );
 
     options.dsn = dsn;
-    options.environment = getIt<EnvModel>().env;
+    final env = await EnvModel.create();
+    options.environment = env.env;
 
     // Adds request headers and IP for users,
     // visit: https://docs.sentry.io/platforms/dart/data-management/data-collected/ for more info
@@ -111,8 +112,8 @@ FutureOr<void> main() async {
                       },
                     )),
             BlocProvider(create: (context) => TagBloc()),
-              BlocProvider(create: (context) => FolderBloc()),
-              BlocProvider(create: (context) => NoteBloc()),
+            BlocProvider(create: (context) => FolderBloc()),
+            BlocProvider(create: (context) => NoteBloc()),
           ],
           child: ab_shared_translations.TranslationProvider(
             child:
