@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/components/buttons/note_card.dart';
-import 'package:ab_shared/components/forms/search_bar.dart';
-import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +39,15 @@ class _SearchState extends State<Search> {
     super.initState();
     _searchController.text = widget.query ?? "";
     _searchNotes(context.read<NoteBloc>().state.notes ?? [], widget.query);
+  }
+
+  @override
+  void didUpdateWidget(Search oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.query != widget.query) {
+      _searchController.text = widget.query ?? "";
+      _searchNotes(context.read<NoteBloc>().state.notes ?? [], widget.query);
+    }
   }
 
   void _searchNotes(List<Note> notes, String? query) {
@@ -82,7 +89,7 @@ class _SearchState extends State<Search> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (_searchController.text == "" && _searchResults.isEmpty)
+                  if (widget.query == null || widget.query!.isEmpty)
                     ...(noteState.notes ?? []).sorted((a, b) {
                       if (a.createdAt == null || b.createdAt == null) return 0;
                       return b.createdAt!.compareTo(a.createdAt!);
@@ -94,7 +101,9 @@ class _SearchState extends State<Search> {
                         child: NoteCard(note: note),
                       );
                     }),
-                  if (_searchController.text != "" && _searchResults.isNotEmpty)
+                  if (widget.query != null &&
+                      widget.query!.isNotEmpty &&
+                      _searchResults.isNotEmpty)
                     ..._searchResults.sorted((a, b) {
                       if (a.createdAt == null || b.createdAt == null) return 0;
                       return b.createdAt!.compareTo(a.createdAt!);
