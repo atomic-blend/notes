@@ -7,6 +7,6 @@ part 'home.g.dart';
 class HomeRoute extends GoRouteData with _$HomeRoute {
   @override
   String? redirect(BuildContext context, GoRouterState state) {
-    return '/notes';
+    return '/notes/all';
   }
 }
