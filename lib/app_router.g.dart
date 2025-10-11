@@ -118,11 +118,18 @@ mixin _$OrganizeRoute on GoRouteData {
 }
 
 mixin _$SearchRoute on GoRouteData {
-  static SearchRoute _fromState(GoRouterState state) => SearchRoute();
+  static SearchRoute _fromState(GoRouterState state) => SearchRoute(
+        q: state.uri.queryParameters['q'],
+      );
+
+  SearchRoute get _self => this as SearchRoute;
 
   @override
   String get location => GoRouteData.$location(
         '/search',
+        queryParams: {
+          if (_self.q != null) 'q': _self.q,
+        },
       );
 
   @override

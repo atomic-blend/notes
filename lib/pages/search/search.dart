@@ -13,14 +13,20 @@ part 'search.g.dart';
 
 @TypedGoRoute<SearchRoute>(path: '/search', name: "search")
 class SearchRoute extends GoRouteData with _$SearchRoute {
+  final String? q;
+
+  SearchRoute({this.q});
+
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const Search();
+    return Search(query: q);
   }
 }
 
 class Search extends StatefulWidget {
-  const Search({super.key});
+  const Search({super.key, this.query});
+
+  final String? query;
 
   @override
   State<Search> createState() => _SearchState();
@@ -29,6 +35,26 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final TextEditingController _searchController = TextEditingController();
   List<Note> _searchResults = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.text = widget.query ?? "";
+    _searchNotes(context.read<NoteBloc>().state.notes ?? [], widget.query);
+  }
+
+  void _searchNotes(List<Note> notes, String? query) {
+    if (query == null || query.isEmpty) {
+      _searchResults = notes;
+    } else {
+      _searchResults = notes
+          .where((note) =>
+              note.content?.toLowerCase().contains(query.toLowerCase()) ??
+              false)
+          .toList();
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +68,9 @@ class _SearchState extends State<Search> {
               controller: _searchController,
               onChanged: (value) {
                 if (value.isEmpty) {
-                  setState(() {
-                    _searchResults = [];
-                  });
+                  _searchResults = [];
                 } else {
-                  setState(() {
-                    _searchResults = (noteState.notes ?? [])
-                        .where((note) =>
-                            note.content != null &&
-                            note.content!
-                                .toLowerCase()
-                                .contains(value.toLowerCase()))
-                        .toList();
-                  });
+                  _searchNotes(noteState.notes ?? [], value);
                 }
               },
             )),
@@ -66,7 +82,7 @@ class _SearchState extends State<Search> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (_searchController.text == "")
+                  if (_searchController.text == "" && _searchResults.isEmpty)
                     ...(noteState.notes ?? []).sorted((a, b) {
                       if (a.createdAt == null || b.createdAt == null) return 0;
                       return b.createdAt!.compareTo(a.createdAt!);
@@ -78,7 +94,7 @@ class _SearchState extends State<Search> {
                         child: NoteItem(note: note),
                       );
                     }),
-                  if (_searchController.text != "")
+                  if (_searchController.text != "" && _searchResults.isNotEmpty)
                     ..._searchResults.sorted((a, b) {
                       if (a.createdAt == null || b.createdAt == null) return 0;
                       return b.createdAt!.compareTo(a.createdAt!);
