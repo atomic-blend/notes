@@ -1,4 +1,6 @@
 import 'package:ab_shared/components/app/ab_navbar.dart';
+import 'package:ab_shared/components/app/ab_header.dart';
+import 'package:ab_shared/utils/constants.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -19,7 +21,10 @@ class NavConstants {
           icon: LineAwesome.file,
           cupertinoIcon: CupertinoIcons.doc,
           label: context.t.my_notes.title,
-          location: "/notes",
+          location: "/notes/all",
+          header: ABHeader(
+            title: context.t.my_notes.title,
+          ),
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
