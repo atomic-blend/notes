@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:notes/components/buttons/note_item.dart';
+import 'package:notes/components/buttons/note_card.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/pages/sync/conflict_card.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -56,7 +56,7 @@ class _MyNotesState extends State<MyNotes> {
                   padding: EdgeInsets.only(
                     bottom: $constants.insets.xs,
                   ),
-                  child: NoteItem(
+                  child: NoteCard(
                     note: note,
                     deleteEnabled: true,
                   ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/components/buttons/note_item.dart';
+import 'package:notes/components/buttons/note_card.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -61,7 +61,7 @@ class NoteList extends StatelessWidget {
                       )
                     : null,
               ),
-              child: NoteItem(
+              child: NoteCard(
                 note: note,
                 deleteEnabled: true,
               ),

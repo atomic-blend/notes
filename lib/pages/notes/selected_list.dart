@@ -1,6 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/components/buttons/note_item.dart';
+import 'package:notes/components/buttons/note_card.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:ab_shared/utils/constants.dart';
@@ -102,7 +102,7 @@ class SelectedListScreen extends StatelessWidget {
                         );
                       }
                     },
-                    child: NoteItem(
+                    child: NoteCard(
                       note: note,
                       deleteEnabled: true,
                     ),

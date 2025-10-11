@@ -12,11 +12,11 @@ import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 
-class NoteItem extends StatelessWidget {
+class NoteCard extends StatelessWidget {
   final Note note;
   final bool? deleteEnabled;
   final bool? restoreEnabled;
-  const NoteItem({
+  const NoteCard({
     super.key,
     required this.note,
     this.deleteEnabled,

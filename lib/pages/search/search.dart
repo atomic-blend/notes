@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:notes/components/buttons/note_item.dart';
+import 'package:notes/components/buttons/note_card.dart';
 import 'package:ab_shared/components/forms/search_bar.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
@@ -63,20 +63,20 @@ class _SearchState extends State<Search> {
         padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
         child: Column(
           children: [
-            ElevatedContainer(
-                child: ABSearchBar(
-              controller: _searchController,
-              onChanged: (value) {
-                if (value.isEmpty) {
-                  _searchResults = [];
-                } else {
-                  _searchNotes(noteState.notes ?? [], value);
-                }
-              },
-            )),
-            SizedBox(
-              height: $constants.insets.sm,
-            ),
+            // ElevatedContainer(
+            //     child: ABSearchBar(
+            //   controller: _searchController,
+            //   onChanged: (value) {
+            //     if (value.isEmpty) {
+            //       _searchResults = [];
+            //     } else {
+            //       _searchNotes(noteState.notes ?? [], value);
+            //     }
+            //   },
+            // )),
+            // SizedBox(
+            //   height: $constants.insets.sm,
+            // ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +91,7 @@ class _SearchState extends State<Search> {
                         padding: EdgeInsets.only(
                           bottom: $constants.insets.xs,
                         ),
-                        child: NoteItem(note: note),
+                        child: NoteCard(note: note),
                       );
                     }),
                   if (_searchController.text != "" && _searchResults.isNotEmpty)
@@ -103,7 +103,7 @@ class _SearchState extends State<Search> {
                         padding: EdgeInsets.only(
                           bottom: $constants.insets.xs,
                         ),
-                        child: NoteItem(note: note),
+                        child: NoteCard(note: note),
                       );
                     }),
                 ],

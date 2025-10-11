@@ -43,10 +43,14 @@ class NavConstants {
         ),
         NavigationItem(
           key: const Key("search"),
+          enabled: false,
           icon: LineAwesome.search_solid,
           cupertinoIcon: CupertinoIcons.search,
           label: context.t.search.title,
           location: "/search",
+          header: ABHeader(
+            title: context.t.my_notes.title,
+          ),
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
