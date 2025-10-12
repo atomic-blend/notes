@@ -68,6 +68,7 @@ class _NoteDetailState extends State<NoteDetail> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.note?.content);
     return Scaffold(
       appBar: AppBar(
         title: widget.note == null
