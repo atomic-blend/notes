@@ -40,6 +40,18 @@ class _NoteDetailState extends State<NoteDetail> {
   }
 
   @override
+  void didUpdateWidget(NoteDetail oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.note != oldWidget.note) {
+      _controller = FleatherController(
+        document: ParchmentDocument.fromJson(
+          jsonDecode(widget.note!.content ?? "{}"),
+        ),
+      );
+    }
+  }
+
+  @override
   void didChangeDependencies() {
     _noteBloc = context.read<NoteBloc>();
     super.didChangeDependencies();
