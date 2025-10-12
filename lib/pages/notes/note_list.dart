@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:notes/components/buttons/note_card.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/utils/constants.dart';
-import 'package:ab_shared/utils/shortcuts.dart';
 
 class NoteList extends StatelessWidget {
   final List<Note> notes;
@@ -32,40 +31,19 @@ class NoteList extends StatelessWidget {
       itemCount: notes.length,
       itemBuilder: (context, index) {
         final note = notes[index];
-        final isSelected = selectedNotes.contains(note);
 
         return Padding(
           padding: EdgeInsets.only(
             bottom: $constants.insets.xs,
           ),
-          child: GestureDetector(
-            onTap: () {
-              if (isSelecting == true) {
-                if (isSelected) {
-                  onDeselect?.call(note);
-                } else {
-                  onSelect?.call(note);
-                }
-              } else {
-                // Navigate to note detail or open note
-                // This would typically navigate to the note detail screen
-              }
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular($constants.corners.sm),
-                border: isSelecting == true && isSelected
-                    ? Border.all(
-                        color: getTheme(context).primary,
-                        width: 2,
-                      )
-                    : null,
-              ),
-              child: NoteCard(
-                note: note,
-                deleteEnabled: true,
-              ),
-            ),
+          child: NoteCard(
+            note: note,
+            deleteEnabled: true,
+            onSelect: onSelect,
+            onDeselect: onDeselect,
+            selectedNotes: selectedNotes,
+            selectMode: isSelecting,
+            setSelectMode: setIsSelecting,
           ),
         );
       },
