@@ -64,15 +64,24 @@ class Note with _$Note {
 
   String get displayTitle {
     if (title != null && title!.isNotEmpty) {
-      return title!.replaceAll('\n', ' ').trim();
+      // Get first line (stop before first \n) or 30 chars
+      final firstLine = title!.split('\n').first.trim();
+      if (firstLine.length > 30) {
+        final truncated = firstLine.substring(0, 30);
+        return '$truncated...';
+      }
+      return firstLine;
     } else if (content != null && content!.isNotEmpty) {
       final parsedContent = jsonDecode(content!);
       final firstBlockContent =
           (parsedContent[0] as Map<String, dynamic>).values.first;
-      final cleanContent = firstBlockContent.replaceAll('\n', ' ').trim();
-      return cleanContent.length > 30
-          ? '${cleanContent.substring(0, 30)}...'
-          : cleanContent;
+      // Get first line (stop before first \n) or 30 chars
+      final firstLine = firstBlockContent.split('\n').first.trim();
+      if (firstLine.length > 30) {
+        final truncated = firstLine.substring(0, 30);
+        return '$truncated...';
+      }
+      return firstLine;
     } else {
       return 'Untitled Note';
     }
@@ -85,19 +94,41 @@ class Note with _$Note {
   }
 
   String get description {
-    final parsedContent = jsonDecode(content!);
-    final Map<String, dynamic> second =
-        parsedContent.isNotEmpty && parsedContent.length > 1
-            ? parsedContent[1] as Map<String, dynamic>
-            : {};
-    final firstBlockContent = second.values.firstOrNull ?? "";
-    if (firstBlockContent.isEmpty) {
+    if (content == null || content!.isEmpty) {
       return "";
     }
-    final cleanContent = firstBlockContent.replaceAll('\n', ' ').trim();
-    return cleanContent.length > 30
-        ? '${cleanContent.substring(0, 30)}...'
-        : cleanContent;
+
+    try {
+      final parsedContent = jsonDecode(content!);
+      if (parsedContent.isEmpty) return "";
+
+      // Get the first block content
+      final firstBlockContent =
+          (parsedContent[0] as Map<String, dynamic>).values.first;
+
+      // Split into lines
+      final lines = firstBlockContent.split('\n');
+
+      // If there's a second line, use it
+      if (lines.length > 1) {
+        final secondLine = lines[1].trim();
+        return secondLine.isEmpty ? "" : secondLine;
+      }
+
+      // Otherwise, get chars 30-60 from the content
+      if (firstBlockContent.length > 30) {
+        final startIndex = 30;
+        final endIndex = (startIndex + 30).clamp(0, firstBlockContent.length);
+        final result = firstBlockContent.substring(startIndex, endIndex).trim();
+        return result.isEmpty
+            ? ""
+            : (endIndex < firstBlockContent.length ? '$result...' : result);
+      }
+
+      return "";
+    } catch (e) {
+      return "";
+    }
   }
 
   void updateField(String key, dynamic value) {
