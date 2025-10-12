@@ -1,6 +1,5 @@
 import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/app/ab_header.dart';
-import 'package:ab_shared/utils/constants.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
@@ -39,7 +38,28 @@ class NavConstants {
               }
             },
           ),
-          subItems: const [],
+          subItems: const [
+            NavigationItem(
+              key: Key("all"),
+              label: "All",
+              location: "/notes/all",
+              icon: LineAwesome.file,
+              cupertinoIcon: CupertinoIcons.doc,
+              header: ABHeader(
+                title: "All",
+              ),
+            ),
+            NavigationItem(
+              key: Key("trash"),
+              label: "Trash",
+              location: "/notes/trashed",
+              icon: LineAwesome.trash_solid,
+              cupertinoIcon: CupertinoIcons.trash,
+              header: ABHeader(
+                title: "Trash",
+              ),
+            ),
+          ],
         ),
         NavigationItem(
           key: const Key("search"),
@@ -73,6 +93,9 @@ class NavConstants {
           cupertinoIcon: CupertinoIcons.square_fill_line_vertical_square,
           label: context.t.organize.title,
           location: "/organize",
+          header: ABHeader(
+            title: context.t.organize.title,
+          ),
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -95,6 +118,9 @@ class NavConstants {
           cupertinoIcon: CupertinoIcons.person,
           label: "Account",
           location: "/account",
+          header: ABHeader(
+            title: "Account",
+          ),
           subItems: [],
         ),
         const NavigationItem(
@@ -103,6 +129,9 @@ class NavConstants {
           cupertinoIcon: CupertinoIcons.gear,
           label: "Settings",
           location: "/settings",
+          header: ABHeader(
+            title: "Settings",
+          ),
           subItems: [],
         ),
       ];

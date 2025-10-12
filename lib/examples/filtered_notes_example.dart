@@ -12,7 +12,7 @@ class ExampleFilteredNotesUsage extends StatelessWidget {
       body: Column(
         children: [
           // Example 1: All notes (no filter)
-          Expanded(
+          const Expanded(
             child: FilteredNotesView(
               title: "All Notes",
             ),

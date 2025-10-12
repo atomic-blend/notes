@@ -185,7 +185,7 @@ class _NoteCardState extends State<NoteCard> {
                             color: getTheme(context).primary,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             CupertinoIcons.checkmark,
                             color: Colors.white,
                             size: 20,
@@ -250,7 +250,7 @@ class _NoteCardState extends State<NoteCard> {
                     ],
                   ),
                   if (widget.selectMode == true) ...[
-                    Spacer(),
+                    const Spacer(),
                     GestureDetector(
                       onTap: () {
                         if (isDesktop(context)) {
@@ -299,7 +299,7 @@ class _NoteCardState extends State<NoteCard> {
                           borderRadius:
                               BorderRadius.circular($constants.corners.sm),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           CupertinoIcons.eye,
                           size: 17,
                         ),
