@@ -220,7 +220,9 @@ class _NoteCardState extends State<NoteCard> {
                             ? constraints.maxWidth * 0.63
                             : null,
                         child: Text(
-                          widget.note.displayTitle,
+                          widget.note.displayTitle != ""
+                              ? widget.note.displayTitle
+                              : context.t.my_notes.untitled,
                           style: getTextTheme(context).headlineSmall!.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -234,7 +236,9 @@ class _NoteCardState extends State<NoteCard> {
                             ? constraints.maxWidth * 0.63
                             : null,
                         child: Text(
-                          widget.note.description,
+                          widget.note.description != ""
+                              ? widget.note.description
+                              : context.t.my_notes.no_content,
                           style: getTextTheme(context).bodyMedium!.copyWith(
                                 color: getTheme(context).onSurface.lighten(40),
                               ),

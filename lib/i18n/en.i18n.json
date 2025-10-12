@@ -471,6 +471,8 @@
   },
   "my_notes": {
     "title": "My Notes",
+    "untitled": "Untitled",
+    "no_content": "No content",
     "delete_note": {
       "title": "Delete note",
       "description": "Are you sure you want to delete this note?",

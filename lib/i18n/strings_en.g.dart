@@ -503,6 +503,12 @@ class TranslationsMyNotesEn {
 	/// en: 'My Notes'
 	String get title => 'My Notes';
 
+	/// en: 'Untitled'
+	String get untitled => 'Untitled';
+
+	/// en: 'No content'
+	String get no_content => 'No content';
+
 	late final TranslationsMyNotesDeleteNoteEn delete_note = TranslationsMyNotesDeleteNoteEn._(_root);
 }
 
@@ -1966,6 +1972,8 @@ extension on Translations {
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
 			case 'my_notes.title': return 'My Notes';
+			case 'my_notes.untitled': return 'Untitled';
+			case 'my_notes.no_content': return 'No content';
 			case 'my_notes.delete_note.title': return 'Delete note';
 			case 'my_notes.delete_note.description': return 'Are you sure you want to delete this note?';
 			case 'my_notes.delete_note.warning': return 'This action cannot be undone.';
