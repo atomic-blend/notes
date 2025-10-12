@@ -79,37 +79,40 @@ class _NoteDetailState extends State<NoteDetail> {
               )
             : Container(),
       ),
-      body: BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _checkIfNoteIsConflicted(context, noteState);
-        });
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
-          child: Column(
-            children: [
-              if (isDesktop(context))
-                FleatherToolbar.basic(controller: _controller!),
-              Expanded(
-                child: ElevatedContainer(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: $constants.insets.sm,
-                    vertical: $constants.insets.sm,
-                  ),
-                  child: FleatherEditor(
-                    controller: _controller!,
+      body: MouseRegion(
+        onExit: (event) => _createOrUpdateNote(),
+        child: BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _checkIfNoteIsConflicted(context, noteState);
+          });
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
+            child: Column(
+              children: [
+                if (isDesktop(context))
+                  FleatherToolbar.basic(controller: _controller!),
+                Expanded(
+                  child: ElevatedContainer(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: $constants.insets.sm,
+                      vertical: $constants.insets.sm,
+                    ),
+                    child: FleatherEditor(
+                      controller: _controller!,
+                    ),
                   ),
                 ),
-              ),
-              if (!isDesktop(context)) ...[
-                FleatherToolbar.basic(controller: _controller!),
-                SizedBox(
-                  height: $constants.insets.lg,
-                ),
-              ]
-            ],
-          ),
-        );
-      }),
+                if (!isDesktop(context)) ...[
+                  FleatherToolbar.basic(controller: _controller!),
+                  SizedBox(
+                    height: $constants.insets.lg,
+                  ),
+                ]
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 
