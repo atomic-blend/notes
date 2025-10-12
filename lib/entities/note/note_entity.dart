@@ -117,7 +117,7 @@ class Note with _$Note {
 
       // Otherwise, get chars 30-60 from the content
       if (firstBlockContent.length > 30) {
-        final startIndex = 30;
+        const startIndex = 30;
         final endIndex = (startIndex + 30).clamp(0, firstBlockContent.length);
         final result = firstBlockContent.substring(startIndex, endIndex).trim();
         return result.isEmpty

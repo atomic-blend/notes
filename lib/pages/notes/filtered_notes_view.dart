@@ -45,7 +45,7 @@ class _FilteredNotesViewState extends State<FilteredNotesView> {
           isSelecting == true) {
         abToastController.replaceNotification(
           ABToastNotification(
-            key: ValueKey("selected_notes"),
+            key: const ValueKey("selected_notes"),
             content: SelectedNotesToastNotification(notes: selectedNotes),
             onTap: () {
               showModalBottomSheet(
@@ -74,7 +74,7 @@ class _FilteredNotesViewState extends State<FilteredNotesView> {
         );
       } else {
         abToastController.removeNotification(
-          ValueKey("selected_notes"),
+          const ValueKey("selected_notes"),
         );
       }
 

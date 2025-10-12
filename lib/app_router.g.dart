@@ -25,6 +25,11 @@ RouteBase get $appRouter => ShellRouteData.$route(
           factory: _$AllRoute._fromState,
         ),
         GoRouteData.$route(
+          path: '/notes/trashed',
+          name: 'trashed',
+          factory: _$TrashedRoute._fromState,
+        ),
+        GoRouteData.$route(
           path: '/organize',
           name: 'organize',
           factory: _$OrganizeRoute._fromState,
@@ -79,6 +84,28 @@ mixin _$AllRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/notes/all',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$TrashedRoute on GoRouteData {
+  static TrashedRoute _fromState(GoRouterState state) => TrashedRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/notes/trashed',
       );
 
   @override
