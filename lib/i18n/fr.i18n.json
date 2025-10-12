@@ -468,6 +468,8 @@
   },
   "my_notes": {
     "title": "Mes Notes",
+    "untitled": "Sans titre",
+    "no_content": "Aucun contenu",
     "delete_note": {
       "title": "Supprimer la note",
       "description": "Êtes-vous sûr de vouloir supprimer cette note ?",

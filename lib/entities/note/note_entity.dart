@@ -64,14 +64,15 @@ class Note with _$Note {
 
   String get displayTitle {
     if (title != null && title!.isNotEmpty) {
-      return title!;
+      return title!.replaceAll('\n', ' ').trim();
     } else if (content != null && content!.isNotEmpty) {
       final parsedContent = jsonDecode(content!);
       final firstBlockContent =
           (parsedContent[0] as Map<String, dynamic>).values.first;
-      return firstBlockContent.length > 30
-          ? '${firstBlockContent.substring(0, 30)}...'
-          : firstBlockContent;
+      final cleanContent = firstBlockContent.replaceAll('\n', ' ').trim();
+      return cleanContent.length > 30
+          ? '${cleanContent.substring(0, 30)}...'
+          : cleanContent;
     } else {
       return 'Untitled Note';
     }
@@ -93,9 +94,10 @@ class Note with _$Note {
     if (firstBlockContent.isEmpty) {
       return "";
     }
-    return firstBlockContent.length > 30
-        ? '${firstBlockContent.substring(0, 30)}...'
-        : firstBlockContent;
+    final cleanContent = firstBlockContent.replaceAll('\n', ' ').trim();
+    return cleanContent.length > 30
+        ? '${cleanContent.substring(0, 30)}...'
+        : cleanContent;
   }
 
   void updateField(String key, dynamic value) {
