@@ -1,10 +1,10 @@
+import 'package:ab_shared/components/modals/ab_modal.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:notes/components/modals/delete_confirm_modal.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
@@ -73,6 +73,7 @@ class _NoteCardState extends State<NoteCard> {
                         context
                             .read<NoteBloc>()
                             .add(ArchiveNote(widget.note.id!));
+                        Navigator.pop(context);
                       },
                     ),
                   );
@@ -96,6 +97,7 @@ class _NoteCardState extends State<NoteCard> {
               child: SlidableAction(
                 onPressed: (context) {
                   context.read<NoteBloc>().add(RestoreNote(widget.note.id!));
+                  Navigator.pop(context);
                 },
                 backgroundColor: getTheme(context).primary,
                 foregroundColor: Colors.white,
