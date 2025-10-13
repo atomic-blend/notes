@@ -23,6 +23,7 @@ class NoNoteSelectedScreen extends StatelessWidget {
       padding: EdgeInsets.all($constants.insets.lg),
       child: Center(
         child: ElevatedContainer(
+          disableShadow: true,
           padding: EdgeInsets.all($constants.insets.xl),
           child: Column(
             mainAxisSize: MainAxisSize.min,
