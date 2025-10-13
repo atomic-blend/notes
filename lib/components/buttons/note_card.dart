@@ -153,7 +153,17 @@ class _NoteCardState extends State<NoteCard> {
                   // on desktop, when the screen is too small to show the preview panel, open the note in the detail screen
                   if (getSize(context).width < $constants.screenSize.md) {
                     await Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => NoteDetail(note: widget.note)));
+                        builder: (context) => NoteDetail(
+                              note: widget.note,
+                              leading: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Icon(
+                                    CupertinoIcons.xmark_circle_fill,
+                                    size: 20,
+                                  )),
+                            )));
                   } else {
                     // on desktop, tapping the note opens it in the preview panel
                     // multi-select mode enables itself when the user clicks on the avatar / checkbox
