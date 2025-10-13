@@ -11,6 +11,7 @@ import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:notes/pages/notes/note_list.dart';
 import 'package:notes/pages/notes/no_note_selected.dart';
 import 'package:notes/pages/notes/selected_list.dart';
+import 'package:notes/services/sync.service.dart';
 import 'package:notes/utils/get_it.dart';
 
 class FilteredNotesView extends StatefulWidget {
@@ -31,6 +32,13 @@ class _FilteredNotesViewState extends State<FilteredNotesView> {
   final abToastController = getIt<ABToastController>();
   List<Note> selectedNotes = [];
   bool? isSelecting = false;
+  List<Note> filteredNotes = [];
+
+  @override
+  initState() {
+    super.initState();
+    SyncService.sync(context);
+  }
 
   @override
   Widget build(BuildContext context) {
