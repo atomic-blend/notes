@@ -91,7 +91,7 @@ class _NoteDetailState extends State<NoteDetail> {
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: $constants.insets.xs,
-                    vertical: $constants.insets.xs,
+                    vertical: $constants.insets.sm,
                   ),
                   child: FleatherEditor(
                     controller: _controller!,
