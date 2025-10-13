@@ -1,6 +1,6 @@
+import 'package:ab_shared/components/modals/ab_modal.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/components/buttons/icon_text_card.dart';
-import 'package:notes/components/modals/delete_confirm_modal.dart';
 import 'package:notes/entities/folder/folder.entity.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/folder/add_folder_modal.dart';

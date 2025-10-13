@@ -1,34 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search.dart';
+part of 'all.dart';
 
 // **************************************************************************
 // GoRouterGenerator
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $searchRoute,
+      $allRoute,
     ];
 
-RouteBase get $searchRoute => GoRouteData.$route(
-      path: '/search',
-      name: 'search',
-      factory: _$SearchRoute._fromState,
+RouteBase get $allRoute => GoRouteData.$route(
+      path: '/notes/all',
+      name: 'all',
+      factory: _$AllRoute._fromState,
     );
 
-mixin _$SearchRoute on GoRouteData {
-  static SearchRoute _fromState(GoRouterState state) => SearchRoute(
-        q: state.uri.queryParameters['q'],
-      );
-
-  SearchRoute get _self => this as SearchRoute;
+mixin _$AllRoute on GoRouteData {
+  static AllRoute _fromState(GoRouterState state) => AllRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/search',
-        queryParams: {
-          if (_self.q != null) 'q': _self.q,
-        },
+        '/notes/all',
       );
 
   @override

@@ -1,34 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search.dart';
+part of 'trashed.dart';
 
 // **************************************************************************
 // GoRouterGenerator
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $searchRoute,
+      $trashedRoute,
     ];
 
-RouteBase get $searchRoute => GoRouteData.$route(
-      path: '/search',
-      name: 'search',
-      factory: _$SearchRoute._fromState,
+RouteBase get $trashedRoute => GoRouteData.$route(
+      path: '/notes/trashed',
+      name: 'trashed',
+      factory: _$TrashedRoute._fromState,
     );
 
-mixin _$SearchRoute on GoRouteData {
-  static SearchRoute _fromState(GoRouterState state) => SearchRoute(
-        q: state.uri.queryParameters['q'],
-      );
-
-  SearchRoute get _self => this as SearchRoute;
+mixin _$TrashedRoute on GoRouteData {
+  static TrashedRoute _fromState(GoRouterState state) => TrashedRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/search',
-        queryParams: {
-          if (_self.q != null) 'q': _self.q,
-        },
+        '/notes/trashed',
       );
 
   @override

@@ -5,7 +5,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ab_shared/components/app/app_layout.dart';
 import 'package:notes/pages/home/home.dart';
-import 'package:notes/pages/my_notes/my_notes.dart';
+import 'package:notes/pages/notes/views/all/all.dart';
+import 'package:notes/pages/notes/views/trashed/trashed.dart';
 import 'package:notes/pages/organize/organize.dart';
 import 'package:notes/pages/search/search.dart';
 import 'package:notes/utils/nav_constants.dart';
@@ -18,7 +19,8 @@ final GlobalKey<NavigatorState> appLayoutNavigatorKey =
 @TypedShellRoute<AppRouter>(
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<HomeRoute>(path: '/', name: "home"),
-    TypedGoRoute<MyNotesRoute>(path: '/notes', name: "notes"),
+    TypedGoRoute<AllRoute>(path: '/notes/all', name: "all"),
+    TypedGoRoute<TrashedRoute>(path: '/notes/trashed', name: "trashed"),
     TypedGoRoute<OrganizeRoute>(path: '/organize', name: "organize"),
     TypedGoRoute<SearchRoute>(path: '/search', name: "search"),
     TypedGoRoute<AccountRoute>(path: '/account', name: "account"),

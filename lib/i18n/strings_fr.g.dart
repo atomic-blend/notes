@@ -418,6 +418,8 @@ class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
 
 	// Translations
 	@override String get title => 'Mes Notes';
+	@override String get untitled => 'Sans titre';
+	@override String get no_content => 'Aucun contenu';
 	@override late final _TranslationsMyNotesDeleteNoteFr delete_note = _TranslationsMyNotesDeleteNoteFr._(_root);
 }
 
@@ -1452,6 +1454,8 @@ extension on TranslationsFr {
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
 			case 'my_notes.title': return 'Mes Notes';
+			case 'my_notes.untitled': return 'Sans titre';
+			case 'my_notes.no_content': return 'Aucun contenu';
 			case 'my_notes.delete_note.title': return 'Supprimer la note';
 			case 'my_notes.delete_note.description': return 'Êtes-vous sûr de vouloir supprimer cette note ?';
 			case 'my_notes.delete_note.warning': return 'Cette action ne peut pas être annulée.';

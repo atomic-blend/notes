@@ -20,9 +20,14 @@ RouteBase get $appRouter => ShellRouteData.$route(
           factory: _$HomeRoute._fromState,
         ),
         GoRouteData.$route(
-          path: '/notes',
-          name: 'notes',
-          factory: _$MyNotesRoute._fromState,
+          path: '/notes/all',
+          name: 'all',
+          factory: _$AllRoute._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/notes/trashed',
+          name: 'trashed',
+          factory: _$TrashedRoute._fromState,
         ),
         GoRouteData.$route(
           path: '/organize',
@@ -73,12 +78,34 @@ mixin _$HomeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$MyNotesRoute on GoRouteData {
-  static MyNotesRoute _fromState(GoRouterState state) => MyNotesRoute();
+mixin _$AllRoute on GoRouteData {
+  static AllRoute _fromState(GoRouterState state) => AllRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/notes',
+        '/notes/all',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$TrashedRoute on GoRouteData {
+  static TrashedRoute _fromState(GoRouterState state) => TrashedRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/notes/trashed',
       );
 
   @override
@@ -118,11 +145,18 @@ mixin _$OrganizeRoute on GoRouteData {
 }
 
 mixin _$SearchRoute on GoRouteData {
-  static SearchRoute _fromState(GoRouterState state) => SearchRoute();
+  static SearchRoute _fromState(GoRouterState state) => SearchRoute(
+        q: state.uri.queryParameters['q'],
+      );
+
+  SearchRoute get _self => this as SearchRoute;
 
   @override
   String get location => GoRouteData.$location(
         '/search',
+        queryParams: {
+          if (_self.q != null) 'q': _self.q,
+        },
       );
 
   @override
