@@ -38,7 +38,8 @@ class NoteList extends StatelessWidget {
           ),
           child: NoteCard(
             note: note,
-            deleteEnabled: true,
+            deleteEnabled: note.deleted != true,
+            restoreEnabled: note.deleted == true,
             onSelect: onSelect,
             onDeselect: onDeselect,
             selectedNotes: selectedNotes,

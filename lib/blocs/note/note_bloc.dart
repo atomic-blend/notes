@@ -257,7 +257,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       );
       existingPatches.add(patch);
       final updatedNotes = _applyPatchToState(state: prevState, patch: patch);
-      emit(NoteRestored(
+      emit(NoteLoaded(
         notes: updatedNotes,
         stagedPatches: existingPatches,
         syncResult: prevState.syncResult,
