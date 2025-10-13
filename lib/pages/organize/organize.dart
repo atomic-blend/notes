@@ -41,64 +41,10 @@ class _OrganizeState extends State<Organize> {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: $constants.insets.sm),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                child: StaggeredGrid.count(
-                  crossAxisCount: 6,
-                  crossAxisSpacing: $constants.insets.xs,
-                  mainAxisSpacing: $constants.insets.xs,
-                  children: [
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: isDesktop(context) ? 0.5 : 1.5,
-                      child: _buildGridItem(
-                        icon: CupertinoIcons.folder,
-                        title: "Folders",
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyFolders(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: isDesktop(context) ? 0.5 : 1.5,
-                      child: _buildGridItem(
-                        icon: CupertinoIcons.tag,
-                        title: "Tags",
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyTags(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: isDesktop(context) ? 0.5 : 1.5,
-                      child: _buildGridItem(
-                        icon: CupertinoIcons.trash,
-                        title: context.t.recently_deleted.title,
-                        onTap: () {
-                          // Navigate to notes page
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RecentlyDeleted()));
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: $constants.insets.lg,
-              ),
               Text(
                 context.t.organize.latest_items,
                 style: getTextTheme(context).titleSmall!.copyWith(
