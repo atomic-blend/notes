@@ -15,7 +15,8 @@ import 'package:ab_shared/utils/shortcuts.dart';
 
 class NoteDetail extends StatefulWidget {
   final Note? note;
-  const NoteDetail({super.key, this.note});
+  final Widget? leading;
+  const NoteDetail({super.key, this.note, this.leading});
 
   @override
   State<NoteDetail> createState() => _NoteDetailState();
@@ -79,12 +80,18 @@ class _NoteDetailState extends State<NoteDetail> {
           child: Column(
             children: [
               if (isDesktop(context))
-                FleatherToolbar.basic(controller: _controller!),
+                Row(
+                  children: [
+                    widget.leading ?? Container(),
+                    Flexible(
+                        child: FleatherToolbar.basic(controller: _controller!)),
+                  ],
+                ),
               Expanded(
-                child: ElevatedContainer(
+                child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: $constants.insets.sm,
-                    vertical: $constants.insets.sm,
+                    horizontal: $constants.insets.xs,
+                    vertical: $constants.insets.xs,
                   ),
                   child: FleatherEditor(
                     controller: _controller!,
@@ -92,7 +99,12 @@ class _NoteDetailState extends State<NoteDetail> {
                 ),
               ),
               if (!isDesktop(context)) ...[
-                FleatherToolbar.basic(controller: _controller!),
+                Row(
+                  children: [
+                    widget.leading ?? Container(),
+                    FleatherToolbar.basic(controller: _controller!),
+                  ],
+                ),
                 SizedBox(
                   height: $constants.insets.lg,
                 ),
