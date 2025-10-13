@@ -1,8 +1,8 @@
+import 'package:ab_shared/components/modals/ab_modal.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:ab_shared/components/buttons/primary_button_square.dart';
 import 'package:ab_shared/components/forms/ab_color_picker.dart';
 import 'package:ab_shared/components/forms/app_text_form_field.dart';
-import 'package:notes/components/modals/delete_confirm_modal.dart';
 import 'package:notes/entities/folder/folder.entity.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
