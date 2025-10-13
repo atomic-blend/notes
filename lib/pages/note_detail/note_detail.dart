@@ -5,7 +5,6 @@ import 'package:fleather/fleather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/entities/sync/patch_change/patch_change.dart';
 import 'package:notes/i18n/strings.g.dart';
