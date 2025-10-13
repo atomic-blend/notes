@@ -2,16 +2,12 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
-import 'package:notes/pages/folder/my_folders.dart';
-import 'package:notes/pages/recently_deleted/recently_deleted.dart';
-import 'package:notes/pages/tags/my_tags.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 
@@ -68,26 +64,6 @@ class _OrganizeState extends State<Organize> {
         );
       });
     });
-  }
-
-  _buildGridItem({
-    required IconData icon,
-    required String title,
-    VoidCallback? onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: ElevatedContainer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon),
-            const SizedBox(height: 8),
-            Text(title),
-          ],
-        ),
-      ),
-    );
   }
 
   _buildLatestOrgItemList({
