@@ -51,7 +51,7 @@ class _OrganizeState extends State<Organize> {
                   children: [
                     StaggeredGridTile.count(
                       crossAxisCellCount: 2,
-                      mainAxisCellCount: 1.5,
+                      mainAxisCellCount: isDesktop(context) ? 0.5 : 1.5,
                       child: _buildGridItem(
                         icon: CupertinoIcons.folder,
                         title: "Folders",
@@ -65,7 +65,7 @@ class _OrganizeState extends State<Organize> {
                     ),
                     StaggeredGridTile.count(
                       crossAxisCellCount: 2,
-                      mainAxisCellCount: 1.5,
+                      mainAxisCellCount: isDesktop(context) ? 0.5 : 1.5,
                       child: _buildGridItem(
                         icon: CupertinoIcons.tag,
                         title: "Tags",
@@ -79,7 +79,7 @@ class _OrganizeState extends State<Organize> {
                     ),
                     StaggeredGridTile.count(
                       crossAxisCellCount: 2,
-                      mainAxisCellCount: 1.5,
+                      mainAxisCellCount: isDesktop(context) ? 0.5 : 1.5,
                       child: _buildGridItem(
                         icon: CupertinoIcons.trash,
                         title: context.t.recently_deleted.title,
