@@ -4,8 +4,12 @@ sealed class NoteEvent {
   const NoteEvent();
 }
 
-final class LoadNotes extends NoteEvent {
-  const LoadNotes();
+final class SyncAllNotes extends NoteEvent {
+  const SyncAllNotes();
+}
+
+final class SyncSince extends NoteEvent {
+  const SyncSince();
 }
 
 final class AddNote extends NoteEvent {

@@ -19,7 +19,8 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
   final NoteService _noteService = NoteService();
 
   NoteBloc() : super(const NoteInitial()) {
-    on<LoadNotes>(_onLoadNotes);
+    on<SyncAllNotes>(_onSyncAllNotes);
+    on<SyncSince>(_onSyncSince);
     on<AddNote>(_onAddNote);
     on<EditNote>(_onEditNote);
     on<DeleteNote>(_onDeleteNote);
@@ -42,6 +43,9 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         syncResult: json["syncResult"] != null
             ? SyncResult.fromJson(json["syncResult"])
             : null,
+        latestSync: json["latestSync"] != null
+            ? DateTime.parse(json["latestSync"])
+            : null,
       );
     }
     return const NoteInitial();
@@ -55,12 +59,13 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         "stagedPatches":
             (state.stagedPatches ?? []).map((e) => e.toJson()).toList(),
         "syncResult": state.syncResult?.toJson(),
+        "latestSync": state.latestSync?.toIso8601String(),
       };
     }
     return null;
   }
 
-  void _onLoadNotes(LoadNotes event, Emitter<NoteState> emit) async {
+  void _onSyncAllNotes(SyncAllNotes event, Emitter<NoteState> emit) async {
     final prevState = state;
     emit(NoteLoading(
       notes: prevState.notes,
@@ -68,15 +73,111 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       syncResult: prevState.syncResult,
     ));
     try {
-      final notes = await _noteService.getNotes();
+      // Load all pages of notes
+      List<Note> allNotes = [];
+      int currentPage = 1;
+      int totalPages = 1;
+      bool hasMorePages = true;
+
+      while (hasMorePages && currentPage <= totalPages) {
+        final paginationResult = await _noteService.getAllNotesWithPagination(
+            page: currentPage, size: 10);
+
+        final List<Note> pageNotes = paginationResult['notes'] as List<Note>;
+        totalPages = paginationResult['total_pages'] as int;
+
+        // Add all notes from this page to our collection
+        allNotes.addAll(pageNotes);
+
+        // Check if we have more pages to load
+        hasMorePages = currentPage < totalPages;
+        currentPage++;
+
+        // Emit intermediate state to show progress
+        if (hasMorePages) {
+          emit(NoteLoaded(
+            notes: allNotes,
+            stagedPatches: prevState.stagedPatches ?? [],
+            syncResult: prevState.syncResult,
+            latestSync: DateTime.now(),
+          ));
+        }
+      }
+
+      // Emit final state with all notes
       emit(NoteLoaded(
-          notes: notes,
-          stagedPatches: prevState.stagedPatches ?? [],
-          syncResult: prevState.syncResult));
+        notes: allNotes,
+        stagedPatches: prevState.stagedPatches ?? [],
+        syncResult: prevState.syncResult,
+        latestSync: DateTime.now(),
+      ));
     } catch (e) {
       emit(NoteError(
           notes: prevState.notes ?? [],
           stagedPatches: prevState.stagedPatches ?? [],
+          syncResult: prevState.syncResult,
+          message: e.toString()));
+    }
+  }
+
+  void _onSyncSince(SyncSince event, Emitter<NoteState> emit) async {
+    final prevState = state;
+    emit(NoteLoading(
+      notes: prevState.notes,
+      stagedPatches: prevState.stagedPatches,
+      syncResult: prevState.syncResult,
+    ));
+
+    try {
+      // Load notes since the given date
+      List<Note> newNotes = [];
+      int currentPage = 1;
+      int totalPages = 1;
+      bool hasMorePages = true;
+
+      while (hasMorePages && currentPage <= totalPages) {
+        final paginationResult = await _noteService.getNotesSince(
+            since: prevState.latestSync ?? DateTime.now(),
+            page: currentPage,
+            size: 10);
+
+        final List<Note> pageNotes = paginationResult['notes'] as List<Note>;
+        totalPages = paginationResult['total_pages'] as int;
+
+        // Add all notes from this page to our collection
+        newNotes.addAll(pageNotes);
+
+        // Check if we have more pages to load
+        hasMorePages = currentPage < totalPages;
+        currentPage++;
+
+        // Emit intermediate state to show progress
+        if (hasMorePages) {
+          final mergedNotes = _mergeNotes(prevState.notes ?? [], newNotes);
+          emit(NoteLoaded(
+            notes: mergedNotes,
+            stagedPatches: prevState.stagedPatches ?? [],
+            syncResult: prevState.syncResult,
+            latestSync: DateTime.now(),
+          ));
+        }
+      }
+
+      // Merge with existing state
+      final mergedNotes = _mergeNotes(prevState.notes ?? [], newNotes);
+
+      // Emit final state with merged notes
+      emit(NoteLoaded(
+        notes: mergedNotes,
+        stagedPatches: prevState.stagedPatches ?? [],
+        syncResult: prevState.syncResult,
+        latestSync: DateTime.now(),
+      ));
+    } catch (e) {
+      emit(NoteError(
+          notes: prevState.notes ?? [],
+          stagedPatches: prevState.stagedPatches ?? [],
+          syncResult: prevState.syncResult,
           message: e.toString()));
     }
   }
@@ -119,7 +220,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
           stagedPatches: prevState.stagedPatches ?? [],
           syncResult: prevState.syncResult,
           message: e.toString()));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -154,7 +255,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
           stagedPatches: prevState.stagedPatches ?? [],
           syncResult: prevState.syncResult,
           message: e.toString()));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -189,7 +290,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
           stagedPatches: prevState.stagedPatches ?? [],
           syncResult: prevState.syncResult,
           message: e.toString()));
-      add(const LoadNotes());
+      add(const SyncAllNotes());
     }
   }
 
@@ -229,7 +330,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
           stagedPatches: prevState.stagedPatches ?? [],
           syncResult: prevState.syncResult,
           message: e.toString()));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -269,7 +370,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
           stagedPatches: prevState.stagedPatches ?? [],
           syncResult: prevState.syncResult,
           message: e.toString()));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -284,7 +385,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
     );
     try {
       if (prevState.notes == null) {
-        add(const LoadNotes());
+        add(const SyncAllNotes());
         return;
       }
       final syncResult = await _noteService.patchNotes(
@@ -303,7 +404,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         syncResult: syncResult,
         stagedPatches: newPatchList,
       ));
-      add(const LoadNotes());
+      add(const SyncAllNotes());
     } catch (e) {
       emit(NoteError(
         notes: prevState.notes ?? [],
@@ -311,7 +412,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         syncResult: prevState.syncResult,
         message: e.toString(),
       ));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -346,7 +447,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         syncResult: prevState.syncResult,
         message: e.toString(),
       ));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -373,7 +474,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         syncResult: prevState.syncResult,
         message: e.toString(),
       ));
-      add(const LoadNotes());
+      add(const SyncSince());
     }
   }
 
@@ -404,5 +505,25 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
         break;
     }
     return notes;
+  }
+
+  List<Note> _mergeNotes(List<Note> existingNotes, List<Note> newNotes) {
+    final Map<String, Note> noteMap = {};
+
+    // Add existing notes to map
+    for (var note in existingNotes) {
+      if (note.id != null) {
+        noteMap[note.id!] = note;
+      }
+    }
+
+    // Add or update with new notes
+    for (var note in newNotes) {
+      if (note.id != null) {
+        noteMap[note.id!] = note;
+      }
+    }
+
+    return noteMap.values.toList();
   }
 }
