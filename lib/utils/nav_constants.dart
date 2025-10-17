@@ -1,11 +1,17 @@
+import 'package:ab_shared/blocs/auth/auth.bloc.dart';
 import 'package:ab_shared/components/app/ab_navbar.dart';
 import 'package:ab_shared/components/app/ab_header.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes/blocs/folder/folder.bloc.dart';
+import 'package:notes/blocs/note/note_bloc.dart';
+import 'package:notes/blocs/tag/tag.bloc.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/note_detail/note_detail.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:notes/services/sync.service.dart';
 
 final $navConstants = NavConstants();
 
@@ -21,9 +27,7 @@ class NavConstants {
           cupertinoIcon: CupertinoIcons.doc,
           label: context.t.my_notes.title,
           location: "/notes/all",
-          header: ABHeader(
-            title: context.t.my_notes.title,
-          ),
+          header: _buildHeader(context, context.t.my_notes.title),
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -38,16 +42,14 @@ class NavConstants {
               }
             },
           ),
-          subItems: const [
+          subItems: [
             NavigationItem(
               key: Key("all"),
               label: "All",
               location: "/notes/all",
               icon: LineAwesome.file,
               cupertinoIcon: CupertinoIcons.doc,
-              header: ABHeader(
-                title: "All",
-              ),
+              header: _buildHeader(context, "All"),
             ),
             NavigationItem(
               key: Key("trash"),
@@ -55,9 +57,7 @@ class NavConstants {
               location: "/notes/trashed",
               icon: LineAwesome.trash_solid,
               cupertinoIcon: CupertinoIcons.trash,
-              header: ABHeader(
-                title: "Trash",
-              ),
+              header: _buildHeader(context, "Trash"),
             ),
           ],
         ),
@@ -68,9 +68,7 @@ class NavConstants {
           cupertinoIcon: CupertinoIcons.search,
           label: context.t.search.title,
           location: "/search",
-          header: ABHeader(
-            title: context.t.my_notes.title,
-          ),
+          header: _buildHeader(context, context.t.search.title),
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -93,9 +91,7 @@ class NavConstants {
           cupertinoIcon: CupertinoIcons.square_fill_line_vertical_square,
           label: context.t.organize.title,
           location: "/organize",
-          header: ABHeader(
-            title: context.t.organize.title,
-          ),
+          header: _buildHeader(context, context.t.organize.title),
           action: NavigationAction(
             icon: LineAwesome.plus_solid,
             label: "Add Note",
@@ -112,27 +108,47 @@ class NavConstants {
           ),
           subItems: const [],
         ),
-        const NavigationItem(
+        NavigationItem(
           key: Key("account"),
           icon: LineAwesome.user_solid,
           cupertinoIcon: CupertinoIcons.person,
           label: "Account",
           location: "/account",
-          header: ABHeader(
-            title: "Account",
-          ),
+          header: _buildHeader(context, "Account"),
           subItems: [],
         ),
-        const NavigationItem(
+        NavigationItem(
           key: Key("settings"),
           icon: LineAwesome.cog_solid,
           cupertinoIcon: CupertinoIcons.gear,
           label: "Settings",
           location: "/settings",
-          header: ABHeader(
-            title: "Settings",
-          ),
+          header: _buildHeader(context, "Settings"),
           subItems: [],
         ),
       ];
+}
+
+Widget _buildHeader(BuildContext context, String title) {
+  return BlocBuilder<TagBloc, TagState>(builder: (context, tagState) {
+    return BlocBuilder<FolderBloc, FolderState>(
+        builder: (context, folderState) {
+      return BlocBuilder<AuthBloc, AuthState>(builder: (context, authState) {
+        return BlocBuilder<NoteBloc, NoteState>(
+          builder: (context, noteState) {
+            return ABHeader(
+              title: title,
+              syncedElements: SyncService.getSyncedElements(context),
+              isSyncing: SyncService.isSyncing(
+                noteState: noteState,
+                folderState: folderState,
+                tagState: tagState,
+                authState: authState,
+              ),
+            );
+          },
+        );
+      });
+    });
+  });
 }
