@@ -48,25 +48,29 @@ class SyncService {
         folderState is FolderUpdating;
   }
 
-  static List<SyncedElement> getSyncedElements(BuildContext context) {
+  static List<SyncedElement> getSyncedElements({
+    required NoteState noteState,
+    required FolderState folderState,
+    required TagState tagState,
+  }) {
     return [
       SyncedElement(
         key: const ValueKey('notes'),
         label: 'Notes',
         icon: CupertinoIcons.doc,
-        count: context.read<NoteBloc>().state.notes?.length ?? 0,
+        count: noteState.notes?.length ?? 0,
       ),
       SyncedElement(
         key: const ValueKey('folders'),
         label: 'Folders',
         icon: CupertinoIcons.folder,
-        count: context.read<FolderBloc>().state.folders?.length ?? 0,
+        count: folderState.folders?.length ?? 0,
       ),
       SyncedElement(
         key: const ValueKey('tags'),
         label: 'Tags',
         icon: CupertinoIcons.tag,
-        count: context.read<TagBloc>().state.tags?.length ?? 0,
+        count: tagState.tags?.length ?? 0,
       ),
     ];
   }

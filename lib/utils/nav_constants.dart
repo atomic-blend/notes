@@ -138,7 +138,11 @@ Widget _buildHeader(BuildContext context, String title) {
           builder: (context, noteState) {
             return ABHeader(
               title: title,
-              syncedElements: SyncService.getSyncedElements(context),
+              syncedElements: SyncService.getSyncedElements(
+                noteState: noteState,
+                folderState: folderState,
+                tagState: tagState,
+              ),
               isSyncing: SyncService.isSyncing(
                 noteState: noteState,
                 folderState: folderState,

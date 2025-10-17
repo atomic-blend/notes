@@ -10,6 +10,7 @@ import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:notes/services/sync.service.dart';
 
 part 'organize.g.dart';
 
@@ -29,6 +30,11 @@ class Organize extends StatefulWidget {
 }
 
 class _OrganizeState extends State<Organize> {
+  @override
+  void initState() {
+    super.initState();
+    SyncService.sync(context);
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FolderBloc, FolderState>(
