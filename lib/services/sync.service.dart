@@ -1,18 +1,26 @@
 import 'package:ab_shared/blocs/auth/auth.bloc.dart';
+import 'package:ab_shared/components/app/ab_header.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
 import 'package:notes/blocs/tag/tag.bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SyncService {
   static Future<void> sync(BuildContext context) async {
     if (context.read<AuthBloc>().state is! LoggedIn) return;
 
+    context.read<AuthBloc>().add(const RefreshUser());
+
     // Sync data
     context.read<TagBloc>().add(const LoadTags());
     context.read<FolderBloc>().add(const LoadFolders());
-    context.read<NoteBloc>().add(const SyncNotes());
+
+    if (context.read<NoteBloc>().state is NoteInitial) {
+      context.read<NoteBloc>().add(const SyncAllNotes());
+    } else if (context.read<NoteBloc>().state is NoteLoaded) {
+      context.read<NoteBloc>().add(const SyncSince());
+    }
   }
 
   static void syncUserData(BuildContext context) {
@@ -20,5 +28,50 @@ class SyncService {
 
     // Sync user data
     context.read<AuthBloc>().add(const RefreshUser());
+  }
+
+  static bool isSyncing({
+    required NoteState noteState,
+    required FolderState folderState,
+    required TagState tagState,
+    required AuthState authState,
+  }) {
+    return noteState is NoteLoading ||
+        folderState is FolderLoading ||
+        tagState is TagLoading ||
+        authState is Loading ||
+        tagState is TagCreateLoading ||
+        tagState is TagEditLoading ||
+        tagState is TagDeleteLoading ||
+        folderState is FolderDeleting ||
+        folderState is FolderCreating ||
+        folderState is FolderUpdating;
+  }
+
+  static List<SyncedElement> getSyncedElements({
+    required NoteState noteState,
+    required FolderState folderState,
+    required TagState tagState,
+  }) {
+    return [
+      SyncedElement(
+        key: const ValueKey('notes'),
+        label: 'Notes',
+        icon: CupertinoIcons.doc,
+        count: noteState.notes?.length ?? 0,
+      ),
+      SyncedElement(
+        key: const ValueKey('folders'),
+        label: 'Folders',
+        icon: CupertinoIcons.folder,
+        count: folderState.folders?.length ?? 0,
+      ),
+      SyncedElement(
+        key: const ValueKey('tags'),
+        label: 'Tags',
+        icon: CupertinoIcons.tag,
+        count: tagState.tags?.length ?? 0,
+      ),
+    ];
   }
 }

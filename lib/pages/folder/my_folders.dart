@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:notes/services/sync.service.dart';
 
 class MyFolders extends StatefulWidget {
   const MyFolders({super.key});
@@ -19,6 +20,12 @@ class MyFolders extends StatefulWidget {
 }
 
 class _MyFoldersState extends State<MyFolders> {
+  @override
+  void initState() {
+    super.initState();
+    SyncService.sync(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

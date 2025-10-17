@@ -37,6 +37,63 @@ class NoteService {
     }
   }
 
+  Future<Map<String, dynamic>> getAllNotesWithPagination(
+      {int page = 1, int size = 10}) async {
+    final result = await globalApiClient.get('/notes/?page=$page&size=$size');
+    if (result != null && result.statusCode == 200) {
+      final List<Note> decryptedNotes = [];
+      final notes = result.data["notes"];
+
+      for (var note in (notes ?? [])) {
+        final decryptedNote =
+            await Note.decrypt(note as Map<String, dynamic>, encryptionService);
+        decryptedNotes.add(decryptedNote);
+      }
+
+      return {
+        'notes': decryptedNotes,
+        'total_count': result.data['total_count'],
+        'page': result.data['page'],
+        'size': result.data['size'],
+        'total_pages': result.data['total_pages'],
+      };
+    } else {
+      throw Exception('Failed to load notes');
+    }
+  }
+
+  Future<Map<String, dynamic>> getNotesSince({
+    required DateTime since,
+    int page = 1,
+    int size = 10,
+  }) async {
+    final sinceFormatted =
+        since.toUtc().toIso8601String().replaceAll('.000Z', 'Z');
+    final result = await globalApiClient
+        .get('/notes/since?since=$sinceFormatted&page=$page&size=$size');
+
+    if (result != null && result.statusCode == 200) {
+      final List<Note> decryptedNotes = [];
+      final notes = result.data["notes"];
+
+      for (var note in (notes ?? [])) {
+        final decryptedNote =
+            await Note.decrypt(note as Map<String, dynamic>, encryptionService);
+        decryptedNotes.add(decryptedNote);
+      }
+
+      return {
+        'notes': decryptedNotes,
+        'total_count': result.data['total_count'],
+        'page': result.data['page'],
+        'size': result.data['size'],
+        'total_pages': result.data['total_pages'],
+      };
+    } else {
+      throw Exception('Failed to load notes since $sinceFormatted');
+    }
+  }
+
   Future<bool> createNote(Note note) async {
     final encryptedNote =
         await note.encrypt(encryptionService: encryptionService);

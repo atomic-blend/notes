@@ -6,6 +6,7 @@ import 'package:notes/components/buttons/note_card.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes/services/sync.service.dart';
 
 part 'search.g.dart';
 
@@ -37,6 +38,7 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     super.initState();
+    SyncService.sync(context);
     _searchController.text = widget.query ?? "";
     _searchNotes(context.read<NoteBloc>().state.notes ?? [], widget.query);
   }

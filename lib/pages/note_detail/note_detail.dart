@@ -11,6 +11,7 @@ import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/sync/conflict_resolver.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:notes/services/sync.service.dart';
 
 class NoteDetail extends StatefulWidget {
   final Note? note;
@@ -37,6 +38,7 @@ class _NoteDetailState extends State<NoteDetail> {
     } else {
       _controller = FleatherController();
     }
+    SyncService.sync(context);
   }
 
   @override
