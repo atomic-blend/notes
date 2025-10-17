@@ -44,7 +44,7 @@ class NavConstants {
           ),
           subItems: [
             NavigationItem(
-              key: Key("all"),
+              key: const Key("all"),
               label: "All",
               location: "/notes/all",
               icon: LineAwesome.file,
@@ -52,7 +52,7 @@ class NavConstants {
               header: _buildHeader(context, "All"),
             ),
             NavigationItem(
-              key: Key("trash"),
+              key: const Key("trash"),
               label: "Trash",
               location: "/notes/trashed",
               icon: LineAwesome.trash_solid,
@@ -109,22 +109,22 @@ class NavConstants {
           subItems: const [],
         ),
         NavigationItem(
-          key: Key("account"),
+          key: const Key("account"),
           icon: LineAwesome.user_solid,
           cupertinoIcon: CupertinoIcons.person,
           label: "Account",
           location: "/account",
           header: _buildHeader(context, "Account"),
-          subItems: [],
+          subItems: const [],
         ),
         NavigationItem(
-          key: Key("settings"),
+          key: const Key("settings"),
           icon: LineAwesome.cog_solid,
           cupertinoIcon: CupertinoIcons.gear,
           label: "Settings",
           location: "/settings",
           header: _buildHeader(context, "Settings"),
-          subItems: [],
+          subItems: const [],
         ),
       ];
 }
