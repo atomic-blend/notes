@@ -2,6 +2,60 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.4.0 - 2025-10-21
+#### Bug Fixes
+- docker image and windows build issues - (585afba) - Brandon Guigo
+- logout bug + support waiting list - (c3950d8) - Brandon Guigo
+- refactoring + add sync all in various app part - (3eec10b) - Brandon Guigo
+- add cloud sync in ab_header - (e2dc1ee) - Brandon Guigo
+- migrate the notes to getAllPaginated and getSince - (3a2e8ea) - Brandon Guigo
+- remove revenuecat init in main.dart - (1259239) - Brandon Guigo
+- remove android billing config - (06be0c0) - Brandon Guigo
+- remove old paywall - (0d5d756) - Brandon Guigo
+- update shared package - (f9ca18f) - Brandon Guigo
+- linter - (fb8303c) - Brandon Guigo
+- ui for iPad and tablets - (b919372) - Brandon Guigo
+- organize screen ui - (ed71a53) - Brandon Guigo
+- ios min version - (d01a678) - Brandon Guigo
+- desktop organize page - (4c68adb) - Brandon Guigo
+- note detail card - (a15d793) - Brandon Guigo
+- open note when preview is not possible due to screen size - (64a02b2) - Brandon Guigo
+- delete modal didn't close + restore didn't work - (b2626ad) - Brandon Guigo
+- add note section and pages - (c05743b) - Brandon Guigo
+- title and description for note card - (79a83e1) - Brandon Guigo
+- save note when exiting detail on desktop - (54341d5) - Brandon Guigo
+- text on the note card - (963f436) - Brandon Guigo
+- ui refresh when selected note changes - (5b363e6) - Brandon Guigo
+- update note card - (a4b1fab) - Brandon Guigo
+- refresh search page when the query changes - (a526a4c) - Brandon Guigo
+- setup preview layout for notes - (aa17f25) - Brandon Guigo
+- add search route query param - (0961561) - Brandon Guigo
+- add filtered view for notes - (67ba3a2) - Brandon Guigo
+- sentry error - (deab76c) - Brandon Guigo
+- migrate to go_router - (1551d1e) - Brandon Guigo
+- update flutter_age and ab_shared to be 16kb safe - (b99caef) - Brandon Guigo
+- linter + delete old settings page - (7986584) - Brandon Guigo
+- convert to action in nav items - (f047570) - Brandon Guigo
+- remove app layout and translations - (036b22e) - Brandon Guigo
+- use the shared app layout widget - (711729c) - Brandon Guigo
+- update the mac os icon to be notes icon - (14d8a0b) - Brandon Guigo
+- update settings screen - (feab73f) - Brandon Guigo
+- remove the more section - (7fee616) - Brandon Guigo
+- update ab_shared dep to newly released sso - (93341c3) - Brandon Guigo
+- update to the new sso UI - (6a2a18d) - Brandon Guigo
+#### Features
+- update to the new sidemenu - (d41a824) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.3.8 [skip ci] - (264d371) - GitHub Actions
+- update shared to latest version - (98a1062) - Brandon Guigo
+- update shared package - (9ceabce) - Brandon Guigo
+- update to latest shared - (4e61ffa) - Brandon Guigo
+- update shared to latest version - (5cd4f19) - Brandon Guigo
+- fix beta release issue - (da4b7a3) - Brandon Guigo
+- update dependency to newly released shared package - (07c1b04) - Brandon Guigo
+
+- - -
+
 ## 0.3.8 - 2025-09-25
 #### Bug Fixes
 - move pkg to the web directory - (ac4e5ab) - Brandon Guigo
