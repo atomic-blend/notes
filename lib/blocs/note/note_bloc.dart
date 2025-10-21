@@ -29,6 +29,7 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
     on<SyncNotes>(_onSyncNotes);
     on<ForceNotePatch>(_onForceNotePatch);
     on<DiscardNotePatch>(_onDiscardNotePatch);
+    on<ClearNotes>(_onClearNotes);
   }
 
   @override
@@ -476,6 +477,10 @@ class NoteBloc extends HydratedBloc<NoteEvent, NoteState> {
       ));
       add(const SyncSince());
     }
+  }
+
+  void _onClearNotes(ClearNotes event, Emitter<NoteState> emit) {
+    emit(const NoteInitial());
   }
 
   List<Note> _applyPatchToState(

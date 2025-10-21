@@ -51,3 +51,7 @@ final class DiscardNotePatch extends NoteEvent {
   const DiscardNotePatch(this.patch);
   final Patch patch;
 }
+
+final class ClearNotes extends NoteEvent {
+  const ClearNotes();
+}

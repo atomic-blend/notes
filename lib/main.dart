@@ -23,6 +23,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:macos_window_utils/window_manipulator.dart';
+import 'package:notes/services/sync.service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,6 +92,9 @@ FutureOr<void> main() async {
       child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => AppCubit()),
+            BlocProvider(create: (context) => TagBloc()),
+            BlocProvider(create: (context) => FolderBloc()),
+            BlocProvider(create: (context) => NoteBloc()),
             BlocProvider(
                 create: (context) => AuthBloc(
                       onLogout: () {
@@ -100,14 +104,12 @@ FutureOr<void> main() async {
                           (scope) => scope.setUser(SentryUser(id: null)),
                         );
                         getIt.unregister<EncryptionService>();
+                        SyncService.logout(context);
                       },
                       onLogin: (e) {
                         getIt.registerSingleton<EncryptionService>(e);
                       },
                     )),
-            BlocProvider(create: (context) => TagBloc()),
-            BlocProvider(create: (context) => FolderBloc()),
-            BlocProvider(create: (context) => NoteBloc()),
           ],
           child: ab_shared_translations.TranslationProvider(
             child:
