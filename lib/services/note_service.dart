@@ -6,17 +6,28 @@ import 'package:ab_shared/entities/sync/patch_action/patch_action.dart';
 import 'package:ab_shared/entities/sync/patch_change/patch_change.dart';
 import 'package:ab_shared/entities/sync/patch_error/patch_error.dart';
 import 'package:ab_shared/entities/sync/sync_result/sync_result.dart';
-import 'package:notes/main.dart';
+import 'package:ab_shared/utils/api_client.dart';
+import 'package:ab_shared/services/encryption.service.dart';
+import 'package:get_it/get_it.dart';
 
 class NoteService {
+  final getIt = GetIt.instance;
+  late final ApiClient globalApiClient;
+  late final EncryptionService encryptionService;
+
+  NoteService() {
+    globalApiClient = getIt<ApiClient>();
+    encryptionService = getIt<EncryptionService>();
+  }
+
   Future<List<Note>> getNotes() async {
-    final result = await globalApiClient?.get('/notes');
+    final result = await globalApiClient.get('/notes');
     if (result.statusCode == 200) {
       final List<Note> notes = [];
       for (var note in (result.data ?? [])) {
         final decryptedNote = await Note.decrypt(
           note as Map<String, dynamic>,
-          encryptionService!,
+          encryptionService,
         );
         notes.add(decryptedNote);
       }
@@ -26,10 +37,67 @@ class NoteService {
     }
   }
 
+  Future<Map<String, dynamic>> getAllNotesWithPagination(
+      {int page = 1, int size = 10}) async {
+    final result = await globalApiClient.get('/notes/?page=$page&size=$size');
+    if (result != null && result.statusCode == 200) {
+      final List<Note> decryptedNotes = [];
+      final notes = result.data["notes"];
+
+      for (var note in (notes ?? [])) {
+        final decryptedNote =
+            await Note.decrypt(note as Map<String, dynamic>, encryptionService);
+        decryptedNotes.add(decryptedNote);
+      }
+
+      return {
+        'notes': decryptedNotes,
+        'total_count': result.data['total_count'],
+        'page': result.data['page'],
+        'size': result.data['size'],
+        'total_pages': result.data['total_pages'],
+      };
+    } else {
+      throw Exception('Failed to load notes');
+    }
+  }
+
+  Future<Map<String, dynamic>> getNotesSince({
+    required DateTime since,
+    int page = 1,
+    int size = 10,
+  }) async {
+    final sinceFormatted =
+        since.toUtc().toIso8601String().replaceAll('.000Z', 'Z');
+    final result = await globalApiClient
+        .get('/notes/since?since=$sinceFormatted&page=$page&size=$size');
+
+    if (result != null && result.statusCode == 200) {
+      final List<Note> decryptedNotes = [];
+      final notes = result.data["notes"];
+
+      for (var note in (notes ?? [])) {
+        final decryptedNote =
+            await Note.decrypt(note as Map<String, dynamic>, encryptionService);
+        decryptedNotes.add(decryptedNote);
+      }
+
+      return {
+        'notes': decryptedNotes,
+        'total_count': result.data['total_count'],
+        'page': result.data['page'],
+        'size': result.data['size'],
+        'total_pages': result.data['total_pages'],
+      };
+    } else {
+      throw Exception('Failed to load notes since $sinceFormatted');
+    }
+  }
+
   Future<bool> createNote(Note note) async {
     final encryptedNote =
-        await note.encrypt(encryptionService: encryptionService!);
-    final result = await globalApiClient?.post('/notes', data: encryptedNote);
+        await note.encrypt(encryptionService: encryptionService);
+    final result = await globalApiClient.post('/notes', data: encryptedNote);
     if (result.statusCode == 201) {
       return true;
     } else {
@@ -39,9 +107,9 @@ class NoteService {
 
   Future<bool> updateNote(Note note) async {
     final encryptedNote =
-        await note.encrypt(encryptionService: encryptionService!);
+        await note.encrypt(encryptionService: encryptionService);
     final result =
-        await globalApiClient?.put('/notes/${note.id}', data: encryptedNote);
+        await globalApiClient.put('/notes/${note.id}', data: encryptedNote);
     if (result.statusCode == 200) {
       return true;
     } else {
@@ -50,7 +118,7 @@ class NoteService {
   }
 
   Future<bool> deleteNote(Note note) async {
-    final result = await globalApiClient?.delete('/notes/${note.id}');
+    final result = await globalApiClient.delete('/notes/${note.id}');
     if (result.statusCode == 204) {
       return true;
     } else {
@@ -109,7 +177,7 @@ class NoteService {
               if (!Note.nonEncryptedFields.contains(change.key) &&
                   change.value != null) {
                 encryptedChange.value =
-                    await encryptionService!.encryptJson(change.value);
+                    await encryptionService.encryptJson(change.value);
               }
               encryptedPatch.changes.add(encryptedChange);
             }
@@ -122,7 +190,7 @@ class NoteService {
             if (data is! Map) {
               final note = patch.changes.first.value as Note;
               final encryptedNote =
-                  await note.encrypt(encryptionService: encryptionService!);
+                  await note.encrypt(encryptionService: encryptionService);
               encryptedChange.value = encryptedNote;
             }
             encryptedPatch.changes.add(encryptedChange);
@@ -139,7 +207,7 @@ class NoteService {
           encryptedPatches.add(encryptedPatch);
         }
 
-        final result = await globalApiClient?.post(
+        final result = await globalApiClient.post(
           '/notes/patch',
           data: encryptedPatches.map((e) => e.toJson()).toList(),
         );

@@ -93,19 +93,6 @@
       "confirm_reset": "Confirmer la réinitialisation"
     }
   },
-  "settings": {
-    "title": "Paramètres",
-    "app_settings": {
-      "title": "Paramètres de l'application",
-      "selfHostedUrl": {
-        "title": "URL auto-hébergée",
-        "description": "Si vous utilisez une instance auto-hébergée d'Atomic Blend, vous pouvez saisir l'URL ici.",
-        "placeholder": "Entrez l'URL de votre instance",
-        "not_set": "Non défini"
-      }
-    },
-    "logout": "Déconnexion"
-  },
   "tags": {
     "title": "Tags",
     "add_modal": {
@@ -481,6 +468,8 @@
   },
   "my_notes": {
     "title": "Mes Notes",
+    "untitled": "Sans titre",
+    "no_content": "Aucun contenu",
     "delete_note": {
       "title": "Supprimer la note",
       "description": "Êtes-vous sûr de vouloir supprimer cette note ?",

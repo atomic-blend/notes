@@ -679,13 +679,6 @@ jobs:
       - build-app-for-windows
       - build-app-for-macos
       - build-app-for-ios
-    strategy:
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
-          - linux/arm/v7
-          - linux/arm/v6
     runs-on: [self-hosted, Linux]
     steps:
       - name: Checkout code
@@ -718,7 +711,7 @@ jobs:
         with:
           context: .
           file: Dockerfile-prod
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ghcr.io/atomic-blend/notes-app:${{ needs.bump-version.outputs.tag }}

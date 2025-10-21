@@ -39,7 +39,6 @@ class TranslationsFr implements Translations {
 	@override String get app_name => 'Atomic Blend';
 	@override String get app_name_saas => 'Atomic Blend Cloud';
 	@override late final _TranslationsAuthFr auth = _TranslationsAuthFr._(_root);
-	@override late final _TranslationsSettingsFr settings = _TranslationsSettingsFr._(_root);
 	@override late final _TranslationsTagsFr tags = _TranslationsTagsFr._(_root);
 	@override late final _TranslationsAccountFr account = _TranslationsAccountFr._(_root);
 	@override late final _TranslationsUnderConstructionFr under_construction = _TranslationsUnderConstructionFr._(_root);
@@ -79,18 +78,6 @@ class _TranslationsAuthFr implements TranslationsAuthEn {
 	@override late final _TranslationsAuthDeleteAccountFr delete_account = _TranslationsAuthDeleteAccountFr._(_root);
 	@override late final _TranslationsAuthMnemonicKeyFr mnemonic_key = _TranslationsAuthMnemonicKeyFr._(_root);
 	@override late final _TranslationsAuthResetPasswordFr reset_password = _TranslationsAuthResetPasswordFr._(_root);
-}
-
-// Path: settings
-class _TranslationsSettingsFr implements TranslationsSettingsEn {
-	_TranslationsSettingsFr._(this._root);
-
-	final TranslationsFr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Paramètres';
-	@override late final _TranslationsSettingsAppSettingsFr app_settings = _TranslationsSettingsAppSettingsFr._(_root);
-	@override String get logout => 'Déconnexion';
 }
 
 // Path: tags
@@ -431,6 +418,8 @@ class _TranslationsMyNotesFr implements TranslationsMyNotesEn {
 
 	// Translations
 	@override String get title => 'Mes Notes';
+	@override String get untitled => 'Sans titre';
+	@override String get no_content => 'Aucun contenu';
 	@override late final _TranslationsMyNotesDeleteNoteFr delete_note = _TranslationsMyNotesDeleteNoteFr._(_root);
 }
 
@@ -686,17 +675,6 @@ class _TranslationsAuthResetPasswordFr implements TranslationsAuthResetPasswordE
 	@override String get yes => 'Oui';
 	@override String get no => 'Non';
 	@override String get confirm_reset => 'Confirmer la réinitialisation';
-}
-
-// Path: settings.app_settings
-class _TranslationsSettingsAppSettingsFr implements TranslationsSettingsAppSettingsEn {
-	_TranslationsSettingsAppSettingsFr._(this._root);
-
-	final TranslationsFr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Paramètres de l\'application';
-	@override late final _TranslationsSettingsAppSettingsSelfHostedUrlFr selfHostedUrl = _TranslationsSettingsAppSettingsSelfHostedUrlFr._(_root);
 }
 
 // Path: tags.add_modal
@@ -989,19 +967,6 @@ class _TranslationsSyncConflictResolverFr implements TranslationsSyncConflictRes
 	@override String get progress => 'Progression';
 }
 
-// Path: settings.app_settings.selfHostedUrl
-class _TranslationsSettingsAppSettingsSelfHostedUrlFr implements TranslationsSettingsAppSettingsSelfHostedUrlEn {
-	_TranslationsSettingsAppSettingsSelfHostedUrlFr._(this._root);
-
-	final TranslationsFr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'URL auto-hébergée';
-	@override String get description => 'Si vous utilisez une instance auto-hébergée d\'Atomic Blend, vous pouvez saisir l\'URL ici.';
-	@override String get placeholder => 'Entrez l\'URL de votre instance';
-	@override String get not_set => 'Non défini';
-}
-
 // Path: account.security_and_privacy.change_password
 class _TranslationsAccountSecurityAndPrivacyChangePasswordFr implements TranslationsAccountSecurityAndPrivacyChangePasswordEn {
 	_TranslationsAccountSecurityAndPrivacyChangePasswordFr._(this._root);
@@ -1181,13 +1146,6 @@ extension on TranslationsFr {
 			case 'auth.reset_password.yes': return 'Oui';
 			case 'auth.reset_password.no': return 'Non';
 			case 'auth.reset_password.confirm_reset': return 'Confirmer la réinitialisation';
-			case 'settings.title': return 'Paramètres';
-			case 'settings.app_settings.title': return 'Paramètres de l\'application';
-			case 'settings.app_settings.selfHostedUrl.title': return 'URL auto-hébergée';
-			case 'settings.app_settings.selfHostedUrl.description': return 'Si vous utilisez une instance auto-hébergée d\'Atomic Blend, vous pouvez saisir l\'URL ici.';
-			case 'settings.app_settings.selfHostedUrl.placeholder': return 'Entrez l\'URL de votre instance';
-			case 'settings.app_settings.selfHostedUrl.not_set': return 'Non défini';
-			case 'settings.logout': return 'Déconnexion';
 			case 'tags.title': return 'Tags';
 			case 'tags.add_modal.title': return 'Ajouter un nouveau tag';
 			case 'tags.add_modal.edit_title': return 'Modifier le tag';
@@ -1496,6 +1454,8 @@ extension on TranslationsFr {
 			case 'paywall.ios': return 'iOS';
 			case 'paywall.android': return 'Android';
 			case 'my_notes.title': return 'Mes Notes';
+			case 'my_notes.untitled': return 'Sans titre';
+			case 'my_notes.no_content': return 'Aucun contenu';
 			case 'my_notes.delete_note.title': return 'Supprimer la note';
 			case 'my_notes.delete_note.description': return 'Êtes-vous sûr de vouloir supprimer cette note ?';
 			case 'my_notes.delete_note.warning': return 'Cette action ne peut pas être annulée.';

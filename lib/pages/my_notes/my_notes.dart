@@ -2,12 +2,24 @@ import 'package:collection/collection.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:notes/components/buttons/note_item.dart';
+import 'package:notes/components/buttons/note_card.dart';
 import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/pages/sync/conflict_card.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:notes/services/sync.service.dart';
+
+part 'my_notes.g.dart';
+
+@TypedGoRoute<MyNotesRoute>(path: '/notes', name: "notes")
+class MyNotesRoute extends GoRouteData with _$MyNotesRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const MyNotes();
+  }
+}
 
 class MyNotes extends StatefulWidget {
   const MyNotes({super.key});
@@ -17,6 +29,13 @@ class MyNotes extends StatefulWidget {
 }
 
 class _MyNotesState extends State<MyNotes> {
+
+  @override
+  void initState() {
+    super.initState();
+    SyncService.sync(context);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
@@ -45,7 +64,7 @@ class _MyNotesState extends State<MyNotes> {
                   padding: EdgeInsets.only(
                     bottom: $constants.insets.xs,
                   ),
-                  child: NoteItem(
+                  child: NoteCard(
                     note: note,
                     deleteEnabled: true,
                   ),

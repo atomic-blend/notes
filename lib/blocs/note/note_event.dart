@@ -4,8 +4,12 @@ sealed class NoteEvent {
   const NoteEvent();
 }
 
-final class LoadNotes extends NoteEvent {
-  const LoadNotes();
+final class SyncAllNotes extends NoteEvent {
+  const SyncAllNotes();
+}
+
+final class SyncSince extends NoteEvent {
+  const SyncSince();
 }
 
 final class AddNote extends NoteEvent {
@@ -46,4 +50,8 @@ final class ForceNotePatch extends NoteEvent {
 final class DiscardNotePatch extends NoteEvent {
   const DiscardNotePatch(this.patch);
   final Patch patch;
+}
+
+final class ClearNotes extends NoteEvent {
+  const ClearNotes();
 }

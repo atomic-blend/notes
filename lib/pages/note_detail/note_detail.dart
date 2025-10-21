@@ -1,21 +1,22 @@
 import 'dart:convert';
 
+import 'package:ab_shared/components/modals/ab_modal.dart';
 import 'package:fleather/fleather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/blocs/note/note_bloc.dart';
-import 'package:notes/components/modals/delete_confirm_modal.dart';
-import 'package:ab_shared/components/widgets/elevated_container.dart';
 import 'package:notes/entities/note/note_entity.dart';
 import 'package:ab_shared/entities/sync/patch_change/patch_change.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/sync/conflict_resolver.dart';
 import 'package:ab_shared/utils/constants.dart';
 import 'package:ab_shared/utils/shortcuts.dart';
+import 'package:notes/services/sync.service.dart';
 
 class NoteDetail extends StatefulWidget {
   final Note? note;
-  const NoteDetail({super.key, this.note});
+  final Widget? leading;
+  const NoteDetail({super.key, this.note, this.leading});
 
   @override
   State<NoteDetail> createState() => _NoteDetailState();
@@ -37,6 +38,19 @@ class _NoteDetailState extends State<NoteDetail> {
     } else {
       _controller = FleatherController();
     }
+    SyncService.sync(context);
+  }
+
+  @override
+  void didUpdateWidget(NoteDetail oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.note != oldWidget.note) {
+      _controller = FleatherController(
+        document: ParchmentDocument.fromJson(
+          jsonDecode(widget.note!.content ?? "{}"),
+        ),
+      );
+    }
   }
 
   @override
@@ -56,18 +70,9 @@ class _NoteDetailState extends State<NoteDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: widget.note == null
-            ? Text(
-                "New note",
-                style: getTextTheme(context).titleSmall!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              )
-            : Container(),
-      ),
-      body: BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
+    final body = MouseRegion(
+      onExit: (event) => _createOrUpdateNote(),
+      child: BlocBuilder<NoteBloc, NoteState>(builder: (context, noteState) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _checkIfNoteIsConflicted(context, noteState);
         });
@@ -76,11 +81,17 @@ class _NoteDetailState extends State<NoteDetail> {
           child: Column(
             children: [
               if (isDesktop(context))
-                FleatherToolbar.basic(controller: _controller!),
+                Row(
+                  children: [
+                    widget.leading ?? Container(),
+                    Flexible(
+                        child: FleatherToolbar.basic(controller: _controller!)),
+                  ],
+                ),
               Expanded(
-                child: ElevatedContainer(
+                child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: $constants.insets.sm,
+                    horizontal: $constants.insets.xs,
                     vertical: $constants.insets.sm,
                   ),
                   child: FleatherEditor(
@@ -89,7 +100,12 @@ class _NoteDetailState extends State<NoteDetail> {
                 ),
               ),
               if (!isDesktop(context)) ...[
-                FleatherToolbar.basic(controller: _controller!),
+                Row(
+                  children: [
+                    widget.leading ?? Container(),
+                    FleatherToolbar.basic(controller: _controller!),
+                  ],
+                ),
                 SizedBox(
                   height: $constants.insets.lg,
                 ),
@@ -99,6 +115,11 @@ class _NoteDetailState extends State<NoteDetail> {
         );
       }),
     );
+
+    if (!isDesktop(context)) {
+      return _wrapScaffold(body);
+    }
+    return body;
   }
 
   _createOrUpdateNote() {
@@ -163,5 +184,11 @@ class _NoteDetailState extends State<NoteDetail> {
         Navigator.pop(context);
       }
     }
+  }
+
+  Widget _wrapScaffold(Widget child) {
+    return Scaffold(
+      body: child,
+    );
   }
 }

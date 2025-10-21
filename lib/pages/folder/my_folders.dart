@@ -1,6 +1,6 @@
+import 'package:ab_shared/components/modals/ab_modal.dart';
 import 'package:notes/blocs/folder/folder.bloc.dart';
 import 'package:notes/components/buttons/icon_text_card.dart';
-import 'package:notes/components/modals/delete_confirm_modal.dart';
 import 'package:notes/entities/folder/folder.entity.dart';
 import 'package:notes/i18n/strings.g.dart';
 import 'package:notes/pages/folder/add_folder_modal.dart';
@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:notes/services/sync.service.dart';
 
 class MyFolders extends StatefulWidget {
   const MyFolders({super.key});
@@ -19,6 +20,12 @@ class MyFolders extends StatefulWidget {
 }
 
 class _MyFoldersState extends State<MyFolders> {
+  @override
+  void initState() {
+    super.initState();
+    SyncService.sync(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
