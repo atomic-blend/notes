@@ -74,4 +74,10 @@ class SyncService {
       ),
     ];
   }
+
+  static void logout(BuildContext context) {
+    context.read<TagBloc>().add(const ClearTags());
+    context.read<FolderBloc>().add(const ClearFolders());
+    context.read<NoteBloc>().add(const ClearNotes());
+  }
 }
