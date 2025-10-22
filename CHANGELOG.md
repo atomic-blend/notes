@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.4.1 - 2025-10-22
+#### Bug Fixes
+- notes app cannot get notes on the web because of trailing / in request - (eee177b) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.4.0 [skip ci] - (a552465) - GitHub Actions
+
+- - -
+
 ## 0.4.0 - 2025-10-21
 #### Bug Fixes
 - docker image and windows build issues - (585afba) - Brandon Guigo
