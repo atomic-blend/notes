@@ -39,7 +39,7 @@ class NoteService {
 
   Future<Map<String, dynamic>> getAllNotesWithPagination(
       {int page = 1, int size = 10}) async {
-    final result = await globalApiClient.get('/notes/?page=$page&size=$size');
+    final result = await globalApiClient.get('/notes?page=$page&size=$size');
     if (result != null && result.statusCode == 200) {
       final List<Note> decryptedNotes = [];
       final notes = result.data["notes"];
