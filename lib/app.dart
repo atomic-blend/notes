@@ -1,5 +1,6 @@
 import 'package:ab_shared/flavors.dart';
 import 'package:ab_shared/pages/auth/screens/auth_routes.dart' as auth_routes;
+import 'package:ab_shared/pages/paywall/paywall.dart' as paywall;
 import 'package:ab_shared/utils/env/env.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes/app_router.dart';
@@ -41,6 +42,7 @@ class App extends StatelessWidget {
     routes: [
       ...$appRoutes,
       ...auth_routes.$appRoutes,
+      ...paywall.$appRoutes,
     ],
     initialLocation: '/',
     navigatorKey: getIt<GlobalKey<NavigatorState>>(
