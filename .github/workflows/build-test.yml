@@ -1,14 +1,9 @@
 name: Build and Test
 
 on:
-  push:
-    branches:
-      - dev
   pull_request:
     branches:
-      - main
       - dev
-  workflow_dispatch:
 
 env:
   FLUTTER_VERSION: "3.35.4"
@@ -41,7 +36,7 @@ jobs:
           else
             echo "✅ No local path dependencies found in pubspec.yaml"
           fi
-          
+
       - name: Install Dependencies
         run: flutter pub get
 
