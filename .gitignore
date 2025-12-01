@@ -170,3 +170,4 @@ app.*.symbols
 /macos/DerivedData
 /macos_dmg/AtomicNotes-.dmg
 /macos_dmg/AtomicNotes-latest.dmg
+firebase.json
