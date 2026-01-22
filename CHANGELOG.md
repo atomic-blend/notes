@@ -2,6 +2,50 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.5.0 - 2026-01-22
+
+- - -
+
+## 0.5.0-rc-b35dd97 - 2026-01-22
+#### Bug Fixes
+- **(cicd)** update shared + disable cicd for ios and mac os - (b35dd97) - Brandon Guigo
+
+- - -
+
+## 0.5.0-rc-8046ec3 - 2026-01-22
+#### Bug Fixes
+- merge account and settings into a single page - (72d60f4) - Brandon Guigo
+#### Miscellaneous Chores
+- update shared to latest - (bbb618e) - Brandon Guigo
+- rebuild router - (b642b7a) - Brandon Guigo
+
+- - -
+
+## 0.5.0-rc-a63ce02 - 2026-01-22
+#### Bug Fixes
+- ability to manage subscription via stripe customer portal - (a63ce02) - Brandon Guigo
+
+- - -
+
+## 0.5.0-rc-3def583 - 2026-01-22
+#### Bug Fixes
+- update shared package to logout user when app cannot refresh token - (3def583) - Brandon Guigo
+
+- - -
+
+## 0.5.0-rc-4dba282 - 2026-01-22
+#### Bug Fixes
+- add bump script - (66bf49e) - Brandon Guigo
+- update to latest shared and add release rc for notes app - (5703226) - Brandon Guigo
+#### Features
+- support stripe payment - (e7e6e84) - Brandon Guigo
+#### Miscellaneous Chores
+- **(release)** 0.5.0-rc-f6cc90c [skip ci] - (e999aed) - GitHub Actions
+- **(release)** 0.4.1 [skip ci] - (dbfe4f8) - GitHub Actions
+- remove push commit on dev for release - (4dba282) - Brandon Guigo
+
+- - -
+
 ## 0.4.1 - 2025-10-22
 #### Bug Fixes
 - notes app cannot get notes on the web because of trailing / in request - (eee177b) - Brandon Guigo
